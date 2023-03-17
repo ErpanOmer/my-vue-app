@@ -53,6 +53,17 @@
 
   #section1 .center {
     flex-direction: column;
+    align-items: normal;
+  }
+
+  #section1 .center .u17Light {
+    font-size: 15px;
+  }
+
+  #section1 .center .u42DemiBold {
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 24px;
   }
 }
 </style>

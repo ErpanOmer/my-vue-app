@@ -33,6 +33,7 @@
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
+  <div id="myModal">Click me to open a modal window!</div>
 </body>
 <script>
   let temp = `“It's incredibly fun to ride”`
@@ -123,4 +124,110 @@
     }
                 
 </script> -->
+<script>
+const testRides = [
+  {
+    city: 'Frankfurt am Main',
+    cityBackground: 'https://cdn.shopify.com/s/files/1/0633/2068/6808/files/testrideshopimg-Frankfurt.jpg',
+    stores: [
+      {
+        name: 'TP',
+        phone: '+0049 1741 767140',
+        email: 'yicxie2017@gmail.com',
+        timezone: "Mainz, Germany (GMT+1)",
+        add: "Am Sonnigen Hang 21 55127 Mainz Germany",
+        imgUrl: "https://cdn.shopify.com/s/files/1/0633/2068/6808/files/testrideshopimg-Frankfurt.jpg?v=1667370876",
+        testrideSpot: "Frankfurt",
+        testRideSize: "M/L",
+        businessHours: [
+          "09:00–19:00",
+          "09:00–19:00",
+          "09:00–19:00",
+          "09:00–19:00",
+          "",
+          "09:00–19:00",
+          "09:00–19:00",
+        ],
+      },
+      {
+        name: 'Service Zentrum',
+        phone: '+004961032076414',
+        email: 'yiming.song@iedau.com',
+        timezone: "Mainz, Germany (GMT+1)",
+        add: "IED Fulfillment-Service GmbH c/o Urtopia Service Otto-Hahn-Str. 5-7 63225 Langen",
+        imgUrl: "https://cdn.shopify.com/s/files/1/0633/2068/6808/files/testrideshopimg-Frankfurt.jpg?v=1667370876",
+        testrideSpot: "Frankfurt",
+        testRideSize: "",
+        businessHours: [
+          "09:00–19:00",
+          "09:00–19:00",
+          "09:00–19:00",
+          "09:00–19:00",
+          "",
+          "09:00–19:00",
+          "09:00–19:00",
+        ],
+      },
+      {
+        name: 'mein-fahrradhaendler',
+        phone: '+00496101 9951561',
+        email: 'yicxie2017@gmail.com',
+        timezone: "Mainz, Germany (GMT+1)",
+        add: "Alt Erlenbach 35, 60437 Frankfurt/Main",
+        imgUrl: "https://cdn.shopify.com/s/files/1/0633/2068/6808/files/testrideshopimg-Frankfurt.jpg?v=1667370876",
+        testrideSpot: "Frankfurt",
+        testRideSize: "L",
+        businessHours: [
+          "09:00–19:00",
+          "09:00–19:00",
+          "09:00–19:00",
+          "09:00–19:00",
+          "",
+          "09:00–19:00",
+          "09:00–19:00",
+        ],
+      }
+    ]
+  }
+]
+
+
+const createContent = city => {
+    const find = testRides.find(c => c.city === city)
+
+    console.log(find)
+
+    if (!find) {
+        return
+    }
+
+    return `<div class="store-list">
+            <div class="list">
+                ${find.stores.map(store => `<div class="item">
+                    <div class="u30DemiBold">${store.name}</div>
+                    <div class="u20DemiBold">Available Model:</div>
+                    <ul>
+                        <li class="u20Medium">Carbon One Size ${store.testRideSize}</li>
+                    </ul>
+                    <div class="u20DemiBold">ADD:</div>
+                    <div class="u20Medium address">${store.add}</div>
+                    <div class="my-button my-button-black">Select</div>
+                </div>`)}
+            </div>
+            <div id="storepoint-container" data-tags="de,Test Ride,${city}" data-map-id="162f21804990ff"></div>
+        </div>
+        `
+}
+
+const width = document.body.clientWidth
+    const isMobile = width < 768
+    new jBox('Modal', {
+        width: isMobile ? 'calc(100vw - 30px)' : 1000,
+        height: 'auto',
+        title: 'Book a Test Ride',
+        closeButton: 'title',
+        onCreated: function () {
+        },
+    }).setContent(createContent('Frankfurt am Main')).open()
+</script>
 </html>

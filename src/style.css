@@ -4,12 +4,10 @@ body {
 }
 
 h2 {
-  margin: auto;
   font: normal normal 600 72px/86px urbane;
 }
 
 h3 {
-  margin: auto;
   font: normal normal 600 42px/50px urbane;
 }
 
@@ -152,7 +150,6 @@ body .jBox-Modal {
 
 @media (max-width: 767px) {
   h2 {
-    margin: auto;
     font: normal normal 600 48px/48px urbane;
   }
 
@@ -175,4 +172,18 @@ body .jBox-Modal {
     margin-top: -8px;
     margin-right: -8px;
   }
+
+  .pcHide {
+    display: none !important;
+  }
 }
+
+
+@media (min-width: 767px) {
+  .mobileHide {
+    display: none !important;
+  }
+}
+
+
+

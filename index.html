@@ -15,9 +15,14 @@
   <link href="https://cdn.jsdelivr.net/gh/StephanWagner/jBox@v1.3.3/dist/jBox.all.min.css" rel="stylesheet">
 </head>
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
   body {
     font-family: Urbane;
-    margin: 0;
   }
 
   div {
@@ -28,12 +33,16 @@
       width: 100%;
       height: auto;
   }
+
+
+  a {
+    text-decoration: none;
+  }
 </style>
 
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
-  <div id="myModal">Click me to open a modal window!</div>
 </body>
 <script>
   let temp = `“It's incredibly fun to ride”`
@@ -124,7 +133,7 @@
     }
                 
 </script> -->
-<script>
+<!-- <script>
 const testRides = [
   {
     city: 'Frankfurt am Main',
@@ -229,5 +238,5 @@ const width = document.body.clientWidth
         onCreated: function () {
         },
     }).setContent(createContent('Frankfurt am Main')).open()
-</script>
+</script> -->
 </html>

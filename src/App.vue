@@ -326,12 +326,12 @@ import { onMounted } from 'vue';
 onMounted(() => {
 
     new Swiper('#banner', {
-        // autoplay: {
-        //     disableOnInteraction: false,
-        //     pauseOnMouseEnter: true,
-        //     delay: 5000,
-        // },
-        // loop: true,
+        autoplay: {
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            delay: 5000,
+        },
+        loop: true,
         speed: 1000,
         pagination: {
             el: '.swiper-pagination',

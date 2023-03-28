@@ -174,14 +174,14 @@ body .jBox-Modal {
   }
 
   .pcHide {
-    display: none !important;
+    display: none;
   }
 }
 
 
 @media (min-width: 767px) {
   .mobileHide {
-    display: none !important;
+    display: none;
   }
 }
 

@@ -240,7 +240,7 @@ const width = document.body.clientWidth
     }).setContent(createContent('Frankfurt am Main')).open()
 </script> -->
 
-<script>
+<!-- <script>
   function hideLayerSide() {
     $(".message-box").animate({}, 300, function () {
       //第一个花括号里面是动画内容，可以为空，但不能省去中括号
@@ -264,6 +264,42 @@ const width = document.body.clientWidth
       $(".message-box-mobile").css({ "bottom": "0" }); //在回调函数里面改变css属性来实现transform中的动画变换
     })
   }
+</script> -->
+
+<script>
+  function showMiniDialog(html = '') {
+    $('body .mini-dialog').remove()
+    setTimeout(() => {
+      $("body").append(`<div class="mini-dialog" style="display: flex;">${html}</div>`)
+
+      setTimeout(() => {
+        $('body .mini-dialog > div').on('click', e => {
+          e.stopPropagation();
+          return false;
+        })
+      }, 100)
+    })
+  }
+
+  function closeMiniDialog(a) {
+    // console.log(a === document.querySelector('body .mini-dialog'))
+    $('body .mini-dialog').remove()
+  }
+
+  showMiniDialog(`<div class="subscribe-container">
+            <img class="mobileHide" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Urtopia_Photo_Sesh_9_of_14.jpg?v=1680242058" alt="">
+            <img class="pcHide" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Urtopia_Photo_Sesh_9_of_14_2x_57b3bdef-c4dc-4f7a-a72e-8fbb41b596b9.jpg?v=1680245456" alt="">
+            <div class="subscribe">
+                <span class="u20Medium">Huge Easter Sale</span>
+                <img src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Union_2_2x_2ad80dcd-895b-4d97-92c5-0669622ad449.png?v=1680251686">
+                <span class="u17Light">Subscribe for Easter exclusive coupon and Utopia stories</span>
+                <div class="email">
+                    <input placeholder="Enter email here" type="email">
+                    <div class="my-button my-button-black">Subscribe</div>
+                </div>
+            </div>
+            <span class="close" onclick="closeMiniDialog()">×</span>
+        </div>`)
 </script>
 
 </html>

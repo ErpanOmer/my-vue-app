@@ -1,0 +1,507 @@
+.testride {
+    .banner {
+        background: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20828_2x_ef5d2894-9c53-47e4-ab11-69b44cf922d3.jpg?v=1680576439') center center/cover no-repeat;
+        height: 610px;
+        color: #fff;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .u17Medium_v2 {
+            max-width: 475px;
+            margin-top: 24px;
+        }
+    }
+
+    .explained {
+        background-color: #F7F8FA;
+
+        .centeral-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-column-gap: 40px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+
+            .item {
+                .title {
+                    display: flex;
+                    align-items: center;
+                    margin: 20px 0 13px;
+
+                    img {
+                        max-width: 40px;
+                        margin-right: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .howto {
+        .centeral-content {
+            padding-top: 80px;
+            padding-bottom: 80px;
+
+            .u36DemiBold_v2 {
+                margin-bottom: 16px;
+            }
+
+            .items {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-column-gap: 40px;
+
+                .item {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 24px 60px;
+                    background-color: #F7F8FA;
+                    padding: 6% 15%;
+
+                    img {
+                        max-width: 40px;
+                    }
+
+                    .u20DemiBold_v2 {
+                        margin: 12px 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .whatto {
+        background-color: #F7F8FA;
+        padding: 40px 0 80px;
+
+        .centeral-content {
+            .u17Light_v2 {
+                margin: 24px 0 60px;
+                max-width: 460px;
+            }
+
+            .videos {
+                display: grid;
+                grid-template-columns: minmax(10vw, 511px) minmax(10vw, 424px);
+                grid-template-rows: minmax(0, 628px);
+                grid-column-gap: 111px;
+                align-items: center;
+
+                &>div {
+                    display: flex;
+                    flex-direction: column;
+                    max-height: 100%;
+
+                    .u20DemiBold_v2:first-child {
+                        margin-bottom: 40px;
+                    }
+
+                    video {
+                        margin: 40px 0;
+                    }
+
+                    &:first-child {
+                        overflow: hidden;
+                        align-items: center;
+                        justify-content: center;
+
+                        video {
+                            width: 250%;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .smart {
+        background-color: #F7F8FA;
+        padding-bottom: 90px;
+
+        .centeral-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+
+            &>div {
+                background-color: #fff;
+
+                &:first-child {
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    padding: 10% 0 10% 14%;
+
+                    .u17Light_v2 {
+                        margin: 24px 0 40px;
+                    }
+                }
+
+                &:last-child {
+                    position: relative;
+                    display: flex;
+
+                    &>div {
+                        position: absolute;
+                        width: 75%;
+                        height: 100%;
+                        right: 0;
+                        top: 0;
+                        background-color: #232735;
+                    }
+
+                    &>img {
+                        position: relative;
+                        z-index: 2;
+                    }
+                }
+            }
+        }
+    }
+
+    .notin {
+        background: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/t/4/assets/screenshot-20230314-at-012017-1678728249717.png?v=1678728252') center center/cover no-repeat;
+        height: 395px;
+        display: flex;
+
+        .centeral-content {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+
+            .u17Light_v2 {
+                max-width: 337px;
+                margin: 12px 0 36px;
+            }
+
+            .buttons {
+                a {
+                    margin-right: 6px;
+                }
+            }
+        }
+    }
+
+    .faqs {
+        padding: 80px 0;
+
+        .faq {
+            .faq-list {
+                .faq-title {
+                    width: 100%;
+                    display: flex;
+                    border-style: solid;
+                    border-width: 0 0 1px;
+                    border-color: #ebebeb;
+                    text-align: left;
+                    font: normal normal 600 24px/28px Urbane;
+                    letter-spacing: 0;
+                    color: #000;
+                    background: #fff;
+                    position: relative;
+                    cursor: pointer;
+                    align-items: center;
+                    padding: 2.5vh 9%;
+
+                    .faq-content-plus:before {
+                        content: '\f067';
+                    }
+                }
+
+                .faq-title i {
+                    position: absolute;
+                    /* right: 20px; */
+                    left: 3%;
+                    display: inline-block;
+                    font-size: 17px;
+                    line-height: 1;
+                    font-family: FontAwesome !important;
+                    font-style: normal;
+                    text-rendering: auto;
+                    transition: transform 0.4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+                }
+
+                .faq-content {
+                    display: none;
+                    padding: 20px 18% 0 9%;
+                    font: normal normal normal 17px/24px Urbane;
+                    color: #000;
+                    opacity: 0.9;
+
+                    a {
+                        text-decoration: underline;
+                    }
+                }
+
+                .faq-content-plus {
+                    transform: rotate(90deg);
+                }
+            }
+
+            .titlee {
+                font: normal normal 600 42px/50px Urbane;
+                color: #000;
+                border-bottom: 1px solid #ebebeb;
+                padding-bottom: 40px;
+            }
+        }
+    }
+
+    .map {
+        padding: 80px 0;
+
+        .centeral-content {
+            .u36DemiBold_v2 {
+                margin-bottom: 25px;
+            }
+
+            #storepoint-container {
+                position: relative;
+
+                #storepoint-tag-dropdown,
+                #storepoint-radius-dropdown {
+                    display: none !important;
+                }
+
+
+                #storepoint-map {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 767px) {
+    .testride {
+        .banner {
+            background: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20830_2x_c13f97da-a45a-40d9-96e1-2635cd685730.jpg?v=1680580157') center center/cover no-repeat;
+            height: 527px;
+            padding: 40px 15px;
+            justify-content: flex-end;
+
+            .u48DemiBold_v2 {
+                font-size: 24px;
+                line-height: 28px;
+                // max-width: 475px;
+                // margin-top: 24px;
+            }
+
+            .u17Medium_v2 {
+                font-size: 15px;
+                line-height: 21px;
+                margin-top: 12px;
+            }
+        }
+
+
+        .explained {
+            background-color: #F7F8FA;
+
+            .centeral-content {
+                grid-template-columns: 1fr;
+                padding-left: 4%;
+                padding-right: 4%;
+
+                .u36DemiBold_v2 {
+                    font-size: 24px;
+                    line-height: 30px;
+                }
+
+                .item {
+                    margin-top: 40px;
+
+                    .title {
+                        margin: 12px 0;
+
+                        img {
+                            max-width: 30px;
+                        }
+                    }
+
+                    .u17Light_v2 {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+
+        .howto {
+            .centeral-content {
+                padding: 60px 4%;
+
+                .u36DemiBold_v2 {
+                    margin-bottom: 16px;
+                }
+
+                .items {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    grid-row-gap: 12px;
+
+                    .item {
+                        padding: 24px 12px;
+
+                        img {
+                            max-width: 30px;
+                        }
+
+                        .u20DemiBold_v2 {
+                            margin: 6px 0;
+                            line-height: 24px;
+                        }
+
+                        .u17Light_v2 {
+                            font-size: 15px;
+                            line-height: 21px;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        .whatto {
+            background-color: #F7F8FA;
+            padding: 40px 0;
+
+            .centeral-content {
+                padding: 0 4%;
+
+                .u36DemiBold_v2 {
+                    font-size: 24px;
+                    line-height: 30px;
+                }
+
+                .u17Light_v2 {
+                    margin: 12px 0 40px;
+                }
+
+                .videos {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: unset;
+                    align-items: center;
+                    position: relative;
+
+                    &>div {
+
+                        &:first-child {
+                            video {
+                                width: 170%;
+
+                                &:first-child {
+                                    margin-bottom: 40px;
+                                }
+                            }
+                        }
+
+                        .pcHide {
+                            position: absolute;
+                            top: 12px;
+                            left: 12px;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+
+        .smart {
+            background-color: #F7F8FA;
+            padding-bottom: 40px;
+
+            .centeral-content {
+                grid-template-columns: 1fr;
+                padding: 0 4%;
+                background-color: transparent;
+
+                &>div {
+                    &:first-child {
+                        padding: 40px 12px;
+                        background-color: #fff;
+                        order: 1;
+
+                        .u36DemiBold_v2 {
+                            font-size: 24px;
+                            line-height: 30px;
+                        }
+
+                        .u17Light_v2 {
+                            font-size: 15px;
+                            margin: 6px 0 20px;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        .notin {
+            height: 78vw;
+
+            .centeral-content {
+                padding: 0 4%;
+
+                .u36DemiBold_v2 {
+                    font-size: 24px;
+                    line-height: 30px;
+                }
+
+                .u17Light_v2 {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .faqs {
+            padding: 60px 0;
+
+            .centeral-content {
+                padding: 0 4%;
+
+                .faq {
+                    .faq-list {
+                        .faq-title {
+                            font-size: 18px;
+                            line-height: 24px;
+                            padding: 20px 9%;
+
+                            i {
+                                top: 20px;
+                            }
+                        }
+
+                        .faq-content {
+                            padding: 10px 9%;
+                            padding-right: 0;
+                            font-size: 15px;
+                            line-height: 21px;
+                        }
+                    }
+
+                    .swiper {
+                        padding-right: 10px;
+                    }
+
+                    .titlee {
+                        font-size: 24px;
+                        line-height: 27px;
+                        padding-bottom: 24px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,3 +1,5 @@
+
+
 <style lang="scss">
 @import './styles/testride.scss';
 </style>
@@ -5,15 +7,19 @@
 <template>
     <div class="testride">
         <div class="banner">
-            <div class="u48DemiBold_v2">Your first hand on Urtopia</div>
-            <div class="u17Medium_v2">Take your first step in to experience the stunning appearance and smooth riding. Book
-                a test ride today with our partners and ambassadors! Their extensive expertise and enthusiasm will help you
-                out with any questions in and out.</div>
+            <div class="centeral-content">
+                <div class="u48DemiBold_v2">Your first hand on Urtopia</div>
+                <div class="u17Medium_v2">Take your first step in to experience the stunning appearance and smooth riding.
+                    Book
+                    a test ride today with our partners and ambassadors! Their extensive expertise and enthusiasm will help
+                    you
+                    out with any questions in and out.</div>
+            </div>
         </div>
         <div class="map">
             <div class="centeral-content">
                 <div class="u36DemiBold_v2">Choose your location</div>
-                <div id="storepoint-container" data-tags="de" data-map-id="162f21804990ff"></div>
+                <div id="storepoint-container" data-tags="de,Test Ride" data-map-id="162f21804990ff"></div>
             </div>
         </div>
         <div class="explained">
@@ -81,14 +87,14 @@
                 <div class="videos">
                     <div>
                         <video muted playsinline autoplay loop
-                            src="https://download-video.akamaized.net/2/playback/f70b68d5-6749-440a-917c-5e6932e65dd3/263aaac7?__token__=st=1680590201~exp=1680604601~acl=%2F2%2Fplayback%2Ff70b68d5-6749-440a-917c-5e6932e65dd3%2F263aaac7%2A~hmac=8c991bf5870a91c639ebf3a12b584570d832dbfec1b75c5ecfbf329a422109d7&r=dXMtZWFzdDE%3D"></video>
+                            src="https://player.vimeo.com/progressive_redirect/playback/814462353/rendition/1080p/file.mp4?loc=external&signature=11383a8e982e4f086f6b10b252f533c2841151e1cf6f9f5feeefaf79431cd15c"></video>
                     </div>
                     <div>
                         <span class="u20DemiBold_v2 mobileHide">Full Carbon Fiber <br> Weight only 15 kg</span>
                         <span class="u20DemiBold_v2 pcHide">Full Carbon Fiber <br> Weight only 15 kg</span>
                         <span class="u20DemiBold_v2">Try the advantage <br> of a lightweight e-bike</span>
                         <video muted playsinline autoplay loop
-                            src="https://download-video.akamaized.net/2/playback/329248e9-5ee4-4f6c-ae5a-486762074393/020cf87e-35a4d77b?__token__=st=1680590567~exp=1680604967~acl=%2F2%2Fplayback%2F329248e9-5ee4-4f6c-ae5a-486762074393%2F020cf87e-35a4d77b%2A~hmac=2904622bf6f32419944509595ababfcb815d498ca7488dc2bb9bb65956537b26&r=dXMtZWFzdDE%3D"></video>
+                            src="https://player.vimeo.com/progressive_redirect/playback/814462300/rendition/1080p/file.mp4?loc=external&signature=35b1c5e5b7c43b3e18e042ebe5593b25890c8d8af27c31f0cb73ca5dd9483dd7"></video>
                         <span class="u20DemiBold_v2">The riding experience <br> will not let you down</span>
                     </div>
                 </div>
@@ -139,12 +145,13 @@
                 </div>
             </div>
         </div>
+        <div id="urtopia-calendar"></div>
     </div>
 </template>
 
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 onMounted(() => {
     const faqs = [
@@ -200,48 +207,284 @@ onMounted(() => {
     const b = document.getElementsByTagName("script")[0];
     b.parentNode.insertBefore(a, b);
 
-    // setTimeout(() => {
-    //     document.querySelector('.storepoint-location').addEventListener('click', console.log)
+    function reset() {
+        // STOREPOINT.set_tags(['DE'])
+        STOREPOINT.reset()
+        document.querySelector('input[value="de"]').click()
+        document.querySelector('input[value="test%20ride"]').click()
+    }
 
-    // }, 1000)
+    function refresh(tags = []) {
+        tags.push('DE', 'Test Ride')
 
+        STOREPOINT.set_tags(tags)
+        STOREPOINT.reload_locations()
+    }
 
-    // 选择需要观察变动的节点
-    const targetNode = document.getElementById('storepoint-container');
-
-    // 观察器的配置（需要观察什么变动）
-    const config = { childList: true };
-
-    // 当观察到变动时执行的回调函数
-    const callback = function (mutationsList, observer) {
-        // Use traditional 'for loops' for IE 11
-        for (let mutation of mutationsList) {
-            if (mutation.previousSibling) {
-
-                const id = mutation.previousSibling.id
-
-                if (id === 'storepoint-panel') {
-                    setTimeout(() => {
-                        $('#storepoint-results-container .storepoint-location').on('click', e => {
-                            console.log('e', e)
-                        })
-                    }, 500)
-                }
-
-
-                console.log(id)
-
-            }
+    function debounce(fn, wait) {
+        // 自由变量，debounce执行完成被释放，time也不会被释放
+        let time;
+        // 返回一个闭包，接受参数
+        return function (...args) {
+            // 保存闭包被调用时的this
+            const this_ = this;
+            // 清除上一次的定时器
+            if (time) {
+                clearTimeout(time);
+            };
+            // 不再是直接执行fn，在内部传递参数
+            time = setTimeout(function () {
+                // 通过apply修改fn的this
+                fn.apply(this_, args);
+            }, wait);
         }
     };
 
-    // 创建一个观察器实例并传入回调函数
-    const observer = new MutationObserver(callback);
 
-    // 以上述配置开始观察目标节点
-    observer.observe(targetNode, config);
+    const observerElement = (selector, callback) => {
+        // 观察器的配置（需要观察什么变动）
+        const config = { childList: true };
+        const targetNode = document.querySelector(selector)
 
-    // 之后，可停止观察
-    // observer.disconnect();
+        return new Promise(resolve => {
+            // 创建一个观察器实例并传入回调函数
+            (new MutationObserver((mutationsList, observer) => {
+                // 是否回调函数，如果有需要持续监听，如果没有就中断
+                if (callback) {
+                    callback(mutationsList)
+                } else {
+                    observer.disconnect()
+                }
+
+                resolve(targetNode)
+            })).observe(targetNode, config);
+        })
+    }
+
+    function onSelect(e) {
+        e.srcElement && reset()
+
+        const city = e.target.value
+
+        // const items = Array.from(document.querySelectorAll('#storepoint-panel .items .item'))
+
+        // for (const iterator of items) {
+        //     iterator.style.display = !city || iterator.getAttribute('city') === city ? 'block' : 'none'
+        // }
+
+        city ? refresh([city]) : refresh()
+
+        e.target.style.color = city ? '#000' : '#a1a1a1'
+    }
+
+    function onInput(e) {
+        const select = document.querySelector('#storepoint-search .forms select')
+
+        if (select.value) {
+            select.value = ''
+            onSelect({
+                target: {
+                    value: ''
+                }
+            })
+        }
+
+        const value = e.target.value
+
+        console.log('value', value)
+    }
+
+    function onFocus() {
+        // const input = document.querySelector('.mapboxgl-ctrl-geocoder--input')
+
+        // if (!input.value) {
+        //     reset()
+        // }
+    }
+
+    function insertCustomElements(target) {
+        target.style.opacity = 0
+        const stores = Array.from(target.querySelectorAll('.storepoint-location'))
+
+        const storeList = document.createDocumentFragment()
+        const forms = document.createDocumentFragment()
+
+        // 商店列表
+        const items = document.createElement("div")
+        items.classList.add('items')
+
+        // 搜索父表单
+        const form = document.createElement("div")
+        form.classList.add('forms')
+
+        // 选择框
+        const select = document.createElement('select')
+        select.setAttribute('placeholder', '')
+        select.style.color = '#a1a1a1'
+
+        // 输入框
+        // const input = document.createElement('input')
+        // input.setAttribute('placeholder', 'Search…')
+
+        // 首选项
+        const option = document.createElement('option')
+        // option.setAttribute('disabled', true)
+        option.setAttribute('selected', true)
+        option.setAttribute('value', '')
+        option.innerText = '--- Select your city ---'
+
+        select.appendChild(option)
+
+        // form.appendChild(input)
+        form.appendChild(select)
+
+        select.addEventListener('change', onSelect)
+        document.querySelector('button[aria-label="Clear"]').addEventListener('click', reset)
+        document.querySelector('.mapboxgl-ctrl-geocoder--input').addEventListener('input', debounce(onInput, 300))
+        document.querySelector('.mapboxgl-ctrl-geocoder--input').addEventListener('focus', onFocus)
+
+        for (const store of stores) {
+            const elem = $(store).find('.storepoint-name')
+
+            const name = elem.text()
+            const info = findStore(name)
+            // 如果搜不到 店铺
+            if (!info) {
+                continue
+            }
+
+
+
+            const item = document.createElement("div")
+            const option = document.createElement('option')
+
+            item.classList.add('item')
+            item.setAttribute('index', $(store).attr('id'))
+            item.setAttribute('city', info.testrideSpot)
+            item.setAttribute('name', info.name)
+
+            option.innerText = info.testrideSpot
+            option.setAttribute('city', info.testrideSpot)
+
+            item.innerHTML = `
+                <div class="name">${info.name}</div>
+                <div class="address gray">${info.add}</div>
+                <div class="available">Available Model:</div>
+                <ul>
+                    ${info.availableSizes ? info.availableSizes.map(i => `<li class="gray">${i}</li>`).join('') : `<li class="gray">Carbon One Size ${info.testRideSize}</li>`}
+                </ul>
+                <div class="time gray"><img src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/calendar_2x_af8d9192-1ff9-43f0-aba6-3547b1129854.jpg?v=1680938382"/> Earliest available time: ${info.findAvalibaleDate()}</div>
+            `
+
+            // 点击item 代理到真实的store
+            item.addEventListener('click', e => {
+                const active = document.querySelector('#storepoint-panel .items .item[active="true"]')
+                const locations = Array.from(document.querySelectorAll('#storepoint-results-container .storepoint-location'))
+
+                if (active) {
+                    active.setAttribute('active', false)
+                }
+
+                for (const iterator of locations) {
+                    iterator.classList.remove('selected')
+
+                    if (item.getAttribute('name') === iterator.querySelector('.storepoint-name').innerText) {
+                        iterator.classList.add('selected')
+                        iterator.click()
+
+                        break
+                    }
+                }
+
+                item.setAttribute('active', true)
+
+                document.body.clientWidth < 768 && $('html').scrollTop($('.map').offset().top)
+            })
+
+            items.appendChild(item)
+
+            if (!select.querySelector(`option[city="${info.testrideSpot}"]`)) {
+                select.appendChild(option)
+            }
+        }
+
+        storeList.appendChild(items)
+        forms.appendChild(form)
+
+        target.parentNode.appendChild(storeList)
+        document.querySelector('#storepoint-search').appendChild(forms)
+
+        // const popup = document.createElement('div')
+        // popup.classList.add('mapboxgl-popup')
+
+        // document.querySelector('#storepoint-map').appendChild(popup)
+    }
+
+    function observerItems(mutationsList) {
+        const results = Array.from(document.querySelectorAll('#storepoint-results-container .storepoint-location'))
+        const items = Array.from(document.querySelectorAll('#storepoint-panel .items .item'))
+
+        for (const iterator of items) {
+            iterator.style.display = 'none'
+
+            for (const result of results) {
+                const name1 = result.querySelector('.storepoint-name').innerText
+                const name2 = iterator.getAttribute('name')
+
+                if (name1 === name2) {
+                    iterator.style.display = 'block'
+                    break
+                }
+            }
+        }
+    }
+
+    function observerPopup() {
+        const popup = document.querySelector('#storepoint-map .mapboxgl-popup')
+
+        if (!popup) {
+            return
+        }
+
+        const name = document.querySelector('#storepoint-map .storepoint-location-popup b').innerText
+        const store = findStore(name)
+
+        if (!store) {
+            return
+        }
+
+
+        document.querySelector('.mapboxgl-popup .mapboxgl-popup-content').style.display = 'none'
+        const href = document.querySelector('#storepoint-map .storepoint-location-popup .storepoint-popup-directions').getAttribute('href')
+
+        $(popup).append(`
+            <div class="map-popup">
+                <img src="${store.imgUrl}"/>
+                <div class="infos">
+                    <div class="name">${store.name}</div>
+                    <div class="address gray">${store.add}</div>
+                    <div class="available">Available Model:</div>
+                    <ul>
+                        ${store.availableSizes ? store.availableSizes.map(i => `<li class="gray">${i}</li>`).join('') : `<li class="gray">Carbon One Size ${store.testRideSize}</li>`}
+                    </ul>
+                    <div class="time gray"><img src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/calendar_2x_af8d9192-1ff9-43f0-aba6-3547b1129854.jpg?v=1680938382"/> Earliest available time: ${store.findAvalibaleDate()}</div>
+                    <div class="buttons">
+                        <a class="my-button my-button-black" onclick="booknow('${store.name}')">Book Now</a>
+                        <a class="my-button my-button-white" style="margin-left: 6px;" target="_blank" href="${href}">Direction</a>
+                    </div>
+                </div>
+            </div>
+        `)
+    }
+
+    observerElement('#storepoint-container').then(r => {
+        observerElement('#storepoint-container #storepoint-results')
+            .then(insertCustomElements)
+            .then(() => {
+                observerElement('#storepoint-container #storepoint-results', debounce(observerItems, 100))
+                observerElement('#storepoint-map', debounce(observerPopup, 100))
+            })
+    })
+
 })
 </script>

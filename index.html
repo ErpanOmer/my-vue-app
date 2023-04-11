@@ -307,53 +307,53 @@ const width = document.body.clientWidth
 </script> -->
 
 <script>
-const getNowDate = (v = +new Date()) => new Date(+new Date(v) + (8 * 60 * 60 * 1000)).toISOString().split('T').shift()
-const findOffset = ([nowWeek, vailableWeek]) => {
-                if (nowWeek === vailableWeek) {
-                  return 0
-                }
-
-                return vailableWeek > nowWeek ? vailableWeek - nowWeek : 7 - (nowWeek - vailableWeek)
-              }
-
-const oneDay = 24 * 60 * 60 * 1000
-
-const findStore = name => {
-        for (const city of testRides) {
-            for (const store of city.stores) {
-              const businessHours = store.businessHours
-              const disableDate = store.disableDate || []
-              // 查找可预约到星期几
-              const findAvailableWeek = d => businessHours[d] ? d : findAvailableWeek(d === 6 ? 0 : ++d)
-              // 可用日期计算
-              const findAvalibaleDate = date => {
-                  const str = getNowDate(date)
-                  const timestamp = +new Date(str)
-                  const currentWeek = new Date(str).getDay()
-                  const AvailableWeek = findAvailableWeek(currentWeek)
-
-                  const findDisable = disableDate.find(i => getNowDate(i) === str)
-
-                  if (findDisable) {
-                    // console.log(str, timestamp, find, getNowDate(find))
-                    return findAvalibaleDate(timestamp + oneDay)
-                  }
-
-                  return currentWeek === AvailableWeek ? str : findAvalibaleDate(timestamp + (oneDay * findOffset([currentWeek, AvailableWeek])))
-              }
-
-              store.findAvalibaleDate = () => {
-                const time = new Date(findAvalibaleDate(new Date())).toString().split(' ')
-
-                return `${time[2]}. ${time[1]}`
-              }
-
-                if (store.name.replace(/ /g, '') === name.replace(/ /g, '')) {
-                    return store
-                }
-            }
-        }
+  const getNowDate = (v = +new Date()) => new Date(+new Date(v) + (8 * 60 * 60 * 1000)).toISOString().split('T').shift()
+  const findOffset = ([nowWeek, vailableWeek]) => {
+    if (nowWeek === vailableWeek) {
+      return 0
     }
+
+    return vailableWeek > nowWeek ? vailableWeek - nowWeek : 7 - (nowWeek - vailableWeek)
+  }
+
+  const oneDay = 24 * 60 * 60 * 1000
+
+  const findStore = name => {
+    for (const city of testRides) {
+      for (const store of city.stores) {
+        const businessHours = store.businessHours
+        const disableDate = store.disableDate || []
+        // 查找可预约到星期几
+        const findAvailableWeek = d => businessHours[d] ? d : findAvailableWeek(d === 6 ? 0 : ++d)
+        // 可用日期计算
+        const findAvalibaleDate = date => {
+          const str = getNowDate(date)
+          const timestamp = +new Date(str)
+          const currentWeek = new Date(str).getDay()
+          const AvailableWeek = findAvailableWeek(currentWeek)
+
+          const findDisable = disableDate.find(i => getNowDate(i) === str)
+
+          if (findDisable) {
+            // console.log(str, timestamp, find, getNowDate(find))
+            return findAvalibaleDate(timestamp + oneDay)
+          }
+
+          return currentWeek === AvailableWeek ? str : findAvalibaleDate(timestamp + (oneDay * findOffset([currentWeek, AvailableWeek])))
+        }
+
+        store.findAvalibaleDate = () => {
+          const time = new Date(findAvalibaleDate(new Date())).toString().split(' ')
+
+          return `${time[2]}. ${time[1]}`
+        }
+
+        if (store.name.replace(/ /g, '') === name.replace(/ /g, '')) {
+          return store
+        }
+      }
+    }
+  }
 
   function CalendarOpen(shopPoint, shop, isSpecDay = false, timetp = 0) {
     console.log(arguments)
@@ -389,31 +389,43 @@ const findStore = name => {
   }
 
 
-  function booknow (name) {
+  function booknow(name) {
     const store = findStore(name)
 
     if (!store) {
       return
     }
 
-    
+
     console.log(store)
 
     CalendarOpen(store.testrideSpot, { [store['phone']]: store })
   }
 
 
-  const times =  "8:00–9:30,13:00–14:30,18:00–20:00".split(',')
-  const timeList = []
+  function splitTimeFormat(item = '') {
+    if (!item) {
+      return ''
+    }
 
-  console.log(times)
+    const times = []
 
-  for (const time of times) {
-    const [start, end] = time.split('–')
+    for (const time of item.split(',')) {
+      const [start, end] = time.split('-')
 
-    console.log(start, end)
+      console.log(start, end)
 
+      for (let index = Number(start.split(':').shift()); index < Number(end.split(':').shift()); index++) {
+        times.push(`${index}:00-${index + 1}:00`)
+      }
+
+    }
+
+    return times
   }
+
+
+  console.log(splitTimeFormat('09:00-12:00'))
 
 </script>
 

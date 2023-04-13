@@ -1,0 +1,151 @@
+.about-us {
+
+    .banner {
+        height: calc(100vh - 111px);
+        background: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20710.jpg?v=1678861240') center center/cover no-repeat;
+        color: #fff;
+        
+        .centeral-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .u17Light_v2 {
+                max-width: 400px;
+                margin-top: 50px;
+            }
+        }
+    }
+
+    .swiper1 {
+        --swiper-theme-color: #ff6600;
+        /* 设置Swiper风格 */
+        --swiper-navigation-color: #fff;
+        /* 单独设置按钮颜色 */
+        --swiper-navigation-size: 15px;
+        /* 设置按钮大小 */
+        overflow-x: hidden;
+        cursor: auto;
+        color: #000;
+        padding: 80px 0;
+
+        & > .u42DemiBold_v2 {
+            text-align: left;
+            max-width: 1280px;
+            margin: 0 auto 60px;
+        }
+
+        .swiper-slide {
+            box-shadow: 3px 3px 30px #00000010;
+            border-radius: 15px;
+            overflow: hidden;
+
+            .image {
+                position: relative;
+
+                .name {
+                    position: absolute;
+                    bottom: 2vh;
+                    color: #fff;
+                    left: 9%;
+                }
+
+                .static {
+                    position: relative;
+                    color: #000;
+                    margin-top: 5vh;
+                }
+            }
+
+            .u17Light_v2 {
+                padding: 9% 11%;
+            }
+        }
+
+        .buttons {
+            max-width: 1280px;
+            margin: auto;
+            display: flex;
+            justify-content: end;
+
+            .swiper-button-prev,
+            .swiper-button-next {
+                margin-left: 20px;
+                margin-top: 20px;
+                position: static;
+                background-color: #666;
+                border-radius: 50%;
+                padding: 20px;
+                box-sizing: border-box;
+                opacity: .5;
+                z-index: 2;
+            }
+
+            .swiper-button-disabled {
+                opacity: .25;
+            }
+        }
+
+        .swiper-scrollbar {
+                display: none;
+                height: 2px;
+                width: calc(100% - 60px);
+                position: static;
+                margin: 30px auto;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .about-us {
+
+        .banner {
+            height: 600px;
+            background: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18375.jpg?v=1678862658') center center/cover no-repeat;
+            justify-content: flex-start;
+
+            .centeral-content {
+                justify-content: flex-start;
+                padding-top: 6vw;
+
+                .u17Light_v2 {
+                    line-height: 20px;
+                    margin-top: 20px;
+                    font-size: 14px;
+                }
+    
+                .u72DemiBold_v2 {
+                    font-size: 36px;
+                    line-height: 42px;
+                }
+            }
+        }
+
+        .swiper1 {
+            padding: 40px 0;
+            
+
+            .u42DemiBold_v2 {
+                font-size: 24px;
+                line-height: 30px;
+                margin-bottom: 30px;
+                padding: 0 30px;
+            }
+
+            .swiper-slide {
+                .u17Light_v2 {
+                    padding: 8% 5%;
+                }
+            }
+
+            .buttons {
+                display: none;
+            }
+
+            .swiper-scrollbar {
+                display: block;
+            }
+        }
+    }
+}

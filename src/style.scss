@@ -43,6 +43,10 @@ input {
 }
 
 /* 全局字体设置start */
+.u11Light_v2 {
+  font: normal normal 300 11px/1.4em urbane;
+}
+
 .u17Light {
   font: normal normal 300 17px/19px urbane;
 }
@@ -81,11 +85,15 @@ input {
 }
 
 .u30Medium {
-  font: normal normal 500 30px/34px urbane;
+  font: normal normal 500 30px/1.4em urbane;
 }
 
 .u36Medium {
   font: normal normal 500 36px/42px urbane;
+}
+
+.u17DemiBold_v2 {
+  font: normal normal 600 17px/1.4em urbane;
 }
 
 .u20DemiBold {
@@ -94,6 +102,10 @@ input {
 
 .u20DemiBold_v2 {
   font: normal normal 600 20px/1.4em urbane;
+}
+
+.u24DemiBold_v2 {
+  font: normal normal 600 24px/1.4em urbane;
 }
 
 .u30DemiBold {
@@ -122,6 +134,10 @@ input {
 
 .u48DemiBold_v2 {
   font: normal normal 600 48px/1.4em urbane;
+}
+
+.u60DemiBold_v2 {
+  font: normal normal 600 60px/1.4em urbane;
 }
 
 .u72DemiBold_v2 {

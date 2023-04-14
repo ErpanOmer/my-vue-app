@@ -85,6 +85,79 @@
                 <div class="swiper-button-next"></div><!--右箭头。如果放置在swiper外面，需要自定义样式。-->
             </div>
         </div>
+        <div class="blue">
+            <div class="centeral-content">
+                <div class="u42DemiBold_v2">Welcome to the <br> Urtopia lab</div>
+            </div>
+        </div>
+        <div class="boxs">
+            <div class="centeral-content">
+                <div>
+                    <span class="u24DemiBold_v2">Cutting-edge equipments and <br class="mobileHide"> technology</span>
+                </div>
+                <div>
+                    <span class="u24DemiBold_v2">State-of-the-art software</span>
+                </div>
+                <div>
+                    <span class="u24DemiBold_v2">Quality testing <br class="mobileHide"> at forefront</span>
+                </div>
+                <div>
+                    <span class="u24DemiBold_v2">Best raftmanship <br> in Europe</span>
+                </div>
+            </div>
+        </div>
+        <div class="tech">
+            <div class="centeral-content">
+                <div class="u42DemiBold_v2">Tech Innovation for <br> Sustainable Future</div>
+                <div></div>
+            </div>
+        </div>
+        <div class="system">
+            <div class="centeral-content">
+                <div class="u17Light_v2">Our Smart IoT system and controlling algorithms enable our bikes to intelligently
+                    adjust the power
+                    model according to users need and boosts energy efficiency by more than 15%. Higher efficiency means
+                    less battery volume and lighter weight, reducing carbon emissions during production.<br><br> At Urtopia,
+                    we’re
+                    committed to reducing our carbon footprint through eco-friendly materials. Our packaging is fully
+                    recyclable and designed with the environment in mind. <span class="mobileHide"><br><br>Our e-bikes are
+                        able to track your emissions
+                        savings and share to your friends. By choosing to ride with Urtopia, you’re not just making a
+                        personal
+                        commitment to sustainability, but also inspiring others to join the movement towards a greener
+                        future.
+                        Let’s pedal together towards a cleaner, healthier planet!</span>
+                </div>
+                <div></div>
+                <div class="u17Light_v2 pcHide">Our e-bikes are able to track your emissions
+                    savings and share to your friends. By choosing to ride with Urtopia, you’re not just making a personal
+                    commitment to sustainability, but also inspiring others to join the movement towards a greener future.
+                    Let’s pedal together towards a cleaner, healthier planet!
+                </div>
+            </div>
+        </div>
+        <div class="together">
+            <div class="centeral-content">
+                <div>
+                    <div class="u42DemiBold_v2">Together We <br> Build Utopia</div>
+                    <div class="u17Light_v2">Our dedicated and passionate <br> fans had been riding</div>
+                    <div class="u60DemiBold_v2">18,920,000+ <span class="u30Medium">km</span></div>
+                </div>
+                <div>
+                    <div>
+                        <span class="u17DemiBold_v2">Over the top</span>
+                        <img src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_19376_2x_3057532f-85e5-4510-b542-ea55c7261f21.jpg?v=1681480538" alt="">
+                        <div class="u11Light_v2">The bike has been everything I have always wanted especially for the price. I have been Road bike riding for over 14…</div>
+                    </div>
+                    <img src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/4_2x_7adaacee-d216-4817-a629-3f21dd5f68b1.jpg?v=1681480050" alt="">
+                    <div>
+                        <span class="u17DemiBold_v2">THE best bike ride I have ever had!!</span>
+                        <img src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_19376_2x_3057532f-85e5-4510-b542-ea55c7261f21.jpg?v=1681480538" alt="">
+                        <div class="u11Light_v2">The Urtopia has given me a new prospective on hills! I just completed my first ride this morning, downhill going…</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

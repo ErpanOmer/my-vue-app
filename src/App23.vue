@@ -1,7 +1,7 @@
 <template>
     <div class="product_code">
             <div class="carbon_code">
-                <span>Check out with <br> Easter Sale Code to Enjoy:</span>
+                <span>Check out with <br> Early Bird Sale Code to Enjoy:</span>
                 <span class="bold">OK300 and <br> Chord 700</span>
             </div>
             <div class="carbon_text">

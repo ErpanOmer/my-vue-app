@@ -13,6 +13,8 @@
         &>div {
             &:first-child {
                 flex: 1;
+                display: flex;
+                flex-direction: column;
             }
 
             &:last-child {
@@ -22,13 +24,13 @@
         }
 
         .buttons {
-            &>a {
-                margin-right: 24px;
+            a {
+                margin: 0 12px 12px 0;
             }
 
-            // & > a + a {
-            //     margin-top: 12px;
-            // }
+            & > a + a {
+                margin: 0;
+            }
         }
     }
 
@@ -87,7 +89,7 @@
             }
 
             .left {
-                max-width: 380px;
+                max-width: 390px;
 
                 .u30DemiBold_v2 {
                     margin-bottom: 50px;
@@ -99,6 +101,55 @@
                 max-width: 700px;
                 width: 700px;
             }
+        }
+
+
+        // 德国劳动节 banner 
+        .labor-day {
+            background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20929_2x_ebafca41-bb24-4e17-9311-a95dd8081354.jpg?v=1682392111');
+
+            .centeral-content {
+                height: 75%;
+            }
+
+            .left {
+                max-width: 470px;
+
+                .labor-logo {
+                    max-width: 180px;
+                }
+
+
+                .u30DemiBold_v2 {
+                    margin: 16px 0 22px;
+                }
+
+                .buttons {
+                    margin-top: 50px;
+                }
+            }
+        }
+
+        // 德国劳动节 banner chord
+        .labor-day-chord {
+            background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20939_2x_b959e8e1-8b4c-474c-8ff6-2b96bd412f71.jpg?v=1682395277');
+
+            .left {
+                max-width: unset;
+
+                .u30DemiBold_v2  {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+
+
+        .count-down {
+            height: 180px;
+            transform: translateX(-25px);
+            overflow: hidden;
+            margin-bottom: -30px;
         }
     }
 
@@ -131,11 +182,15 @@
                 }
             }
 
-            .buttons {
-                &>a {
-                    margin-right: 12px;
-                }
-            }
+            // .buttons {
+            //     a {
+            //         margin: 0 12px 12px 0;
+            //     }
+    
+            //     & > a + a {
+            //         margin: 0;
+            //     }
+            // }
         }
 
 
@@ -208,6 +263,49 @@
                         }
                     }
                 }
+            }
+
+
+            // 德国劳动节 banner 
+            .labor-day {
+                background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18534_2x_a3851f94-3795-4d94-a5ed-e6721c9ac8aa.jpg?v=1682393237');
+                background-position-y: center;
+
+                .centeral-content {
+                    height: 100%;
+                }
+
+                .left {
+                    padding: 20vw 0;
+
+                    .labor-logo {
+                        max-width: 144px;
+                    }
+
+                    .u30DemiBold_v2 {
+                        margin: 6px 0 12px;
+                        font-size: 20px;
+                    }
+
+                    // .acc {
+                    //     max-width: 202px;
+                    // }
+                }
+            }
+
+
+            // 德国劳动节 chord
+            .labor-day-chord {
+                background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18536_2x_36b18200-7946-41b4-9351-9d143864350a.jpg?v=1682401357');
+            }
+
+
+
+            .count-down {
+                height: 115px;
+                width: 180px;
+                transform: translateX(-30px);
+                margin-bottom: unset;
             }
 
         }

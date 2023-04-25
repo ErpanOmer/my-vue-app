@@ -1,11 +1,45 @@
 <style lang="scss">
-@import './styles/home.scss';
+@import '../styles/home.scss';
 </style>
 
 <template>
     <div class="banner">
         <div class="swiper-wrapper">
-            <div class="swiper-slide common">
+            <div class="swiper-slide labor-day labor-day-chord">
+                <div class="centeral-content">
+                    <div class="left">
+                        <div class="count-down pcHide">
+                            <iframe height="100%" src="https://w2.countingdownto.com/4716069" frameborder="0" scrolling="no"></iframe>
+                        </div>
+                        <img class="labor-logo" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/labor-day_2x_06015470-6658-4a14-b251-69f561abb093.png?v=1682392239" alt="">
+                        <div class="u30DemiBold_v2">300€ off on Chord <br class="pcHide"> Expires May.8</div>
+                        <div class="count-down mobileHide">
+                            <iframe height="100%" src="https://w2.countingdownto.com/4716094" frameborder="0" scrolling="no"></iframe>
+                        </div>
+                        <!-- <img  class="acc" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20932_2x_4bb6eb6f-2f16-4f56-9576-f1cfd0897014.png?v=1682392450" alt=""> -->
+                        <div class="flex-1 pcHide"></div>
+                        <div class="buttons">
+                            <a class="my-button" href="/products/urtopia-carbon-e-bike">Order now</a>
+                            <a class="my-button" href="/products/urtopia-carbon-e-bike">Lease with Jobrad</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="swiper-slide labor-day">
+                <div class="centeral-content">
+                    <div class="left">
+                        <img src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/labor-day_2x_06015470-6658-4a14-b251-69f561abb093.png?v=1682392239" alt="">
+                        <div class="u30DemiBold_v2">Carbon 1 for 3299€ <br class="pcHide">+ freebies</div>
+                        <img  class="acc" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20932_2x_4bb6eb6f-2f16-4f56-9576-f1cfd0897014.png?v=1682392450" alt="">
+                        <div class="flex-1 pcHide"></div>
+                        <div class="buttons">
+                            <a class="my-button" href="/products/urtopia-carbon-e-bike">Order now</a>
+                            <a class="my-button" href="/products/urtopia-carbon-e-bike">Lease with Jobrad</a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="swiper-slide common">
                 <div class="centeral-content">
                     <div></div>
                     <div class="right">
@@ -34,23 +68,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="swiper-slide us-downcount">
-                <div class="centeral-content">
-                    <div class="left">
-                        <div class="u30DemiBold_v2">Early Bird Sale $600 off <br> on Chord Expires Apr.25</div>
-                        <div class="flex-1 pcHide"></div>
-                        <div class="buttons">
-                            <a class="my-button" href="">Meet Chord</a>
-                            <a class="my-button my-button-ghost" href="">Order now</a>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <iframe class="mobileHide" height="308" scrolling="no" src="https://w2.countingdownto.com/4697973" frameborder="0"></iframe>
-                        <iframe class="pcHide" scrolling="no" height="203" src="https://w2.countingdownto.com/4698560" frameborder="0"></iframe>
-                    </div>
-                </div>
-            </div>
+            </div> -->
         </div>
         <div class="swiper-pagination"></div>
     </div>

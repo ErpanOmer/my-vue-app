@@ -5,22 +5,17 @@
 <template>
     <div class="banner">
         <div class="swiper-wrapper">
-            <div class="swiper-slide labor-day labor-day-chord">
+            <div class="swiper-slide fathers-day">
                 <div class="centeral-content">
-                    <div class="left">
-                        <div class="count-down pcHide">
-                            <iframe height="100%" src="https://w2.countingdownto.com/4716069" frameborder="0" scrolling="no"></iframe>
-                        </div>
-                        <img class="labor-logo" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/labor-day_2x_06015470-6658-4a14-b251-69f561abb093.png?v=1682392239" alt="">
-                        <div class="u30DemiBold_v2">300€ off on Chord <br class="pcHide"> Expires May.8</div>
-                        <div class="count-down mobileHide">
-                            <iframe height="100%" src="https://w2.countingdownto.com/4716094" frameborder="0" scrolling="no"></iframe>
-                        </div>
-                        <!-- <img  class="acc" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20932_2x_4bb6eb6f-2f16-4f56-9576-f1cfd0897014.png?v=1682392450" alt=""> -->
+                    <div>
+                        <img class="fa" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/1_2x_08bbd547-37f1-4603-be80-3735fd446179.png?v=1683537866" alt="">
+                        <div class="u30DemiBold_v2">Get 3 extras for free</div>
+                        <img class="acc mobileHide" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20932_2x_4d2ea265-d13d-4956-a5b8-0427025b0743.png?v=1683537381" alt="">
+                        <img class="acc pcHide" src="https://cdn.shopify.com/s/files/1/0633/2068/6808/files/free_2x_97462865-de4b-480d-b835-7ecf0d7233ae.png?v=1683538764" alt="">
                         <div class="flex-1 pcHide"></div>
                         <div class="buttons">
                             <a class="my-button" href="/products/urtopia-carbon-e-bike">Order now</a>
-                            <a class="my-button" href="/products/urtopia-carbon-e-bike">Lease with Jobrad</a>
+                            <a class="my-button" href="/pages/ebike-leasing">Lease now</a>
                         </div>
                     </div>
                 </div>

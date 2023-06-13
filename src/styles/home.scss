@@ -1,9 +1,8 @@
 .banner {
-    height: calc(100vh - 111px);
+    height: calc(100vh - 106px);
     position: relative;
     color: #fff;
     overflow-x: hidden;
-    background-color: rgb(39, 146, 187);
 
     .centeral-content {
         display: flex;
@@ -14,24 +13,24 @@
         &>div {
             &:first-child {
                 flex: 1;
+                display: flex;
+                flex-direction: column;
             }
 
             &:last-child {
                 display: flex;
                 flex-direction: column;
-                text-align: left;
             }
         }
 
         .buttons {
-            &>a {
-                margin-right: 24px;
-                margin-top: 12px;
+            a {
+                margin: 0 12px 12px 0;
             }
 
-            // & > a + a {
-            //     margin-top: 12px;
-            // }
+            &>a+a {
+                margin: 0;
+            }
         }
     }
 
@@ -49,6 +48,7 @@
                 &>div {
                     &:last-child {
                         max-width: 500px;
+                        text-align: left;
                     }
                 }
             }
@@ -80,24 +80,58 @@
             }
         }
 
-        // 美国独立日活动 banner
-        .memorial-day {
-            background-image: url('https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Group_20991_2x_95618ddf-2fda-46b4-9835-fbbd94b12582.jpg?v=1684399864');
-            color: #000;
-            // background-position-x: left;
-            .left {
-                max-width: 485px;
-            }
-
-
-            .u36DemiBold_v2 {
-                margin: 24px 0 48px;
-            }
-
+        .spring-sale {
+            background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_21007_2x_4099c9d2-a74d-4c85-89e4-aa79f6d7d14f.jpg?v=1685441578');
+            background-color: rgb(30, 160, 110);
 
             .centeral-content {
-                height: 85%;
+                &>div {
+
+                    .u56DemiBold_v2 {
+                        text-transform: uppercase;
+                    }
+
+                    .u56DemiBold_v2,
+                    .u48Medium_v2 {
+                        color: #E2F8B6;
+                    }
+
+                    .u36DemiBold_v2 {
+                        margin: 50px 0;
+                    }
+                }
             }
+        }
+
+        .bluetti {
+            background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/banner_3_2x_3e80c46d-96b2-4d40-a29c-1e23702f2bba.jpg?v=1685619448');
+
+            .centeral-content {
+                align-items: flex-start;
+                text-align: center;
+
+                & > div {
+                    align-items: center;
+
+                    .u36DemiBold_v2 {
+                        margin: 1vh 0 4.5vh;
+                    }
+
+                    img {
+                        max-width: 380px;
+                        margin: 4vh 0;
+                    }
+                }
+            }
+        }
+
+
+
+        .count-down {
+            height: 300px;
+            transform: translateX(-35px);
+            overflow: hidden;
+            margin-top: -10px;
         }
     }
 
@@ -121,7 +155,7 @@
 
 @media (max-width: 767px) {
     .banner {
-        height: calc(100vh - 107px);
+        height: calc(100vh - 98px);
 
         .centeral-content {
             &>div {
@@ -130,11 +164,15 @@
                 }
             }
 
-            .buttons {
-                &>a {
-                    margin-right: 12px;
-                }
-            }
+            // .buttons {
+            //     a {
+            //         margin: 0 12px 12px 0;
+            //     }
+
+            //     & > a + a {
+            //         margin: 0;
+            //     }
+            // }
         }
 
 
@@ -177,27 +215,67 @@
                 }
             }
 
-            .memorial-day {
-                background-image: url('https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Group_20993_2x_4866a074-59b9-4eaa-bb1b-feb24e5820fd.jpg?v=1684402291');
-
-                .left {
-                    padding: 20vw 0;
-
-                    .u36DemiBold_v2 {
-                        margin-top: 12px;
-                        font-size: 20px;
-                    }
-
-
-                    img {
-                        max-width: 263px;
-                    }
-                }
-
+            .spring-sale {
+                background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Group_20985_2x_22a2ef82-4ea1-4835-aefa-502bab4a119b.jpg?v=1685448396');
                 .centeral-content {
                     height: 100%;
+                    align-items: unset;
+
+                    &>div {
+                        padding: 12vw 0 18vw;
+
+                        .u56DemiBold_v2 {
+                            font-size: 26px;
+                        }
+
+                        .u48Medium_v2,
+                        .u36DemiBold_v2 {
+                            font-size: 20px;
+                        }
+
+                        .u36DemiBold_v2 {
+                            margin: 20px 0 0;
+                        }
+                    }
                 }
             }
+
+
+            .bluetti {
+                background-image: url('https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18562_2x_0e6bea7e-9e64-48ce-b6ae-aafcce7796a3.png?v=1685620282');
+                background-position-y: center;
+                
+                .centeral-content {
+                    padding: 6vw 0 18vw;
+                    
+                    & > div {
+                        img {
+                            max-width: 240px;
+                        }
+
+
+                        .u56DemiBold_v2 {
+                            font-size: 36px;
+                            margin: 4vw 0 0;
+                        }
+
+                        .u36DemiBold_v2 {
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+
+
+
+            .count-down {
+                height: 150px;
+                width: 180px;
+                transform: translate(-17px);
+                margin-bottom: unset;
+                // margin-top: -15px;
+            }
+
         }
     }
 }

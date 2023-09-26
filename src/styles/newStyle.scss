@@ -443,6 +443,10 @@ input {
   font: normal normal 500 36px/1.25em urbane;
 }
 
+.u42Medium_v2 {
+  font: normal normal 500 42px/1.25em urbane;
+}
+
 .u48Medium_v2 {
   font: normal normal 500 48px/1.25em urbane;
 }
@@ -531,6 +535,7 @@ input {
 .flex-1 {
   flex: 1;
 }
+
 
 .mini-dialog {
   position: fixed;
@@ -634,6 +639,9 @@ body {
 .emphasize {
   color: #fd4b17;
 }
+.text-decoration {
+  text-decoration: line-through;
+}
 
 body .jBox-overlay {
   background-color: rgba(0, 0, 0, 0.6);
@@ -730,6 +738,40 @@ body .jBox-Modal {
     color: #999;
     cursor: pointer;
   }
+}
+
+.testride_dialog {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px #00000029;
+    align-items: center;
+    justify-items: center;
+
+    & > div {
+      padding: 0 5%;
+
+      .u24Medium_v2 {
+        margin: 24px 0 60px;
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 40px;
+      color: #999;
+      cursor: pointer;
+      font-weight: 100;
+      display: block;
+      height: 40px;
+      line-height: 40px;
+      width: 40px;
+      text-align: center;
+    }
 }
 
 

@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Urtopia Test</title>
   <script src="/jquery.js"></script>
-  <link rel="preload" href="/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link href="/aos.css" rel="stylesheet">
-  <script src="/swiper-bundle.min.js?v=1663912984"> </script>
-  <script src="/gsap.js"></script>
-  
+  <!-- <link rel="preload" href="/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"> -->
+  <!-- <link href="/aos.css" rel="stylesheet"> -->
+  <!-- <script src="/swiper-bundle.min.js?v=1663912984"> </script> -->
+  <!-- <script src="/gsap.js"></script> -->
+
 </head>
 <style>
   * {
@@ -64,9 +64,81 @@
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
-  <script>
-    
-  </script>
 </body>
+
+<script>
+  let currentStep = 1
+  const values = {}
+
+  function IHavefinished() {
+    if (!values.image) {
+      // return $(".step input[type=file]").click()
+      return
+    }
+
+    gotoStep(4)
+  }
+
+
+  function gotoStep(step = 1) {
+    currentStep = step
+    $('.step').hide()
+    $(`.step${currentStep}`).show()
+
+
+    // 第四步以后 就提交
+    if (step > 4) {
+    }
+  };
+
+  $(function () {
+    $('.step1 form').on("submit", function (event) {
+      $('.step1 :input').each((index, target) => {
+        $(target).attr('name') && (values[$(target).attr('name')] = $(target).val())
+      })
+
+      console.log(values)
+      gotoStep(2)
+
+      event.preventDefault();
+      return false;
+    })
+
+
+    $(".step input[type=file]").on("change", function (e) {
+      let file = this.files[0];
+      // 判断是否是图片
+      if (file && file.type.startsWith("image/")) {
+        let reader = new FileReader();
+
+        // 当文件加载时显示图片
+        reader.onload = function (e) {
+          $('.step3 .centeral-content > div > div').css('background-image', `url(${e.target.result})`)
+        };
+
+        reader.readAsDataURL(file); // 读取图片并触发 onload
+
+
+        let formData = new FormData();
+        formData.append("upload_file", file);
+
+        fetch('https://api-test.newurtopia.com/third_part/file_upload', {
+          method: "POST",
+          body: formData,
+          credentials: 'include'  // 允许发送 cookies
+        }).then(response => response.json()).then(data => {
+          console.log(data)
+        }).catch(console.error)
+
+
+        values.image = file
+      }
+
+    })
+
+
+    gotoStep(1)
+  })
+</script>
 
 </html>

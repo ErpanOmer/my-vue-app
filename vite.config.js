@@ -7,6 +7,6 @@ export default defineConfig({
   lib: {
     entry: './src/main.js',
     formats: ['es'],
-
-  }
+  },
+  base: '/my-vue-app/'
 })

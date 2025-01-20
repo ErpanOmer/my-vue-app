@@ -1,4 +1,10 @@
+import typography from '@tailwindcss/typography'
+
 export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
   prefix: 'er-',
   corePlugins: {
     preflight: false,
@@ -8,9 +14,6 @@ export default {
       screens: {
         mb: {
           max: '768px',
-        },
-        lg: {
-          max: '1023px',
         },
       },
       fontFamily: {
@@ -24,7 +27,10 @@ export default {
         background: '#F7F8FA',
         border: '#EBEDF0',
         salecolor: '#D50B28',
-      },
+      }
     },
-  }
+  },
+  plugins: [
+    typography
+  ],
 };

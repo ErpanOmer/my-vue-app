@@ -1,8 +1,5 @@
 import { createApp } from 'vue'
 import './styles/index.scss'
-import App from './apps/App74.vue'
-// import config from './tailwind'
-
-// tailwind.config = config
+import App from './apps/App79.vue'
 
 createApp(App).mount('#app')

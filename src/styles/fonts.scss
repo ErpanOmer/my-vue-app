@@ -1,27 +1,36 @@
 @font-face {
-    font-family: "Helvetica Now Display";
-    src: url("https://cdn.shopify.com/s/files/1/0583/5810/4213/files/HelveticaNowDisplay-Regular.woff2?v=1733889791") format("woff2");
-    font-weight: 400;
-    font-display: swap;
-    font-style: normal;
-    font-stretch: normal;
-  }
-  
-  
-  @font-face {
-    font-family: 'Helvetica Now Display';
-    src: url("https://cdn.shopify.com/s/files/1/0583/5810/4213/files/HelveticaNowDisplay-Medium.woff2?v=1733895976") format("woff2");
-    font-weight: 500;
-    font-display: swap;
-    font-style: normal;
-    font-stretch: normal;
-  }
-  
-  @font-face {
-    font-family: "Helvetica Now Display";
-    src: url("https://cdn.shopify.com/s/files/1/0583/5810/4213/files/HelveticaNowDisplay-Bold.woff2?v=1733896098") format("woff2");
-    font-weight: 700;
-    font-display: swap;
-    font-style: normal;
-    font-stretch: normal;
-  }
+  font-family: "Helvetica Now Display";
+  src: url(https://cdn.shopify.com/s/files/1/0583/5810/4213/files/subset-HelveticaNowDisplay-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-display: auto;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+0020-007E;
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  src: url(https://cdn.shopify.com/s/files/1/0583/5810/4213/files/subset-HelveticaNowDisplay-Medium.woff2) format("woff2");
+  font-weight: 500;
+  font-display: auto;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+0020-007E;
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  src: url(https://cdn.shopify.com/s/files/1/0583/5810/4213/files/subset-HelveticaNowDisplay-Bold.woff2) format("woff2");
+  font-weight: 700;
+  font-display: auto;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+0020-007E;
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  src: url(//newurtopia.com/cdn/shop/files/subset-HelveticaNowDisplay-ExtraBold.woff2?v=11531018436179650945) format("woff2");
+  font-weight: 800;
+  font-display: auto;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+0020-007E;
+}

@@ -106,7 +106,8 @@
 }
 
 /* 按钮icon */
-.er-button > img {
+.er-button > img,
+.er-button > svg {
     display: inline-block;
     object-fit: contain;
     max-height: 1.4em;

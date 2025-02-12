@@ -135,7 +135,9 @@
 }
 
 
-.background-image > img {
+.background-image > img,
+.background-image > video,
+.background-image > picture > img {
   position: absolute;
   inset: 0;
   width: 100%;

@@ -808,3 +808,37 @@ body .jBox-Modal {
     display: none !important;
   }
 }
+
+
+dialog {
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+  max-width: 84vw;
+  height: -moz-fit-content;
+  height: -webkit-fit-content;
+  height: fit-content;
+  margin: auto;
+  border: none;
+  padding: 0;
+  background: 0 0;
+  display: block;
+  animation: .4s mini-dialog-show;
+  position: fixed;
+  inset: 0;
+  color: #000;
+  z-index: 100000001;
+  max-height: 85vh;
+}
+
+dialog+.backdrop,
+dialog::backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: #000000b3;
+  backdrop-filter: blur(3px);
+}
+
+dialog:not([open]) {
+  display: none;
+}

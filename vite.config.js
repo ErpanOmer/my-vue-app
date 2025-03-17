@@ -1,9 +1,15 @@
 import { defineConfig } from 'vite'
+import path from 'path'
 import vue from '@vitejs/plugin-vue'
 import { viteSingleFile } from "vite-plugin-singlefile"
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), viteSingleFile()],
-  base: '/my-vue-app/'
+  base: '/my-vue-app/',
+  resolve: {
+    alias: {
+      '@': path.resolve('src')
+    }
+  }
 })

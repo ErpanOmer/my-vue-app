@@ -1,0 +1,445 @@
+<style>
+.swiper-pagination .swiper-pagination-bullet-active {
+    width: 30px;
+    border-radius: 5px;
+    transition: all .3s;
+}
+</style>
+
+<template>
+    <div class="background-image er-bg-black">
+        <video playsinline loop autoplay muted>
+            <source src="https://cdn.shopify.com/videos/c/o/v/4baa84c0b5d94bce875f7aa9c8f3fe87.mp4" type="video/mp4"
+                media="(min-width: 768px)">
+            <source src="https://cdn.shopify.com/videos/c/o/v/b5f69f7ec9e042a9bfce00ecf681c9e1.mp4" type="video/mp4"
+                media="(max-width: 767px)">
+        </video>
+        <div
+            class="er-h-screen centeral-content er-text-white er-flex er-flex-col er-items-center er-text-center mb:er-h-[135vw]">
+            <h1 class="text-size72 er-mt-40 mb:er-mt-24 mb:er-text-5xl">The Bike with a Mind</h1>
+            <p class="text-size18 er-opacity-80 er-mt-4 mb:er-text-2xl">
+                <span>
+                    An AI-Driven Smartebike, offering you more than riding.
+                </span>
+            </p>
+        </div>
+    </div>
+    <section class="er-bg-black er-text-white er-py-56 mb:er-py-28">
+        <div class="centeral-content er-flex er-text-center er-flex-col er-items-center">
+            <h2 class="text-size60 mb:er-text-5xl">Titanium Zero</h2>
+            <h3 class="text-size36 er-text-primary er-mb-24 mb:er-text-3xl mb:er-mt-4">23.8 Lbs Titanium E-Bike</h3>
+        </div>
+        <section class="centeral-content er-grid er-grid-cols-3 er-gap-4 mb:er-grid-cols-1 mb:er-gap-8">
+            <div
+                class="background-image er-rounded-3xl er-row-span-2 er-overflow-hidden er-text-center er-p-16 er-relative er-z-0 mb:er-aspect-[315/200] mb:er-py-8 mb:er-px-12 mb:er-row-span-1">
+                <h3 class="text-size24 mb:er-text-3xl">World’s lightest, highest torque-density
+                    motor</h3>
+                <picture>
+                    <source media="(min-width: 768px)"
+                        srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/24910_2x_68a05300-f440-4f42-8cd4-cc702e913019.jpg?v=1734405292">
+                    <source media="(max-width: 768px)"
+                        srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/25581_2x_f6d92ff0-bdf1-46e5-908c-2daab31c92df.jpg?v=1741834595">
+                    <img src="" alt="" loading="lazy">
+                </picture>
+            </div>
+            <div
+                class="background-image er-rounded-3xl er-overflow-hidden er-text-center er-p-16 er-relative er-z-0 er-aspect-[420/320] mb:er-aspect-[315/200] mb:er-py-8 mb:er-px-12">
+                <h3 class="text-size24 mb:er-text-3xl">3D-printed full titanium frame</h3>
+                <picture>
+                    <source media="(min-width: 768px)"
+                        srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/24909_2x_29d52eb8-8b2b-42cf-9ae8-68ae20bad4bd.jpg?v=1734405297">
+                    <source media="(max-width: 768px)"
+                        srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/24913_2x_328f2ce7-685c-4eb3-b884-b44f3c2f5569.jpg?v=1734408870">
+                    <img src="" alt="" loading="lazy">
+                </picture>
+            </div>
+            <div
+                class="background-image er-rounded-3xl er-overflow-hidden er-text-center er-p-16 er-relative er-z-0 mb:er-aspect-[315/200] mb:er-py-8 mb:er-px-12">
+                <h3 class="text-size24 mb:er-text-3xl">Carbon wheels, fork, crankset, titanium
+                    seatpost</h3>
+                <img loading="lazy"
+                    src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/6_2x_779541ba-1bd1-40eb-bc54-7161ded970fc.jpg?v=1734405309"
+                    alt="">
+            </div>
+            <div
+                class="background-image er-rounded-3xl er-overflow-hidden er-text-center er-p-16 er-relative er-z-0 er-aspect-[420/320] mb:er-aspect-[315/200] mb:er-py-8 mb:er-px-12">
+                <h3 class="text-size24 mb:er-text-3xl">300Wh/kg solid-state battery</h3>
+                <img loading="lazy"
+                    src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/24908_2x_02f9256a-4cd3-4e7e-8a57-cc47615e7417.jpg?v=1734405304"
+                    alt="">
+            </div>
+            <div
+                class="background-image er-rounded-3xl er-overflow-hidden er-text-center er-p-16 er-relative er-z-0 mb:er-aspect-[315/200] mb:er-py-8 mb:er-px-12">
+                <h3 class="text-size24 mb:er-text-3xl">SRAM 12-speed electronic shifting compatible</h3>
+                <img loading="lazy"
+                    src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/24907_2x_ee4cf3f3-c8bc-4873-abca-b585d77b7dde.jpg?v=1734405286"
+                    alt="">
+            </div>
+        </section>
+    </section>
+    <section class="background-image er-bg-black er-text-white er-aspect-[1920/1200] mb:er-aspect-auto">
+        <picture>
+            <source media="(min-width: 768px)"
+                srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/19512_2x_eba1d623-328b-43ce-95de-674a80162267.jpg?v=1741834702">
+            <source media="(max-width: 768px)"
+                srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/19521_2x_f120153c-f037-4008-b583-6c05109cf67c.jpg?v=1741836224">
+            <img class="mb:!er-object-contain mb:!er-object-top" src="" alt="" loading="lazy">
+        </picture>
+        <div class="centeral-content er-h-full">
+            <div class="er-flex er-h-full er-text-center er-flex-col er-items-center er-py-4">
+                <h2 class="text-size60 mb:er-text-5xl">Quark DM1.2</h2>
+                <h3 class="text-size36 er-text-primary er-mb-16 mb:er-text-3xl mb:er-mt-4 mb:er-mb-0">Pocket-Sized,
+                    Rocket-Powered
+                </h3>
+                <div class="er-w-screen er-aspect-[375/250] md:er-hidden"></div>
+                <p class="text-size18 er-max-w-screen-md er-opacity-80 mb:er-text-2xl">
+                    <span>
+                        The Quark DM1.2 motor exemplifies three core attributes: lightness, power, and precision.
+                        Weighing
+                        less than 1.2 kg (2.6 lbs), it delivers a maximum torque of 65 Nm, ensuring robust performance.
+                        Its
+                        integrated design features a high-precision torque sensor and dynamic magnetic encoder,
+                        providing
+                        smooth and precise assistance for a natural riding experience across various terrains.
+                    </span>
+                </p>
+                <span class="er-flex-[2]"></span>
+                <ul
+                    class="text-size18 er-self-start er-space-y-4 er-list-disc marker:er-text-primary er-text-left er-pl-8 mb:er-mt-12  mb:er-text-2xl mb:er-bg-dark mb:er-rounded-3xl mb:er-px-12 mb:er-py-6">
+                    <li><b>Weight: &lt;2.6 lbs</b></li>
+                    <li><b>65 Nm</b> Max Torque</li>
+                    <li><b>High-Precision</b> Torque Sensor</li>
+                    <li><b>Dynamic</b> Magnetic Encoder</li>
+                    <li><b>Fits High-Performance</b> Hollow Cranksets</li>
+                </ul>
+                <span class="er-flex-1"></span>
+            </div>
+        </div>
+    </section>
+    <div class="er-py-36 er-bg-black mb:er-py-20"></div>
+    <section class="background-image er-bg-black er-text-white er-aspect-[1920/1200] mb:er-aspect-auto">
+        <picture>
+            <source media="(min-width: 768px)"
+                srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/25579_2x_16601612-b36c-4b57-b16f-36254eb77210.jpg?v=1741838003">
+            <source media="(max-width: 768px)"
+                srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/19523_2x_61794b80-28d2-41c4-bc58-779c87f276f3.jpg?v=1741838695">
+            <img class="mb:!er-object-contain mb:!er-object-top" src="" alt="" loading="lazy">
+        </picture>
+        <div class="centeral-content er-h-full">
+            <div class="er-flex er-h-full er-text-center er-flex-col er-items-center er-py-4">
+                <div class="text-size18 er-flex er-items-center mb:er-mb-4">
+                    <span>Powered by</span>
+                    <img width="36" height="36" class="er-mx-4"
+                        src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/chatgpt-7977357.svg?v=1741837968"
+                        alt="">
+                    <span>ChatGPT</span>
+                </div>
+                <h2 class="text-size60 mb:er-text-5xl">Urtopia GPTs</h2>
+                <div class="er-w-screen er-aspect-[375/250] md:er-hidden"></div>
+                <p class="text-size18 er-max-w-screen-md er-opacity-80 mb:er-text-2xl er-my-20">
+                    <span>
+                        Urtopia GPTs, powered by ChatGPT, offer real-time voice feedback with enhanced language
+                        recognition. Easily control functions like gears and lights using simple voice commands, and
+                        receive helpful tips and navigation for a smoother, more enjoyable ride.
+                    </span>
+                </p>
+                <button
+                    onclick="showVideoDialog('https://www.youtube.com/embed/Q4GQ7OUDK9A?autoplay=1&amp;cc_load_policy=1')"
+                    class="er-button er-button-white">Watch
+                    video
+                    <svg class="er-scale-150 er-translate-x-1/3 er-fill-dark" xmlns="http://www.w3.org/2000/svg"
+                        height="20" viewBox="0 -960 960 960" width="20">
+                        <path
+                            d="m380-300 280-180-280-180v360ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="er-py-36 er-bg-black er-text-white er-text-center">
+        <div class="centeral-content">
+            <div class="swappppr er-relative er-overflow-hidden"
+                style="--swiper-pagination-bullet-inactive-opacity: 0.5;--swiper-theme-color: #fff;--swiper-pagination-color: #fff;--swiper-pagination-bullet-inactive-color: #999;--swiper-pagination-bullet-width: 6px;--swiper-pagination-bullet-size:6px;">
+                <div class="swiper-wrapper er-grid er-grid-cols-2 lg:er-grid-cols-3 mb:er-flex">
+                    <div class="swiper-slide er-p-12 er-flex er-flex-col er-items-center">
+                        <p class="text-size14 er-opacity-80 er-mb-4 mb:er-order-1 mb:er-my-8">
+                            <span>
+                                “The AI-powered co-pilot adds a new level of intelligence and interactivity to the
+                                already tech-infused e-bikes offered by Urtopia.”
+                            </span>
+                        </p>
+                        <span class="flex-1"></span>
+                        <img width="250" height="80" loading="lazy"
+                            src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/347_2x_4481820b-7137-48b9-9e96-ee0efbb06014.png?v=1741845006"
+                            alt="">
+                    </div>
+                    <div class="swiper-slide er-p-12 er-flex er-flex-col er-items-center">
+                        <p class="text-size14 er-opacity-80 er-mb-4 mb:er-order-1 mb:er-my-8">
+                            <span>
+                                “Urtopia has integrated the AI chatbot with its own voice recognition system, allowing
+                                users to speak their queries and get whatever answers they want.”
+                            </span>
+                        </p>
+                        <span class="flex-1"></span>
+                        <img width="250" height="80" loading="lazy"
+                            src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/348_2x_25e629de-5297-4614-a1eb-ed80aa18a912.png?v=1741845598"
+                            alt="">
+                    </div>
+                    <div class="swiper-slide er-p-12 er-flex er-flex-col er-items-center">
+                        <p class="text-size14 er-opacity-80 er-mb-4 mb:er-order-1 mb:er-my-8">
+                            <span>
+                                “Now the company has taken it one step further by becoming the first electric bicycle
+                                company to integrate ChatGPT directly into its e-bike.”
+                            </span>
+                        </p>
+                        <span class="flex-1"></span>
+                        <img width="250" height="80" loading="lazy"
+                            src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/353_2x_721bfcb2-2d26-4b81-a1e3-a090bc4fbd68.png?v=1741845593"
+                            alt="">
+                    </div>
+                    <div class="swiper-slide er-p-12 er-flex er-flex-col er-items-center">
+                        <p class="text-size14 er-opacity-80 er-mb-4 mb:er-order-1 mb:er-my-8">
+                            <span>
+                                “Urtopia Fusion, the dubbed world’s first ChatGPT-integrated e-bike”
+                            </span>
+                        </p>
+                        <span class="flex-1"></span>
+                        <img width="250" height="80" loading="lazy"
+                            src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/351_2x_9fec9e56-aa38-4d0a-93a9-9772abbe2c48.png?v=1741845586"
+                            alt="">
+                    </div>
+                    <div class="swiper-slide er-p-12 er-flex er-flex-col er-items-center">
+                        <p class="text-size14 er-opacity-80 er-mb-4 mb:er-order-1 mb:er-my-8">
+                            <span>
+                                “Artificial intelligence will help cyclists manage various aspects of their riding and
+                                health.”
+                            </span>
+                        </p>
+                        <span class="flex-1"></span>
+                        <img width="250" height="80" loading="lazy"
+                            src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/350_2x_99891745-7243-4899-8fa8-95b4820991c3.png?v=1741845581"
+                            alt="">
+                    </div>
+                    <div class="swiper-slide er-p-12 er-flex er-flex-col er-items-center">
+                        <p class="text-size14 er-opacity-80 er-mb-4 mb:er-order-1 mb:er-my-8">
+                            <span>
+                                “You can, quite literally, ask your bike for directions while talking about quantum
+                                physics on the way to your destination.”
+                            </span>
+                        </p>
+                        <span class="flex-1"></span>
+                        <img width="250" height="80" loading="lazy"
+                            src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/352_2x_4a53a3f5-bd59-48e4-ab73-d57291eca820.png?v=1741845576"
+                            alt="">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+    <section class="background-image er-aspect-[1920/900] mb:er-aspect-square er-bg-black">
+        <picture>
+            <source media="(min-width: 768px)"
+                srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/19518_2x_85f6b629-72e1-4525-9b4e-37cae26852d2.jpg?v=1741847403">
+            <source media="(max-width: 768px)"
+                srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/19522_2x_5c9f3bf4-2a2b-412b-81d6-85d9902b4ac1.jpg?v=1741850837">
+            <img src="" alt="" loading="lazy">
+        </picture>
+        <div class="centeral-content er-text-center er-flex er-justify-center er-h-full er-flex-col">
+            <h2 class="er-text-white text-size60 mb:er-text-5xl">The Bike You Will Never Lose</h2>
+        </div>
+        <div class="background-mask" style="background-image: linear-gradient(180deg, #00000000, #000000); top: 15%;">
+        </div>
+    </section>
+    <section
+        class="er-grid er-grid-cols-2 er-text-white er-bg-black er-py-72 mb:er-grid-cols-1 mb:er-py-12 er-items-center">
+        <video playsinline loop autoplay muted
+            src="https://cdn.shopify.com/videos/c/o/v/4625cd5acd84497db2ce4da89c807cf2.mp4"></video>
+        <div
+            class="er-flex er-flex-col er-items-start er-justify-center er-p-40 mb:er-p-16 mb:er-text-center mb:er-items-center">
+            <h3 class="text-size36 mb:er-text-4xl">Movement alarm</h3>
+            <p class="text-size18 er-opacity-80 er-max-w-3xl er-mt-12 mb:er-text-2xl">
+                <span>
+                    Once locked, the onboard alarm monitors movements and alerts you against unauthorized ones.
+                </span>
+            </p>
+        </div>
+        <div
+            class="er-flex er-flex-col er-items-start er-justify-center er-p-40 mb:er-p-16 mb:er-text-center mb:er-items-center mb:er-order-1">
+            <h3 class="text-size36 mb:er-text-4xl">GPS tracking and fence</h3>
+            <p class="text-size18 er-opacity-80 er-max-w-3xl er-my-16 mb:er-text-2xl">
+                <span>
+                    Aided by a constant 4G connection, GPS tracking keeps you informed of the e-bike’s position, even in
+                    the worst scenario of theft. <br><br>David’s Urtopia e-bike was stolen during his trip. With GPS
+                    tracking, he found it in Las Vegas, and the police recovered it. The officer remarked, “In 20 years,
+                    I’ve never seen a bike recovered like this.”
+                </span>
+            </p>
+            <button
+                onclick="showVideoDialog('https://www.youtube.com/embed/Q4GQ7OUDK9A?autoplay=1&amp;cc_load_policy=1')"
+                class="er-button er-button-white">Watch
+                video
+                <svg class="er-scale-150 er-translate-x-1/3 er-fill-dark" xmlns="http://www.w3.org/2000/svg" height="20"
+                    viewBox="0 -960 960 960" width="20">
+                    <path
+                        d="m380-300 280-180-280-180v360ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <video playsinline loop autoplay muted
+            src="https://cdn.shopify.com/videos/c/o/v/775d8113ac0d486f874369edc9b8d4dd.mp4"></video>
+    </section>
+    <section class="er-bg-black er-text-white">
+        <div class="centeral-content er-text-center er-flex er-flex-col er-items-center mb:er-px-0">
+            <h3 class="text-size30 er-text-primary mb:er-text-3xl">All-in Hands</h3>
+            <h2 class="text-size60 mb:er-text-5xl mb:er-mt-4">Everything is Simpler</h2>
+            <div class="er-grid er-grid-cols-2 er-gap-12 er-w-full er-py-32 mb:er-grid-cols-1 mb:er-py-16">
+                <div
+                    class="background-image er-text-left er-p-12 er-rounded-[22.5px] er-aspect-[640/350] mb:er-aspect-auto mb:er-rounded-none mb:er-p-0">
+                    <picture>
+                        <source media="(min-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/ssda_2x_94cb66c1-c73a-4f7a-ad5f-c8f14400f922.jpg?v=1741851884">
+                        <source media="(max-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/ssda_2x_075e650b-676c-4127-b48c-944789a396df.jpg?v=1741853704">
+                        <img class="mb:!er-static mb:!er-object-contain mb:!er-object-top mb:!er-h-auto" src="" alt=""
+                            loading="lazy">
+                    </picture>
+                    <div class="mb:er-text-center mb:er-p-12">
+                        <h3 class="text-size30 mb:er-text-4xl">Fingerprint unlock</h3>
+                        <p class="text-size18 er-opacity-80 er-max-w-xl er-mt-4 mb:er-text-2xl">
+                            <span>
+                                No more hassle worrying about losing another key.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="background-image er-text-left er-p-12 er-rounded-[22.5px] er-row-span-2 mb:er-row-span-1 mb:er-rounded-none mb:er-p-0">
+                    <picture>
+                        <source media="(min-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/2-c_2x_e23e8026-c45f-4633-aa0e-dfb8387aaf84.jpg?v=1741852158">
+                        <source media="(max-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/2-c_2x_232592f6-f71f-41b3-99a7-d93e4e097f08.jpg?v=1741854296">
+                        <img class="mb:!er-static mb:!er-object-contain mb:!er-object-top mb:!er-h-auto" src="" alt=""
+                            loading="lazy">
+                    </picture>
+                    <div class="mb:er-text-center mb:er-p-12">
+                        <h3 class="text-size30 mb:er-text-4xl">Navigation without cellphone</h3>
+                        <p class="text-size18 er-opacity-80 er-max-w-xl er-mt-4 mb:er-text-2xl">
+                            <span>
+                                Bright screen shows navigation clearly under daylight, no more ugly phone holder.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="background-image er-text-left er-p-12 er-rounded-[22.5px] er-aspect-[640/350] er-flex er-flex-col er-justify-center mb:er-rounded-none mb:er-p-0 mb:er-aspect-auto">
+                    <picture>
+                        <source media="(min-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/24381_2x_4197828a-01ee-4424-9123-0ef7aa971b8f.jpg?v=1741853072">
+                        <source media="(max-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/25588_2x_5266dba5-dae4-465a-8b56-2fb2197c6c06.jpg?v=1741854496">
+                        <img class="mb:!er-static mb:!er-object-contain mb:!er-object-top mb:!er-h-auto" src="" alt=""
+                            loading="lazy">
+                    </picture>
+                    <div class="mb:er-text-center mb:er-p-12">
+                        <h3 class="text-size30 mb:er-text-4xl">Track your route</h3>
+                        <p class="text-size18 er-opacity-80 er-max-w-xl er-mt-4 mb:er-text-2xl">
+                            <span>
+                                Smart App tracks your journey and health. Get on the bike and share your thrilling
+                                moments
+                                with your friends and family.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="background-image er-text-left er-p-16 er-rounded-[22.5px] er-aspect-[1280/400] er-col-span-2 er-flex er-flex-col er-justify-center mb:er-col-span-1 mb:er-rounded-none mb:er-p-0 mb:er-aspect-auto">
+                    <picture>
+                        <source media="(min-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/1-c_2x_92d9d850-a2d3-4515-8b5d-784f589f1d5b.jpg?v=1741853064">
+                        <source media="(max-width: 768px)"
+                            srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/1-c_2x_394c6a53-1ad3-4eb0-ae5d-a7768ae700ea.jpg?v=1741854716">
+                        <img class="mb:!er-static mb:!er-object-contain mb:!er-object-top mb:!er-h-auto" src="" alt=""
+                            loading="lazy">
+                    </picture>
+                    <div class="mb:er-text-center mb:er-p-12">
+                        <h3 class="text-size30 mb:er-text-4xl">Bluetooth music</h3>
+                        <p class="text-size18 er-opacity-80 er-max-w-xl er-mt-4 mb:er-text-2xl">
+                            <span>
+                                We know the importance of music, so we build in a bluetooth speaker, you can enjoy your
+                                favourite music when riding without carrying an external speaker.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="er-bg-black er-text-white er-py-48 mb:er-py-12">
+        <div class="centeral-content er-text-center er-flex er-flex-col er-items-center mb:er-px-0">
+            <h2 class="text-size60 mb:er-text-5xl mb:er-leading-tight">Your All In One <br class="md:er-hidden">Health Coach</h2>
+            <p class="text-size18 er-opacity-80 er-max-w-screen-md er-my-20 mb:er-text-2xl mb:er-order-1 mb:er-m-0 mb:er-px-12">
+                <span>
+                    Your rides and daily activities offer personalized insights. Our AI companion tailors accurate
+                    recommendations exclusively for you—no more generic advice.
+                </span>
+            </p>
+            <picture>
+                <source media="(min-width: 768px)"
+                    srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Group_1171275468_2x_d31edb7c-735f-4c0c-90e3-c4455e461c14.png?v=1741855124">
+                <source media="(max-width: 768px)"
+                    srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/25589_2x_3d67de77-2c93-44a3-bbd1-d3ae2f9c9d78.jpg?v=1741855314">
+                <img src="" class="mb:er-my-12" alt="" loading="lazy">
+            </picture>
+        </div>
+    </section>
+    <section class="er-bg-black er-text-white er-text-center er-py-40 mb:er-py-24">
+        <div class="centeral-content er-text-center er-flex er-flex-col er-items-center mb:er-px-0">
+            <h3 class="text-size30 er-text-primary mb:er-text-3xl">AIOT Platform</h3>
+            <h2 class="text-size60 mb:er-text-5xl mb:er-leading-tight mb:er-mt-4">Why We Are <br class="md:er-hidden">Smartest E-Bike</h2>
+            <p class="text-size18 er-opacity-80 er-max-w-screen-md er-my-20 mb:er-text-2xl mb:er-order-1 mb:er-m-0 mb:er-px-12">
+                <span>
+                    We have built a set of motor electronic controls, IOT systems and cloud servers, and are linked
+                    through eSIM cards to form a bike-shaped mobile phone system architecture. In this way, after we
+                    open the API, we can integrate software service functions and resources from all human society. As
+                    long as a software company opens its API, it can be integrated into our ecosystem. That’s why our
+                    e-bike has Apple Health, Google Maps, STRAVA and even ChatGPT integrated. We want to create an
+                    intelligent software and hardware ecosystem.<br><br> In addition to software, we are also open to peripheral
+                    smart hardware, linking smart helmets, smart rings, smart watches, smart AR glasses, etc. with our
+                    bikes to form an overall smart riding experience and build smart riding ecological products system.
+                </span>
+            </p>
+            <picture>
+                <source media="(min-width: 768px)"
+                    srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/AIOT_2x_66cd28c7-8289-4d3a-be02-308d45ec2217.jpg?v=1741856083">
+                <source media="(max-width: 768px)"
+                    srcset="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/urtopiaaaa_2x_a7b53687-71d5-482a-9ec9-6acd2f3cc7ca.jpg?v=1741856291">
+                <img src="" class="er-rounded-[22.5px] mb:er-my-12 mb:er-rounded-none" alt="" loading="lazy">
+            </picture>
+        </div>
+    </section>
+</template>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+    document.body.clientWidth < 768 && new Swiper('.swappppr', {
+        autoplay: {
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false,
+            delay: 5000,
+        },
+        loop: true,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        pagination: { el: '.swappppr .swiper-pagination' },
+        speed: 300
+    });
+})
+</script>

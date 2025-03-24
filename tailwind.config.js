@@ -1,7 +1,7 @@
 import typography from '@tailwindcss/typography'
 
 export default {
-  content: ["./src/apps/TestRide.vue"], // 仅扫描这个文件
+  content: ["./src/apps/TestRide.vue", './src/components/*.vue'], // 仅扫描这个文件
   prefix: 'er-',
   corePlugins: {
     preflight: false,

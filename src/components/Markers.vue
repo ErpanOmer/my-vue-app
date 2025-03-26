@@ -45,13 +45,11 @@
                                 <span>{{ time || 'Closed' }}</span>
                             </div>
                         </div>
-                        <div class="er-flex er-space-x-4">
-                            <img width="30" :src="findService(cat)" :title="cat" :alt="cat"
-                                v-for="(cat, index) in store.categories" :key="index">
+                        <div v-if="store.categories.length" class="er-flex er-space-x-4">
+                            <img width="30" :src="constans.SERVICES[value].icon" :title="constans.SERVICES[value].name" :alt="constans.SERVICES[value].name" v-for="value in store.categories" :key="value">
                             <span class="er-flex-1"></span>
-
                         </div>
-                        <a-button type="primary" danger @click="Booknow">
+                        <a-button v-if="!store.noBook" type="primary" danger @click="booknow(store)">
                             <div class="er-flex er-items-center er-text-center er-justify-center">
                                 <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
                                     viewBox="0 -960 960 960" width="20px" fill="#fff">
@@ -77,7 +75,7 @@ import mapboxgl from "mapbox-gl";
 import { Popover } from 'ant-design-vue';
 import constans from '@/constans.js'
 import { watchDebounced } from '@vueuse/core';
-import modal from '@/modal.js'
+import booknow from '@/modal.js'
 
 const props = defineProps({
     storeList: Array,
@@ -88,22 +86,6 @@ let markerRefs = ref([])
 
 function onClick() {
     console.log(11)
-}
-
-function findService(cat = '') {
-    let src = constans.SERVICES.find(s => s.name === 'Free Assembly').icon;
-
-    if (!cat) {
-        return src
-    }
-
-    for (const service of constans.SERVICES) {
-        if (service.name.replace(/\s+/g, "").toLowerCase() === cat.replace(/\s+/g, "").toLowerCase()) {
-            return service.icon
-        }
-    }
-
-    return src
 }
 
 const addMarkers = () => {

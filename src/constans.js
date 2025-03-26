@@ -35,27 +35,28 @@ export default {
             img: 'https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18754.png?v=1689236445',
         }
     },
-    SERVICES: [{
+    SERVICES: {
+        1: {
             name: 'Premium Dealer',
             icon: Svg19630
         },
-        {
+        2: {
             name: 'Standard Dealer',
             icon: Svg19631
         },
-        {
+        3: {
             name: 'Test Ride',
             icon: Svg19632
         },
-        {
+        4: {
             name: 'Free Assembly',
             icon: Svg19633
         },
-        {
+        5: {
             name: 'Service',
             icon: Svg19634
         }
-    ],
+    },
     THEME: {
         token: {
             colorPrimary: '#111',

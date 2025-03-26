@@ -1,7 +1,9 @@
 import constans from "@/constans"
 
 export function fetchStoreList() {
-    const fetchUrl = constans.IS_DEV ? 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops' : 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops'
+    // const fetchUrl = constans.IS_DEV ? 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops' : 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops'
+    // const fetchUrl = 'https://b2b.newurtopia.com/ibd-api//third_party/list_shops'
+    const fetchUrl = 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops'
 
     return new Promise((async resolve => {
         const { data, code, message } = await fetch(fetchUrl, {

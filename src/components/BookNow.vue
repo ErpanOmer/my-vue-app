@@ -84,7 +84,7 @@
             <path
                 d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
         </svg>
-        <div v-if="step === 1" class="er-py-8">
+        <div v-show="step === 1" class="er-py-8">
             <div class="er-grid er-grid-cols-2 er-gap-6">
                 <div @click="onChangeEbike(key)"
                     :class="['er-transition er-border er-border-solid er-rounded-3xl er-w-full er-border-border er-p-4 er-flex er-items-center er-flex-col er-cursor-pointer er-relative', forms.ebike === key ? 'er-bg-primary/75 er-text-white' : '']"
@@ -99,12 +99,12 @@
                 </div>
             </div>
         </div>
-        <div v-if="step === 2" class="er-py-8">
+        <div v-show="step === 2" class="er-py-8">
             <a-calendar mode="month" @change="onChangeDate" :fullscreen="false" :disabledDate="disabledDate"
                 v-model:value="forms.date" valueFormat="YYYY-MM-DD">
                 <template #headerRender="{ value, onChange }">
                     <div class="er-flex er-items-center er-justify-between er-mb-6">
-                        <span class="text-size14 er-font-medium">Date: <span class="er-text-primary">{{ forms.date
+                        <span class="text-size14 er-font-medium">Selected Date: <span class="er-text-primary">{{ forms.date
                         }}</span></span>
                         <a-select class="er-w-5/12" :value="value.format('YYYY-MM')" @change="
                             selectedMonth => {
@@ -122,7 +122,7 @@
                     </div>
                 </template>
             </a-calendar>
-            <div class="text-size14 er-font-medium er-my-6">Time: <span class="er-text-primary">{{ forms.time }}</span>
+            <div class="text-size14 er-font-medium er-my-6">Selected Time: <span class="er-text-primary">{{ forms.time }}</span>
             </div>
             <div class="er-grid er-grid-cols-5 er-gap-3">
                 <div @click="onChangeTime(time)" :key="time" v-for="time in timeArray"
@@ -131,7 +131,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="step === 3" class="er-py-8">
+        <div v-show="step === 3" class="er-py-8">
             <a-form layout="vertical" :model="forms" ref="formsRef" :rules="rules">
                 <a-form-item label="Your Name:" name="username" required><a-input type="text"
                         v-model:value="forms.username" placeholder="Pleace Enter..." /></a-form-item>
@@ -141,7 +141,7 @@
                         placeholder="Pleace Enter..." /></a-form-item>
             </a-form>
         </div>
-        <div v-if="step === 4" class="er-py-8 er-space-y-8">
+        <div v-show="step === 4" class="er-py-8 er-space-y-8">
             <a-descriptions :column="1" size="small" bordered>
                 <a-descriptions-item label="E-Bike">
                     <div class="er-flex er-flex-col er-items-center er-justify-center">
@@ -251,7 +251,7 @@ function calcuateTimes(date = dayjs()) {
     end = Number(end.split(':').shift())
     const arr = []
 
-    for (let s = start; s <= end; s++) {
+    for (let s = start; s < end; s++) {
         arr.push(current.hour(s).format('HH:mm'))
     }
 

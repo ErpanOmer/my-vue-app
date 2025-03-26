@@ -54,7 +54,7 @@ import mapboxgl from 'mapbox-gl';
 import Search from '@/components/Search.vue';
 import StoreList from '@/components/StoreList.vue';
 import constans from '@/constans.js'
-import { convertDistance, debounce, getDistance, toBounds } from '@/tools.js'
+import { convertDistance, debounce, getDistance, toBounds, isFullyContained } from '@/tools.js'
 import { fetchStoreList, fetchUserLocation } from '@/fetch.js'
 import { watchDebounced } from '@vueuse/core';
 import Markers from '@/components/Markers.vue'
@@ -77,8 +77,6 @@ const formState = ref({
 let storeListFromOrigin = fetchStoreList()
 
 
-
-
 function recalculateStoreList () {
     const center = formState.value.center
 
@@ -93,7 +91,12 @@ function recalculateStoreList () {
             continue
         }
 
-        if (formState.value.ebikes.length && !formState.value.ebikes.some(e => new Set(store.availableSizes).has(e))) {
+        if (formState.value.ebikes.length && !isFullyContained(formState.value.ebikes, store.availableSizes)) {
+            store.show = false
+            continue
+        }
+
+        if (formState.value.service.length && !isFullyContained(formState.value.service, store.categories)) {
             store.show = false
             continue
         }
@@ -149,6 +152,12 @@ watchDebounced(
 
 watchDebounced(
     () => formState.value.ebikes,
+    recalculateStoreList,
+    { debounce: 500, deep: true } // 监听对象内部的所有变化
+)
+
+watchDebounced(
+    () => formState.value.service,
     recalculateStoreList,
     { debounce: 500, deep: true } // 监听对象内部的所有变化
 )

@@ -112,10 +112,10 @@
         <a-collapse-panel :showArrow="false" :header="null" ref="collapsePanelRef">
             <a-checkbox-group v-model:value="formState.service">
                 <a-row :gutter="[0, 12]">
-                    <a-col :span="12" v-for="(item, index) in constans.SERVICES" :key="index">
-                        <a-checkbox :value="index">
-                            <img width="24" height="24" :src="item.icon" alt="" class="er-align-bottom er-mr-3">
-                            <span class="text-size14">{{ item.name }}</span>
+                    <a-col :span="12" v-for="(value, key) in constans.SERVICES" :key="key">
+                        <a-checkbox :value="Number(key)">
+                            <img width="24" height="24" :src="value.icon" alt="" class="er-align-bottom er-mr-3">
+                            <span class="text-size14">{{ value.name }}</span>
                         </a-checkbox>
                     </a-col>
                 </a-row>

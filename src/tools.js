@@ -58,3 +58,9 @@ export function toBounds(center = [], meters = 0) {
 }
 
 export const rangeExclude = (start, end, max = 24) =>  new Uint8Array(max + 1).map((_, i) => i).filter(i => i < start || i > end);
+
+
+export function isFullyContained(A, B) {
+    const setB = new Set(B); // 用 Set 提高查找效率
+    return A.every(num => setB.has(num)); // 检查 A 的所有元素是否都在 B 中
+}

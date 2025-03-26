@@ -68,7 +68,7 @@ const markerPin = ref(null)
 const formState = ref({
     center: constans.DEFAULT_CENTER,
     search: '',
-    miles: 50,
+    miles: 50000,
     service: [],
     ebikes: [],
     storeList: []
@@ -86,6 +86,7 @@ function recalculateStoreList () {
         const distance = getDistance(center, store.location)
         store.show = true
         store.distance = distance
+        store.noBook = store.noBook || !store.email || store.availableSizes.length < 1 || !store.businessHours.some(Boolean)
 
         if (distance > formState.value.miles) {
             store.show = false

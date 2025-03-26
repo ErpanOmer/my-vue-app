@@ -51,7 +51,7 @@
                             <span class="er-flex-1"></span>
 
                         </div>
-                        <a-button type="primary" danger>
+                        <a-button type="primary" danger @click="Booknow">
                             <div class="er-flex er-items-center er-text-center er-justify-center">
                                 <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
                                     viewBox="0 -960 960 960" width="20px" fill="#fff">
@@ -77,6 +77,7 @@ import mapboxgl from "mapbox-gl";
 import { Popover } from 'ant-design-vue';
 import constans from '@/constans.js'
 import { watchDebounced } from '@vueuse/core';
+import modal from '@/modal.js'
 
 const props = defineProps({
     storeList: Array,
@@ -113,4 +114,9 @@ const addMarkers = () => {
 }
 
 watchDebounced(() => props.storeList, addMarkers, { debounce: 500, deep: true });
+
+
+const Booknow = v => {
+    console.log(v)
+}
 </script>

@@ -84,11 +84,11 @@
                             <ul
                                 class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2">
                                 <li v-for="value in item.availableSizes" :key="value">
-                                    <a-badge status="error" />{{ constans.E_BIKES[value] || value }}
+                                    <a-badge status="error" />{{ constans.E_BIKES[value].name || '' }}
                                 </li>
                             </ul>
                         </div>
-                        <a-button type="primary" danger @click.stop="booknow" class="!er-absolute er-right-4 er-bottom-5">
+                        <a-button v-if="!item.noBook" type="primary" danger @click.stop="booknow(item)" class="!er-absolute er-right-4 er-bottom-5">
                             <div class="er-flex er-items-center er-text-center er-justify-center">
                                 <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
                                     viewBox="0 -960 960 960" width="20px" fill="#fff">
@@ -108,7 +108,7 @@ import { Badge } from 'ant-design-vue';
 import constans from '@/constans.js'
 import { ref, computed, nextTick } from "vue";
 import { watchDebounced } from '@vueuse/core';
-
+import booknow from '@/modal.js'
 
 const activeStore = ref()
 const listContainer = ref(null);
@@ -141,9 +141,5 @@ const onClick = v => {
     })
 
     activeStore.value = v.id
-}
-
-const booknow = v => {
-    console.log(v)
 }
 </script>

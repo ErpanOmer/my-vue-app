@@ -125,7 +125,7 @@
                 <a-row :gutter="[0, 12]">
                     <a-col :span="12" v-for="(value, key) in constans.E_BIKES" :key="key">
                         <a-checkbox :value="Number(key)">
-                            {{ value }}
+                            {{ value.name }}
                         </a-checkbox>
                     </a-col>
                 </a-row>

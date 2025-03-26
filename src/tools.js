@@ -21,6 +21,20 @@ export function debounce(fn, delay = 300) {
     };
 }
 
+export function throttle (fn, delay = 200) {
+    let lastTime = 0;
+    let rafId = null;
+
+    return function (...args) {
+        const now = performance.now(); // 使用高精度时间戳
+        if (now - lastTime >= delay) {
+            lastTime = now;
+            if (rafId) cancelAnimationFrame(rafId); // 取消上一次的 rAF
+            rafId = requestAnimationFrame(() => fn.apply(this, args));
+        }
+    };
+};
+
 
 export function getDistance(r1 = [], r2 = []) {
     r1 = new mapboxgl.LngLat(...r1);
@@ -42,3 +56,5 @@ export function toBounds(center = [], meters = 0) {
     const ll = new mapboxgl.LngLat(...center);
     return ll.toBounds(meters * aspectRatio).toArray()
 }
+
+export const rangeExclude = (start, end, max = 24) =>  new Uint8Array(max + 1).map((_, i) => i).filter(i => i < start || i > end);

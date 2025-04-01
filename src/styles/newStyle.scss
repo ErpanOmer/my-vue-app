@@ -842,3 +842,27 @@ dialog::backdrop {
 dialog:not([open]) {
   display: none;
 }
+
+.star {
+  position: relative;
+  width: var(--star-size);
+  height: var(--star-size);
+  background: 0 0
+}
+
+.star::after,.star::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: gold;
+  clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  transform: rotate(72deg);
+  transform-origin: center
+}
+
+.star::after {
+  transform: rotate(-72deg)
+}

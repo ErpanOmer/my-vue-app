@@ -13,92 +13,174 @@
 </style>
 
 <template>
-    <template v-for="(store, index) in storeList" :key="store.id">
-        <div ref="markerRefs" @click="onClick" class="er-cursor-pointer" v-show="store.show">
-            <a-popover :title="null" trigger="click" :key="store.id">
-                <template #content>
-                    <div class="er-flex er-flex-col er-space-y-3 er-w-[225px]">
-                        <span class="text-size16 er-font-bold">{{ store.name }}</span>
-                        <a class="er-whitespace-normal er-text-primary er-text-xl"
-                            :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"
-                            :title="store.address" target="_blank" rel="noopener noreferrer">{{ store.address }}</a>
-                        <div class="er-space-x-4">
-                            <a :href="`tel:${store.phone}`" :title="store.phone">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                                    width="24px" fill="#fd4b17">
-                                    <path
-                                        d="M162-120q-18 0-30-12t-12-30v-162q0-13 9-23.5t23-14.5l138-28q14-2 28.5 2.5T342-374l94 94q38-22 72-48.5t65-57.5q33-32 60.5-66.5T681-524l-97-98q-8-8-11-19t-1-27l26-140q2-13 13-22.5t25-9.5h162q18 0 30 12t12 30q0 125-54.5 247T631-329Q531-229 409-174.5T162-120Z" />
-                                </svg>
-                            </a>
-                            <a :href="`mailto:${store.email}`" :title="store.email">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                                    width="24px" fill="#fd4b17">
-                                    <path
-                                        d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280 320-200v-80L480-520 160-720v80l320 200Z" />
-                                </svg>
-                            </a>
-                        </div>
-                        <span class="text-size16 er-font-bold">Opening Hours:</span>
-                        <div class="er-flex er-flex-col er-opacity-80">
-                            <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">
-                                <span class="er-w-1/2">{{ constans.WEEK[index] }}:</span>
-                                <span>{{ time || 'Closed' }}</span>
-                            </div>
-                        </div>
-                        <div v-if="store.categories.length" class="er-flex er-space-x-4">
-                            <img width="30" :src="constans.SERVICES[value].icon" :title="constans.SERVICES[value].name" :alt="constans.SERVICES[value].name" v-for="value in store.categories" :key="value">
-                            <span class="er-flex-1"></span>
-                        </div>
-                        <a-button v-if="!store.noBook" type="primary" danger @click="booknow(store)">
-                            <div class="er-flex er-items-center er-text-center er-justify-center">
-                                <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
-                                    viewBox="0 -960 960 960" width="20px" fill="#fff">
-                                    <path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z" />
-                                </svg>
-                            </div>
-                        </a-button>
+    <a-popover v-if="open" :title="null" trigger="click" :getPopupContainer="getPopupContainer" destroyTooltipOnHide>
+        <template #content>
+            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px]">
+                <span class="text-size16 er-font-bold">{{ store.name }}</span>
+                <a class="er-whitespace-normal er-text-primary er-text-xl"
+                    :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"
+                    :title="store.address" target="_blank" rel="noopener noreferrer">{{ store.address }}</a>
+                <div class="er-space-x-4">
+                    <a :href="`tel:${store.phone}`" :title="store.phone">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#fd4b17">
+                            <path
+                                d="M162-120q-18 0-30-12t-12-30v-162q0-13 9-23.5t23-14.5l138-28q14-2 28.5 2.5T342-374l94 94q38-22 72-48.5t65-57.5q33-32 60.5-66.5T681-524l-97-98q-8-8-11-19t-1-27l26-140q2-13 13-22.5t25-9.5h162q18 0 30 12t12 30q0 125-54.5 247T631-329Q531-229 409-174.5T162-120Z" />
+                        </svg>
+                    </a>
+                    <a :href="`mailto:${store.email}`" :title="store.email">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#fd4b17">
+                            <path
+                                d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280 320-200v-80L480-520 160-720v80l320 200Z" />
+                        </svg>
+                    </a>
+                </div>
+                <span class="text-size16 er-font-bold">Opening Hours:</span>
+                <div class="er-flex er-flex-col er-opacity-80">
+                    <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">
+                        <span class="er-w-1/2">{{ constans.WEEK[index] }}:</span>
+                        <span>{{ time || 'Closed' }}</span>
                     </div>
-                </template>
-                <svg v-show="store.show" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960"
-                    width="48px" fill="#fd4b17">
-                    <path
-                        d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 400Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z" />
-                </svg>
-            </a-popover>
-        </div>
-    </template>
+                </div>
+                <div v-if="store.categories.length" class="er-flex er-space-x-4">
+                    <img width="30" :src="constans.SERVICES[value].icon" :title="constans.SERVICES[value].name"
+                        :alt="constans.SERVICES[value].name" v-for="value in store.categories" :key="value">
+                    <span class="er-flex-1"></span>
+                </div>
+                <a-button v-if="!store.noBook" type="primary" danger @click="Booknow(store)">
+                    <div class="er-flex er-items-center er-text-center er-justify-center">
+                        <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
+                            viewBox="0 -960 960 960" width="20px" fill="#fff">
+                            <path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z" />
+                        </svg>
+                    </div>
+                </a-button>
+            </div>
+        </template>
+        <div ref="popover" v-if="open" class="er-absolute"
+            :style="{ left: `${popoverPosition.left}px`, top: `${popoverPosition.top}px` }"></div>
+    </a-popover>
 </template>
 
 <script setup>
-import { onMounted, nextTick, ref, watch } from 'vue'
+import { onMounted, nextTick, ref, watch, onUnmounted } from 'vue'
 import mapboxgl from "mapbox-gl";
 import { Popover } from 'ant-design-vue';
 import constans from '@/constans.js'
 import { watchDebounced } from '@vueuse/core';
 import booknow from '@/modal.js'
+import event from '@/event.js'
+import { convertDistance, getDistance, toBounds, jumpTo } from '@/tools.js'
 
 const props = defineProps({
     storeList: Array,
     map: Object
 });
 
-let markerRefs = ref([])
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+                    fill="#fd4b17">
+                    <path
+                        d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 400Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z" />
+            </svg>`
 
-function onClick() {
-    console.log(11)
-}
+const markers = new Map()
+const openPopoverId = ref(null)
+const store = ref({})
+const open = ref(false)
+const popover = ref(null)
+const popoverPosition = ref({ left: 0, top: 0 }); // Popover 位置
 
 const addMarkers = () => {
-    for (let index = 0; index < props.storeList.length; index++) {
-        const store = props.storeList[index]
-        new mapboxgl.Marker(markerRefs.value[index]).setLngLat(store.location).addTo(props.map)
+    for (const marker of markers.values()) {
+        marker.remove()
+    }
+
+    markers.clear()
+
+    for (const store of props.storeList) {
+        if (store.show) {
+            const marker = new mapboxgl.Marker({ color: "#fd4b17", className: `er-cursor-pointer` }).setLngLat(store.location).addTo(props.map)
+            const elem = marker.getElement()
+            elem.setAttribute('data-id', store.id)
+
+            markers.set(store.id, marker)
+        }
     }
 }
 
+const getPopupContainer = () => {
+    return document.body
+}
+
+async function onClickMarker(id) {
+    const store = props.storeList.find(s => s.id === id)
+    const { lng, lat } = props.map.getCenter();
+
+    //两点之间的距离
+    const disrance = Number(getDistance(store.location, [lng, lat]))
+
+    // 如果两点之间的距离 超过 10 miles
+    if (disrance > 10) {
+        await jumpTo(props.map, store.location)
+    }
+    
+    setTimeout(show, 0, store)
+}
+
+
+function Booknow(store) {
+    hide()
+    booknow(store)
+}
+
+function show(v) {
+    if (!v) {
+        return
+    }
+
+    open.value = false
+    store.value = v
+
+    const rect = markers.get(v.id).getElement().getBoundingClientRect()
+    popoverPosition.value = { left: rect.left + parseInt(rect.width / 2), top: rect.top }
+
+    nextTick(() => {
+        open.value = true
+
+        nextTick(() => {
+            popover.value.click()
+        })
+    })
+}
+
+function hide() {
+    open.value = false
+}
+
+event.on('hidePopover', hide)
+event.on('storeListItemClick', show)
+event.on('clickMarker', onClickMarker)
+
+
 watchDebounced(() => props.storeList, addMarkers, { debounce: 500, deep: true });
 
+function handleClickOutside(event) {
+    nextTick(() => {
+        const youaregoodman = document.querySelector('.youaregoodman')
 
-const Booknow = v => {
-    console.log(v)
+        if (youaregoodman && !youaregoodman.contains(event.target)) {
+            hide()
+        }
+    })
 }
+
+// 绑定/解绑点击事件
+onMounted(() => {
+    document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+    document.removeEventListener("click", handleClickOutside);
+});
 </script>

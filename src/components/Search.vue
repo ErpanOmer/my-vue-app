@@ -38,8 +38,8 @@
     <div class="er-flex er-items-center er-space-x-4">
         <a-auto-complete v-model:value="formState.search" :listHeight="600" :options="searchOptions"
             @select="onSelectStore" @search="onSearchStore" class="er-w-full" :allowClear="false" :clearIcon="null">
-            <a-input placeholder="Search by Your location Or Store name" :clearIcon="null"
-                :allowClear="false" class="er-font-bold">
+            <a-input placeholder="Search by Your location Or Store name" :clearIcon="null" :allowClear="false"
+                class="er-font-bold">
                 <template #suffix>
                     <div>
                         <a-divider type="vertical" />
@@ -85,8 +85,7 @@
             </template>
         </a-auto-complete>
         <a-button type="primary" danger class="!er-px-4" @click.stop.prevent="onClick" title="Recharge Location">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"
-                >
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
                 <path d="M516-120 402-402 120-516v-56l720-268-268 720h-56Z" />
             </svg>
             <!-- <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-42v-80q-125-14-214.5-103.5T122-440H42v-80h80q14-125 103.5-214.5T440-838v-80h80v80q125 14 214.5 103.5T838-520h80v80h-80q-14 125-103.5 214.5T520-122v80h-80Zm40-158q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-120q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Z"/></svg> -->
@@ -94,19 +93,20 @@
     </div>
     <div>
         <div class="er-text-2xl"><b>Radius: </b><span class="er-text-xl">{{ formState.miles }} miles</span></div>
-        <a-slider v-model:value="formState.miles" :min="20" :max="100" :step="1" :tip-formatter="tipFormatter" />
+        <a-slider v-model:value="formState.miles" :min="5" :max="50" :step="1" :tip-formatter="tipFormatter" />
     </div>
-    <div class="er-flex er-pb-4">
-        <a-button shape="round" :type="filterButtonType" @click="toggleCollapse">
-            Filters
-            <AlignRightOutlined />
-        </a-button>
-        <span class="er-flex-1"></span>
-        <!-- <a-button size="large" type="link" class="er-underline">Clear All</a-button>
-        <a-button shape="round" size="large" type="primary">
-            Search
-            <SearchOutlined />
-        </a-button> -->
+    <div class="er-flex er-pb-4 er-flex-col">
+        <div class="er-flex">
+            <a-button shape="round" :type="filterButtonType" @click="toggleCollapse">
+                Filters
+                <AlignRightOutlined />
+            </a-button>
+            <span class="er-flex-1"></span>
+            <a-button type="link" class="er-underline" @click="reset">Reset All</a-button>
+        </div>
+        <div class="er-flex er-mt-4 er-gap-y-2 er-flex-wrap" v-if="tags.length">
+            <a-tag v-for="tag in tags" :key="tag.key" :bordered="false" @close.prevent="closeTag(tag)" closable>{{ tag.name }}</a-tag>
+        </div>
     </div>
     <a-collapse ghost :expandIcon="null" accordion>
         <a-collapse-panel :showArrow="false" :header="null" ref="collapsePanelRef">
@@ -135,11 +135,11 @@
 </template>
 
 <script setup>
-import { Button, Collapse, Slider, AutoComplete, CheckboxGroup, Checkbox, Row, Col, Divider, Input } from 'ant-design-vue';
+import { Button, Collapse, Slider, AutoComplete, CheckboxGroup, Checkbox, Row, Col, Divider, Input, Tag } from 'ant-design-vue';
 import { SearchOutlined, AlignRightOutlined, SendOutlined } from '@ant-design/icons-vue';
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, computed } from 'vue'
 import constans from '@/constans.js'
-import { convertDistance, getDistance, toBounds } from '@/tools.js'
+import { convertDistance, getDistance, toBounds, jumpTo } from '@/tools.js'
 import { GeocodingCore, debounce } from '@mapbox/search-js-core'
 import Fuse from 'fuse.js'
 
@@ -154,6 +154,26 @@ const geocode = new GeocodingCore({ accessToken: constans.ACCESS_TOEKN, country:
 // filter forms
 const collapsePanelRef = ref(null)
 const filterButtonType = ref('default')
+
+const tags = computed(() => {
+    const arr = []
+
+    for (const key of props.formState.service) {
+        arr.push({
+            key,
+            name: constans.SERVICES[key].name
+        })
+    }
+
+    for (const key of props.formState.ebikes) {
+        arr.push({
+            key,
+            name: constans.E_BIKES[key].name
+        })
+    }
+
+    return arr
+})
 
 // searchOstions
 const searchOptions = ref([])
@@ -248,6 +268,19 @@ async function searchStore(text = '') {
     return result
 }
 
+const reset = () => {
+    console.log('')
+
+    props.formState.service = []
+    props.formState.ebikes = []
+    // props.formState.miles = constans
+}
+
+const closeTag = tag => {
+    props.formState.service = props.formState.service.filter(v => v !== tag.key)
+    props.formState.ebikes = props.formState.ebikes.filter(v => v !== tag.key)
+}
+
 const onSearchStore = debounce(async text => {
     // console.log(text)
 
@@ -255,30 +288,19 @@ const onSearchStore = debounce(async text => {
 }, 300)
 
 function onSelectStore(value, option) {
-    // console.log(value, option)
+    console.log(value, option)
     props.formState.center = option.center
 
-    props.map.flyTo({
-        center: option.center,
-        zoom: 12,
-        speed: 1.2,
-        curve: 1
-    })
+    jumpTo(props.map, option.center)
 }
 
 const onClick = (e) => {
     console.log(e)
 
     props.formState.center = constans.DEFAULT_CENTER
-    props.formState.miles = 50
+    props.formState.miles = constans.DEFAULT_RADIUS
 
-    props.map.flyTo({
-        center: constans.DEFAULT_CENTER,
-        speed: 1.2,
-        curve: 1,
-        zoom: 9,
-        bounds: toBounds(constans.DEFAULT_CENTER, convertDistance(50)),
-    })
+    jumpTo(props.map, constans.DEFAULT_CENTER)
 
     e.stopPropagation()
     return false

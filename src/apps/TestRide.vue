@@ -3,19 +3,33 @@
 @import '@/styles/tailwind.css';
 
 @keyframes bounce {
-  0% { transform: translateY(-50%) scale(1, 1); }
-  30% { transform: translateY(-65%) scale(1.1, 0.9); }
-  50% { transform: translateY(-80%) scale(0.9, 1.1); }
-  75% { transform: translateY(-65%) scale(1, 1); }
-  100% { transform: translateY(-50%) scale(1, 1); }
+    0% {
+        transform: translateY(-50%) scale(1, 1);
+    }
+
+    30% {
+        transform: translateY(-65%) scale(1.1, 0.9);
+    }
+
+    50% {
+        transform: translateY(-80%) scale(0.9, 1.1);
+    }
+
+    75% {
+        transform: translateY(-65%) scale(1, 1);
+    }
+
+    100% {
+        transform: translateY(-50%) scale(1, 1);
+    }
 }
 
 .map-marker {
-  width: 50px;
-  height: 50px;
-  border-radius: 1px;
-  transform: translateY(-50%);
-  animation: bounce 0.6s ease-out;
+    width: 50px;
+    height: 50px;
+    border-radius: 1px;
+    transform: translateY(-50%);
+    animation: bounce 0.6s ease-out;
 }
 
 
@@ -24,23 +38,33 @@
     width: 100vw;
     user-select: none;
 }
+
+@media (max-width: 767px) {
+    #map {
+        width: 100vw;
+        height: 100vw;
+        margin-left: -20px;
+        margin-top: 0;
+    }
+}
 </style>
 
 <template>
     <a-config-provider :theme="constans.THEME">
         <a-style-provider :transformers="[legacyLogicalPropertiesTransformer]" hash-priority="high">
             <div class="er-relative">
-                <div id="map" ref="mapContainer"></div>
+                <div id="map" v-if="!constans.IS_MOBILE" ref="mapContainer"></div>
                 <div
-                    class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full er-max-w-2xl">
+                    class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-2xl mb:er-static">
                     <Search :map="map" v-model:formState="formState" />
+                    <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div>
                     <StoreList :map="map" v-model:formState="formState" />
                 </div>
             </div>
             <Markers :map="map" :storeList="formState.storeList" />
         </a-style-provider>
     </a-config-provider>
-    <span ref="markerPin">
+    <span ref="markerPin" class="er-hidden">
         <img :src="icon" alt="" class="map-marker">
     </span>
 </template>
@@ -59,6 +83,7 @@ import { fetchStoreList, fetchUserLocation } from '@/fetch.js'
 import { watchDebounced } from '@vueuse/core';
 import Markers from '@/components/Markers.vue'
 import icon from '@/assets/pin.png'
+import event from '@/event.js'
 
 const mapContainer = ref(null);
 const map = ref(null)
@@ -68,7 +93,7 @@ const markerPin = ref(null)
 const formState = ref({
     center: constans.DEFAULT_CENTER,
     search: '',
-    miles: 50000,
+    miles: constans.DEFAULT_RADIUS,
     service: [],
     ebikes: [],
     storeList: []
@@ -77,7 +102,7 @@ const formState = ref({
 let storeListFromOrigin = fetchStoreList()
 
 
-function recalculateStoreList () {
+function recalculateStoreList() {
     const center = formState.value.center
 
     for (const store of formState.value.storeList) {
@@ -111,27 +136,61 @@ onMounted(async () => {
         container: mapContainer.value, // container ID
         style: "mapbox://styles/mapbox/streets-v12",
         center: constans.DEFAULT_CENTER,
-        bounds: toBounds(constans.DEFAULT_CENTER, convertDistance(50)),
-        maxBounds: constans.IS_DEV ? null : [
+        bounds: toBounds(constans.DEFAULT_CENTER, convertDistance(constans.DEFAULT_RADIUS)),
+        maxBounds: [
             [-130, 22],  // 西南角 (夏威夷附近)
             [-60, 55]    // 东北角 (缅因州和五大湖上方)
         ],
-        minZoom: 7,
-        // attributionControl: false,
+        minZoom: 9,
+        attributionControl: false,
+        // keyboard: true,
+        cooperativeGestures: true,
+        // dragPan: false,
+        boxZoom: false,
         // scrollZoom: false,
-        // doubleClickZoom: false,
+        dragRotate: false,
+        doubleClickZoom: false,
     })
 
     console.log(mapboxgl)
 
     map.value.on('load', function ({ target: map }) {
+        markerPin.value.classList = ['er-block']
         marker.value = new mapboxgl.Marker(markerPin.value).setLngLat(constans.DEFAULT_CENTER).addTo(map);
+
+        fetchUserLocation().then(r => {
+            const maxBounds = map.getMaxBounds()
+            const center = maxBounds.contains(r) ? r : constans.DEFAULT_CENTER
+
+            if (center !== constans.DEFAULT_CENTER) {
+                map.jumpTo({
+                    center,
+                    // curve: 1,
+                    // zoom: 9,
+                    bounds: toBounds(center, convertDistance(constans.DEFAULT_RADIUS)),
+                })
+            }
+
+            constans.DEFAULT_CENTER = center
+        })
     })
 
 
     map.value.on('moveend', () => {
         const center = map.value.getCenter()
         formState.value.center = [center.lng, center.lat]
+    });
+
+    map.value.on('click', (e) => {
+        const elem = e.originalEvent.target.closest('.mapboxgl-marker')
+
+        if (elem) {
+            event.emit('clickMarker', elem.getAttribute('data-id'))
+        }
+    });
+
+    map.value.on('movestart', () => {
+        event.emit('hideMarkers')
     });
 
     formState.value.storeList = await storeListFromOrigin.then()
@@ -176,4 +235,19 @@ watchDebounced(
     },
     { debounce: 10, deep: true } // 监听对象内部的所有变化
 )
+
+function sendHeight() {
+    window.parent.postMessage({ height: document.body.scrollHeight }, "*");
+}
+
+window.addEventListener("load", sendHeight);
+window.addEventListener("resize", sendHeight);
+
+if (typeof ResizeObserver !== "undefined") {
+    (new ResizeObserver(sendHeight)).observe(document.body);
+}
+
+if (typeof MutationObserver !== "undefined") {
+    (new MutationObserver(sendHeight)).observe(document.body, { childList: true, subtree: true });
+}
 </script>

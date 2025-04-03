@@ -5,9 +5,11 @@ import Svg19633 from '@/assets/19633.svg'
 import Svg19634 from '@/assets/19634.svg'
 
 export default {
+    IS_MOBILE: /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window && navigator.maxTouchPoints > 0),
     IS_DEV: import.meta.env.DEV,
     ACCESS_TOEKN: 'pk.eyJ1IjoiZXJwYW5vbWVyIiwiYSI6ImNtODN2M3lzNjBsc24yanI0Y3FkNXo5aDYifQ.9g2y8zRNHFfPTqfaXIWxCg',
     DEFAULT_CENTER: [-118.00130, 33.82981],
+    DEFAULT_RADIUS: 20,
     E_BIKES: {
         8792002461944: {
             name: 'Carbon Fold 1',

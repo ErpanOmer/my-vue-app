@@ -1,9 +1,7 @@
 import constans from "@/constans"
 
 export function fetchStoreList() {
-    // const fetchUrl = constans.IS_DEV ? 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops' : 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops'
-    // const fetchUrl = 'https://b2b.newurtopia.com/ibd-api//third_party/list_shops'
-    const fetchUrl = 'https://api-test.newurtopia.com/ibd-api/third_party/list_shops'
+    const fetchUrl = 'https://b2b.newurtopia.com/ibd-api/third_party/list_shops'
 
     return new Promise((async resolve => {
         const { data, code, message } = await fetch(fetchUrl, {
@@ -24,7 +22,7 @@ export function fetchStoreList() {
 
 export function fetchUserLocation() {
     return new Promise(resolve => {
-        if (!navigator.geolocation || constans.IS_DEV) {
+        if (!navigator.geolocation) {
             return resolve(constans.DEFAULT_CENTER)
         }
 
@@ -39,7 +37,7 @@ export function fetchUserLocation() {
             },
             {
                 enableHighAccuracy: true, // 开启高精度模式
-                timeout: 5000, // 最多等待 5 秒
+                timeout: 15000, // 最多等待 5 秒
                 maximumAge: 0, // 不使用缓存数据
             }
         );

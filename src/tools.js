@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl';
+import { LngLat } from 'mapbox-gl';
 
 // unit 0：meters, 1: miles
 
@@ -37,8 +37,8 @@ export function throttle(fn, delay = 200) {
 
 
 export function getDistance(r1 = [], r2 = []) {
-    r1 = new mapboxgl.LngLat(...r1);
-    r2 = new mapboxgl.LngLat(...r2);
+    r1 = new LngLat(...r1);
+    r2 = new LngLat(...r2);
 
     const km = (r1.distanceTo(r2) / 1000).toFixed(2)
 
@@ -53,7 +53,7 @@ export function toBounds(center = [], meters = 0) {
     // const aspectRatio = document.body.clientWidth / document.body.clientHeight;
     const aspectRatio = 1
 
-    const ll = new mapboxgl.LngLat(...center);
+    const ll = new LngLat(...center);
     return ll.toBounds(meters * aspectRatio).toArray()
 }
 
@@ -78,3 +78,18 @@ export function jumpTo(map, center) {
         })
     })
 }
+
+
+// 查询url 参数
+export function getSearchValues () {
+    const search = {}
+
+    // 页面url
+    const url = new URL(location.href)
+
+    for (const [k, v] of url.searchParams.entries()) {
+        search[k] = v
+    }
+
+    return search
+  }

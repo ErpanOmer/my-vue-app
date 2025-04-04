@@ -4,7 +4,11 @@ export function fetchStoreList() {
     const fetchUrl = 'https://b2b.newurtopia.com/ibd-api/third_party/list_shops'
 
     return new Promise((async resolve => {
-        const { data, code, message } = await fetch(fetchUrl, {
+        const {
+            data,
+            code,
+            message
+        } = await fetch(fetchUrl, {
             headers: {
                 origin: 'api-test.newurtopia.com',
                 referer: 'api-test.newurtopia.com',
@@ -34,12 +38,57 @@ export function fetchUserLocation() {
             (error) => {
                 console.error("获取位置失败:", error.message);
                 return resolve(constans.DEFAULT_CENTER)
-            },
-            {
+            }, {
                 enableHighAccuracy: true, // 开启高精度模式
                 timeout: 15000, // 最多等待 5 秒
                 maximumAge: 0, // 不使用缓存数据
             }
         );
     })
+}
+
+
+export function submitBookRide(userInfo, storeInfo) {
+    console.log(userInfo, storeInfo)
+
+    const extras = {
+        test_ride_model: constans.E_BIKES[userInfo.ebike].name,
+        test_ride_time: `${userInfo.date} ${userInfo.time}`,
+        phone_number: userInfo.phone,
+        spot: storeInfo.city,
+        name: userInfo.username,
+        phone: userInfo.phone,
+        email: userInfo.email,
+        source: 'newurtopia.com',
+        book_time: `${userInfo.date} ${userInfo.time}`,
+        shop_info: storeInfo
+    }
+
+    const body = {
+        module: "website-us",
+        trace_name: "testride-us",
+        trace_type: `submit-${constans.IS_MOBILE ? 'mb' : 'pc' }`,
+        extras: {
+            spot: storeInfo.city,
+            userInfo: extras,
+            ...extras
+        },
+        ...extras
+    }
+
+    console.log(body)
+
+    try {
+        fetch('https://api.newurtopia.com/third_part/book_ride', {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+        fetch('https://api.newurtopia.com/third_part/traces', {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
 }

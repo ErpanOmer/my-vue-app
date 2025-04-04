@@ -36,10 +36,10 @@
             Find nearby stores: <span class="er-text-primary er-pl-2">{{formState.storeList.filter(s =>
                 s.show).length}}</span>
         </div>
-        <div class="er-flex er-flex-col er-space-y-4 er-overflow-auto mb:er-max-h-screen" ref="listContainer">
+        <div class="er-flex er-flex-col er-space-y-4 er-overflow-auto" ref="listContainer">
             <template v-for="(item, index) in sortedList" :key="item.id">
                 <div :class="['er-relative er-flex er-flex-col er-space-y-2 er-cursor-pointer er-pr-4 er-px-8 er-py-4 hover:er-opacity-85', activeStore === item.id ? 'er-bg-[#eee]' : 'er-bg-white']"
-                    v-if="item.show" @click.stop="onClick(item)">
+                    v-if="item.show" @click.stop="onClick(item, $event)">
                     <div class="er-flex er-items-start er-text-dark er-space-x-2">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#444">
@@ -87,7 +87,7 @@
                             </li>
                         </ul>
                     </div>
-                    <a-button v-if="!item.noBook" type="primary" danger @click.stop="Booknow(item)"
+                    <a-button v-if="!item.noBook" type="primary" danger @click.stop="Booknow(item, $event)"
                         class="!er-absolute er-right-4 er-bottom-5">
                         <div class="er-flex er-items-center er-text-center er-justify-center">
                             <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
@@ -119,9 +119,9 @@ const props = defineProps({
     formState: Object // 声明 list 作为 prop
 });
 
-function Booknow(store) {
+function Booknow(store, e) {
     event.emit('hidePopover')
-    booknow(store)
+    booknow(store, e)
 }
 
 const sortedList = computed(() => {
@@ -136,7 +136,7 @@ const sortedList = computed(() => {
 })
 
 
-const onClick = async v => {
+const onClick = async (v) => {
     // 获取当前地图的可视区域边界
     const bounds = props.map.getBounds();
     // 要判断的坐标点

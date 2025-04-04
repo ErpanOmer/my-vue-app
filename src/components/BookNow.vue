@@ -182,8 +182,9 @@
 import { Button, DatePicker, Calendar, Select, SelectOption, Form, FormItem, Input, Descriptions, DescriptionsItem } from 'ant-design-vue'
 import dayjs, { Dayjs } from 'dayjs';
 import { ref, onMounted, watch, nextTick } from 'vue'
-import constans from '@/constans'
-import { rangeExclude, throttle } from '@/tools'
+import constans from '@/constans.js'
+import { rangeExclude, throttle } from '@/tools.js'
+import { submitBookRide } from '@/fetch.js'
 
 const stepToTitle = ['Step 1/3: Choose E-bike Model', 'Step 2/3: Select Date and Time', 'Step 3/3: Submit', 'Thank You!']
 const rules = {
@@ -238,8 +239,6 @@ function getNextOpenDay(businessHours, today = dayjs()) {
 }
 
 function calcuateTimes(date = dayjs()) {
-    console.log(props.store)
-
     const current = dayjs(date)
     const range = props.store.businessHours[current.day()]
 
@@ -303,12 +302,11 @@ const onChangeTime = v => {
 }
 
 const submit = async () => {
-    console.log('submit')
-
     try {
         const r = await formsRef.value.validate()
         disabled.value = true
-        console.log(r)
+
+        submitBookRide(forms.value, props.store)
 
     } catch (error) {
         console.log('invalired', error)

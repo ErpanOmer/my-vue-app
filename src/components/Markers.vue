@@ -48,7 +48,7 @@
                         :alt="constans.SERVICES[value].name" v-for="value in store.categories" :key="value">
                     <span class="er-flex-1"></span>
                 </div>
-                <a-button v-if="!store.noBook" type="primary" danger @click="Booknow(store)">
+                <a-button v-if="!store.noBook" type="primary" danger @click="Booknow(store, $event)">
                     <div class="er-flex er-items-center er-text-center er-justify-center">
                         <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
                             viewBox="0 -960 960 960" width="20px" fill="#fff">
@@ -65,7 +65,7 @@
 
 <script setup>
 import { onMounted, nextTick, ref, watch, onUnmounted } from 'vue'
-import mapboxgl from "mapbox-gl";
+import { Marker } from "mapbox-gl";
 import { Popover } from 'ant-design-vue';
 import constans from '@/constans.js'
 import { watchDebounced } from '@vueuse/core';
@@ -100,7 +100,7 @@ const addMarkers = () => {
 
     for (const store of props.storeList) {
         if (store.show) {
-            const marker = new mapboxgl.Marker({ color: "#fd4b17", className: `er-cursor-pointer` }).setLngLat(store.location).addTo(props.map)
+            const marker = new Marker({ color: "#fd4b17", className: `er-cursor-pointer` }).setLngLat(store.location).addTo(props.map)
             const elem = marker.getElement()
             elem.setAttribute('data-id', store.id)
 
@@ -121,7 +121,7 @@ async function onClickMarker(id) {
     const disrance = Number(getDistance(store.location, [lng, lat]))
 
     // 如果两点之间的距离 超过 10 miles
-    if (disrance > 10) {
+    if (disrance > 15) {
         await jumpTo(props.map, store.location)
     }
     
@@ -129,9 +129,9 @@ async function onClickMarker(id) {
 }
 
 
-function Booknow(store) {
+function Booknow(store, e) {
     hide()
-    booknow(store)
+    booknow(store, e)
 }
 
 function show(v) {

@@ -42,7 +42,7 @@
 @media (max-width: 767px) {
     #map {
         width: 100vw;
-        height: 100vw;
+        height: 150vw;
         margin-left: -20px;
         margin-top: 0;
     }
@@ -71,10 +71,8 @@
 
 <script setup>
 import { StyleProvider, ConfigProvider, legacyLogicalPropertiesTransformer } from 'ant-design-vue'
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { ref, onMounted, watch, watchEffect, nextTick } from "vue";
-import mapboxgl from 'mapbox-gl';
+import { Map, Marker } from 'mapbox-gl';
 import Search from '@/components/Search.vue';
 import StoreList from '@/components/StoreList.vue';
 import constans from '@/constans.js'
@@ -131,7 +129,7 @@ function recalculateStoreList() {
 
 onMounted(async () => {
     // mapboxgl.workerUrl = location.origin;
-    map.value = new mapboxgl.Map({
+    map.value = new Map({
         accessToken: constans.ACCESS_TOEKN,
         container: mapContainer.value, // container ID
         style: "mapbox://styles/mapbox/streets-v12",
@@ -141,8 +139,8 @@ onMounted(async () => {
             [-130, 22],  // 西南角 (夏威夷附近)
             [-60, 55]    // 东北角 (缅因州和五大湖上方)
         ],
-        minZoom: 9,
-        attributionControl: false,
+        minZoom: constans.IS_MOBILE ? 7 : 9,
+        // attributionControl: false,
         // keyboard: true,
         cooperativeGestures: true,
         // dragPan: false,
@@ -152,11 +150,9 @@ onMounted(async () => {
         doubleClickZoom: false,
     })
 
-    console.log(mapboxgl)
-
     map.value.on('load', function ({ target: map }) {
         markerPin.value.classList = ['er-block']
-        marker.value = new mapboxgl.Marker(markerPin.value).setLngLat(constans.DEFAULT_CENTER).addTo(map);
+        marker.value = new Marker(markerPin.value).setLngLat(constans.DEFAULT_CENTER).addTo(map);
 
         fetchUserLocation().then(r => {
             const maxBounds = map.getMaxBounds()
@@ -225,7 +221,7 @@ watchDebounced(
 watchDebounced(
     () => formState.value.center,
     v => {
-        marker.value.setLngLat(v)
+        marker.value.setLngLat(v);
         markerPin.value.style.display = 'none';
         requestAnimationFrame(() => {
             markerPin.value.style.display = "block"; // 重新应用动画
@@ -250,4 +246,10 @@ if (typeof ResizeObserver !== "undefined") {
 if (typeof MutationObserver !== "undefined") {
     (new MutationObserver(sendHeight)).observe(document.body, { childList: true, subtree: true });
 }
+
+window.addEventListener('message', (event) => {
+    if (event.data && typeof event.data.visibleHeight === 'number') {
+        constans.visibleHeight = event.data.visibleHeight
+    }
+});
 </script>

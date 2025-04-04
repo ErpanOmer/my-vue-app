@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-// import './styles/index.scss'
+import 'mapbox-gl/dist/mapbox-gl.css';
 import App from './apps/TestRide.vue'
 
 createApp(App).mount('#app')

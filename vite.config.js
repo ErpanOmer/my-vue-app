@@ -40,7 +40,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'mapbox-gl': ['mapbox-gl'],
-          'ant-design-vue': ['ant-design-vue']，
+          'ant-design-vue': ['ant-design-vue'],
           'vue': ['vue']
         }
       },

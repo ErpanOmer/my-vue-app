@@ -56,12 +56,12 @@
                 <div id="map" v-if="!constans.IS_MOBILE" ref="mapContainer"></div>
                 <div
                     class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-2xl mb:er-static">
-                    <Search :map="map" v-model:formState="formState" />
+                    <Search/>
                     <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div>
-                    <StoreList :map="map" v-model:formState="formState" />
+                    <StoreList/>
                 </div>
             </div>
-            <Markers :map="map" :storeList="formState.storeList" />
+            <Markers/>
         </a-style-provider>
     </a-config-provider>
     <span ref="markerPin" class="er-hidden">
@@ -82,45 +82,38 @@ import { watchDebounced } from '@vueuse/core';
 import Markers from '@/components/Markers.vue'
 import icon from '@/assets/pin.png'
 import event from '@/event.js'
+import { useStore } from '@/store'
 
+const store = useStore()
 const mapContainer = ref(null);
-const map = ref(null)
 const marker = ref(null)
 const markerPin = ref(null)
-// 表单
-const formState = ref({
-    center: constans.DEFAULT_CENTER,
-    search: '',
-    miles: constans.DEFAULT_RADIUS,
-    service: [],
-    ebikes: [],
-    storeList: []
-})
 
+// pre fetch
 let storeListFromOrigin = fetchStoreList()
 
 
 function recalculateStoreList() {
-    const center = formState.value.center
+    const center = store.formState.center
 
-    for (const store of formState.value.storeList) {
-        const distance = getDistance(center, store.location)
-        store.show = true
-        store.distance = distance
-        store.noBook = store.noBook || !store.email || store.availableSizes.length < 1 || !store.businessHours.some(Boolean)
+    for (const s of store.formState.storeList) {
+        const distance = getDistance(center, s.location)
+        s.show = true
+        s.distance = distance
+        s.noBook = s.noBook || !s.email || s.availableSizes.length < 1 || !s.businessHours.some(Boolean)
 
-        if (distance > formState.value.miles) {
-            store.show = false
+        if (distance > store.formState.miles) {
+            s.show = false
             continue
         }
 
-        if (formState.value.ebikes.length && !isFullyContained(formState.value.ebikes, store.availableSizes)) {
-            store.show = false
+        if (store.formState.ebikes.length && !isFullyContained(store.formState.ebikes, s.availableSizes)) {
+            s.show = false
             continue
         }
 
-        if (formState.value.service.length && !isFullyContained(formState.value.service, store.categories)) {
-            store.show = false
+        if (store.formState.service.length && !isFullyContained(store.formState.service, s.categories)) {
+            s.show = false
             continue
         }
     }
@@ -129,7 +122,7 @@ function recalculateStoreList() {
 
 onMounted(async () => {
     // mapboxgl.workerUrl = location.origin;
-    map.value = new Map({
+    store.map = new Map({
         accessToken: constans.ACCESS_TOEKN,
         container: mapContainer.value, // container ID
         style: "mapbox://styles/mapbox/streets-v12",
@@ -139,7 +132,7 @@ onMounted(async () => {
             [-130, 22],  // 西南角 (夏威夷附近)
             [-60, 55]    // 东北角 (缅因州和五大湖上方)
         ],
-        minZoom: constans.IS_MOBILE ? 7 : 9,
+        minZoom: constans.IS_MOBILE ? 7 : 7.25,
         // attributionControl: false,
         // keyboard: true,
         cooperativeGestures: true,
@@ -150,7 +143,7 @@ onMounted(async () => {
         doubleClickZoom: false,
     })
 
-    map.value.on('load', function ({ target: map }) {
+    store.map.on('load', function ({ target: map }) {
         markerPin.value.classList = ['er-block']
         marker.value = new Marker(markerPin.value).setLngLat(constans.DEFAULT_CENTER).addTo(map);
 
@@ -169,36 +162,36 @@ onMounted(async () => {
 
             constans.DEFAULT_CENTER = center
         })
+
+
+        map.on('moveend', () => {
+            const center = map.getCenter()
+            store.formState.center = [center.lng, center.lat]
+        });
+
+        map.on('click', (e) => {
+            const elem = e.originalEvent.target.closest('.mapboxgl-marker')
+
+            if (elem) {
+                event.emit('clickMarker', elem.getAttribute('data-id'))
+            }
+        });
+
+        map.on('movestart', () => {
+            event.emit('hideMarkers')
+        });
     })
 
-
-    map.value.on('moveend', () => {
-        const center = map.value.getCenter()
-        formState.value.center = [center.lng, center.lat]
-    });
-
-    map.value.on('click', (e) => {
-        const elem = e.originalEvent.target.closest('.mapboxgl-marker')
-
-        if (elem) {
-            event.emit('clickMarker', elem.getAttribute('data-id'))
-        }
-    });
-
-    map.value.on('movestart', () => {
-        event.emit('hideMarkers')
-    });
-
-    formState.value.storeList = await storeListFromOrigin.then()
+    store.formState.storeList = await storeListFromOrigin.then()
     setTimeout(recalculateStoreList)
 })
 
 // 监听 formState 的变化
 watchDebounced(
-    () => formState.value.miles, // 只监听 miles
+    () => store.formState.miles, // 只监听 miles
     v => {
-        map.value.setCenter(formState.value.center);
-        map.value.fitBounds(toBounds(formState.value.center, convertDistance(v)), { duration: 1000 })
+        store.map.setCenter(store.formState.center);
+        store.map.fitBounds(toBounds(store.formState.center, convertDistance(v)), { duration: 1000 })
         setTimeout(recalculateStoreList)
     },
     { debounce: 500, deep: true } // 监听对象内部的所有变化
@@ -206,20 +199,20 @@ watchDebounced(
 
 
 watchDebounced(
-    () => formState.value.ebikes,
+    () => store.formState.ebikes,
     recalculateStoreList,
     { debounce: 500, deep: true } // 监听对象内部的所有变化
 )
 
 watchDebounced(
-    () => formState.value.service,
+    () => store.formState.service,
     recalculateStoreList,
     { debounce: 500, deep: true } // 监听对象内部的所有变化
 )
 
 
 watchDebounced(
-    () => formState.value.center,
+    () => store.formState.center,
     v => {
         marker.value.setLngLat(v);
         markerPin.value.style.display = 'none';

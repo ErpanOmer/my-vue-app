@@ -72,20 +72,10 @@ import { watchDebounced } from '@vueuse/core';
 import booknow from '@/modal.js'
 import event from '@/event.js'
 import { convertDistance, getDistance, toBounds, jumpTo } from '@/tools.js'
+import { useStore } from '@/store'
 
-const props = defineProps({
-    storeList: Array,
-    map: Object
-});
-
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
-                    fill="#fd4b17">
-                    <path
-                        d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 400Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z" />
-            </svg>`
-
+const state = useStore()
 const markers = new Map()
-const openPopoverId = ref(null)
 const store = ref({})
 const open = ref(false)
 const popover = ref(null)
@@ -98,9 +88,9 @@ const addMarkers = () => {
 
     markers.clear()
 
-    for (const store of props.storeList) {
+    for (const store of state.formState.storeList) {
         if (store.show) {
-            const marker = new Marker({ color: "#fd4b17", className: `er-cursor-pointer` }).setLngLat(store.location).addTo(props.map)
+            const marker = new Marker({ color: "#fd4b17", className: `er-cursor-pointer` }).setLngLat(store.location).addTo(state.map)
             const elem = marker.getElement()
             elem.setAttribute('data-id', store.id)
 
@@ -114,15 +104,15 @@ const getPopupContainer = () => {
 }
 
 async function onClickMarker(id) {
-    const store = props.storeList.find(s => s.id === id)
-    const { lng, lat } = props.map.getCenter();
+    const store = state.formState.storeList.find(s => s.id === id)
+    const { lng, lat } = state.map.getCenter();
 
     //两点之间的距离
     const disrance = Number(getDistance(store.location, [lng, lat]))
 
     // 如果两点之间的距离 超过 10 miles
-    if (disrance > 15) {
-        await jumpTo(props.map, store.location)
+    if (disrance > (state.formState.miles / 2)) {
+        await jumpTo(state.map, store.location)
     }
     
     setTimeout(show, 0, store)
@@ -163,24 +153,5 @@ event.on('storeListItemClick', show)
 event.on('clickMarker', onClickMarker)
 
 
-watchDebounced(() => props.storeList, addMarkers, { debounce: 500, deep: true });
-
-function handleClickOutside(event) {
-    nextTick(() => {
-        const youaregoodman = document.querySelector('.youaregoodman')
-
-        if (youaregoodman && !youaregoodman.contains(event.target)) {
-            hide()
-        }
-    })
-}
-
-// 绑定/解绑点击事件
-onMounted(() => {
-    document.addEventListener("click", handleClickOutside);
-});
-
-onUnmounted(() => {
-    document.removeEventListener("click", handleClickOutside);
-});
+watchDebounced(() => state.formState.storeList, addMarkers, { debounce: 500, deep: true });
 </script>

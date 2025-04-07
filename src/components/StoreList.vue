@@ -33,7 +33,7 @@
 <template>
     <div class="er-flex-1 er-pb-8 er-flex er-flex-col er-overflow-hidden" style="margin: 0 -20px;">
         <div class="er-flex er-items-center text-size14 er-px-10 er-py-4 er-pb-4 er-shadow-2xl">
-            Find nearby stores: <span class="er-text-primary er-pl-2">{{formState.storeList.filter(s =>
+            Find nearby stores: <span class="er-text-primary er-pl-2">{{store.formState.storeList.filter(s =>
                 s.show).length}}</span>
         </div>
         <div class="er-flex er-flex-col er-space-y-4 er-overflow-auto" ref="listContainer">
@@ -110,14 +110,11 @@ import { watchDebounced } from '@vueuse/core';
 import booknow from '@/modal.js'
 import event from '@/event.js'
 import { convertDistance, getDistance, toBounds, jumpTo } from '@/tools.js'
+import { useStore } from '@/store'
 
+const store = useStore()
 const activeStore = ref()
 const listContainer = ref(null);
-
-const props = defineProps({
-    map: Object,
-    formState: Object // 声明 list 作为 prop
-});
 
 function Booknow(store, e) {
     event.emit('hidePopover')
@@ -131,34 +128,34 @@ const sortedList = computed(() => {
         }
     });
 
-    const list = props.formState.storeList.filter(s => s.show)
+    const list = store.formState.storeList.filter(s => s.show)
     return list.sort((a, b) => a.distance - b.distance);
 })
 
 
 const onClick = async (v) => {
     // 获取当前地图的可视区域边界
-    const bounds = props.map.getBounds();
+    const bounds = store.map.getBounds();
     // 要判断的坐标点
     const point = v.location; // 例如 [113.2644, 23.1291] (深圳)
     // 判断该点是否在地图可视区域内
     const isInside = bounds.contains(point);
 
     // 两点之间的距离
-    const disrance = Number(getDistance(v.location, props.formState.center)
+    const disrance = Number(getDistance(v.location, store.formState.center)
 )
     activeStore.value = v.id
 
     // 如果当前点 ，不在地图上
     if (!isInside) {
-        props.formState.center = v.location
-        await jumpTo(props.map, v.location)
+        store.formState.center = v.location
+        await jumpTo(store.map, v.location)
     }
 
     // 如果两点之间的距离 超过 10 miles
-    if (disrance > props.formState.miles / 2) {
-        props.formState.center = v.location
-        await jumpTo(props.map, v.location)
+    if (disrance > store.formState.miles / 2) {
+        store.formState.center = v.location
+        await jumpTo(store.map, v.location)
     }
 
     setTimeout(() => {

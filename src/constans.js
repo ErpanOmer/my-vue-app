@@ -22,7 +22,8 @@ export default {
     IS_IFRAME: window.top !== window.self,
     ACCESS_TOEKN: 'pk.eyJ1IjoiZXJwYW5vbWVyIiwiYSI6ImNtODN2M3lzNjBsc24yanI0Y3FkNXo5aDYifQ.9g2y8zRNHFfPTqfaXIWxCg',
     DEFAULT_CENTER: [-118.00130, 33.82981],
-    DEFAULT_RADIUS: 20,
+    DEFAULT_RADIUS: 50,
+    RADIUS_RANGE: [25, 125],
     E_BIKES: {
         8792002461944: {
             name: 'Carbon Fold 1',

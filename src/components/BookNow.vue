@@ -134,11 +134,11 @@
         <div v-show="step === 3" class="er-py-8">
             <a-form layout="vertical" :model="forms" ref="formsRef" :rules="rules">
                 <a-form-item label="Your Name:" name="username" required><a-input type="text"
-                        v-model:value="forms.username" placeholder="Pleace Enter..." /></a-form-item>
+                        v-model:value="forms.username" placeholder="Please Enter..." /></a-form-item>
                 <a-form-item label="Phone Number:" name="phone" required><a-input type="tel" v-model:value="forms.phone"
-                        placeholder="Pleace Enter..." /></a-form-item>
+                        placeholder="Please Enter..." /></a-form-item>
                 <a-form-item label="Email@:" name="email" required><a-input type="email" v-model:value="forms.email"
-                        placeholder="Pleace Enter..." /></a-form-item>
+                        placeholder="Please Enter..." /></a-form-item>
             </a-form>
         </div>
         <div v-show="step === 4" class="er-py-8 er-space-y-8">

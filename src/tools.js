@@ -1,4 +1,5 @@
 import { LngLat } from 'mapbox-gl';
+import constans from '@/constans.js';
 
 // unit 0：meters, 1: miles
 
@@ -65,17 +66,21 @@ export function isFullyContained(A, B) {
     return A.every(num => setB.has(num)); // 检查 A 的所有元素是否都在 B 中
 }
 
-export function jumpTo(map, center) {
+export function jumpTo(map, center, bounds) {
     return new Promise(resolve => {
         const zoom = map.getZoom()
 
         // 监听动画结束
         map.once("moveend", resolve)
 
+        console.log(bounds)
+
         map.easeTo({
             center,
-            zoom
+            ...(bounds ? {} : { zoom })
         })
+
+        bounds && map.fitBounds(bounds, { duration: 300 })
     })
 }
 

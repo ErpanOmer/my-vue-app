@@ -42,7 +42,7 @@
             </svg>
         </a-button></div>
     <div class="er-flex er-items-center er-space-x-4">
-        <a-auto-complete v-model:value="formState.search" :listHeight="600" :options="searchOptions"
+        <a-auto-complete v-model:value="store.formState.search" :listHeight="600" :options="searchOptions"
             @select="onSelectStore" @search="onSearchStore" class="er-w-full" :allowClear="true">
             <a-input placeholder="Search by Store name Or Your location"></a-input>
             <template #clearIcon>
@@ -92,8 +92,8 @@
         </a-button> -->
     </div>
     <div>
-        <div class="er-text-2xl"><b>Radius: </b><span class="er-text-xl">{{ formState.miles }} miles</span></div>
-        <a-slider v-model:value="formState.miles" :min="5" :max="50" :step="1" :tip-formatter="tipFormatter" />
+        <div class="er-text-2xl"><b>Radius: </b><span class="er-text-xl">{{ store.formState.miles }} miles</span></div>
+        <a-slider v-model:value="store.formState.miles" :min="constans.RADIUS_RANGE[0]" :max="constans.RADIUS_RANGE[1]" :step="1" :tip-formatter="tipFormatter" />
     </div>
     <div class="er-flex er-pb-4 er-flex-col">
         <div class="er-flex">
@@ -112,7 +112,7 @@
     </div>
     <a-collapse ghost :expandIcon="null" accordion>
         <a-collapse-panel :showArrow="false" :header="null" ref="collapsePanelRef">
-            <a-checkbox-group v-model:value="formState.service">
+            <a-checkbox-group v-model:value="store.formState.service">
                 <a-row :gutter="[0, 12]">
                     <a-col :span="12" v-for="(value, key) in constans.SERVICES" :key="key">
                         <a-checkbox :value="Number(key)">
@@ -123,7 +123,7 @@
                 </a-row>
             </a-checkbox-group>
             <a-divider />
-            <a-checkbox-group v-model:value="formState.ebikes">
+            <a-checkbox-group v-model:value="store.formState.ebikes">
                 <a-row :gutter="[0, 12]">
                     <a-col :span="12" v-for="(value, key) in constans.E_BIKES" :key="key">
                         <a-checkbox :value="Number(key)">
@@ -144,12 +144,9 @@ import constans from '@/constans.js'
 import { convertDistance, getDistance, toBounds, jumpTo } from '@/tools.js'
 import { GeocodingCore, debounce } from '@mapbox/search-js-core'
 import Fuse from 'fuse.js'
+import { useStore } from '@/store'
 
-const props = defineProps({
-    map: Object,
-    formState: Object // 声明 list 作为 prop
-});
-
+const store = useStore()
 // map
 const geocode = new GeocodingCore({ accessToken: constans.ACCESS_TOEKN, country: 'US', language: 'en', limit: 5 });
 
@@ -160,14 +157,14 @@ const filterButtonType = ref('default')
 const tags = computed(() => {
     const arr = []
 
-    for (const key of props.formState.service) {
+    for (const key of store.formState.service) {
         arr.push({
             key,
             name: constans.SERVICES[key].name
         })
     }
 
-    for (const key of props.formState.ebikes) {
+    for (const key of store.formState.ebikes) {
         arr.push({
             key,
             name: constans.E_BIKES[key].name
@@ -245,7 +242,7 @@ async function searchStore(text = '') {
         return result
     }
 
-    const fuse = new Fuse(props.formState.storeList.filter(s => s.show), { keys: ['name',] })
+    const fuse = new Fuse(store.formState.storeList.filter(s => s.show), { keys: ['name',] })
     const list = fuse.search(text, {
         limit: 5
     })
@@ -271,16 +268,13 @@ async function searchStore(text = '') {
 }
 
 const reset = () => {
-    console.log('')
-
-    props.formState.service = []
-    props.formState.ebikes = []
-    // props.formState.miles = constans
+    store.formState.service = []
+    store.formState.ebikes = []
 }
 
 const closeTag = tag => {
-    props.formState.service = props.formState.service.filter(v => v !== tag.key)
-    props.formState.ebikes = props.formState.ebikes.filter(v => v !== tag.key)
+    store.formState.service = store.formState.service.filter(v => v !== tag.key)
+    store.formState.ebikes = store.formState.ebikes.filter(v => v !== tag.key)
 }
 
 const onSearchStore = debounce(async text => {
@@ -291,18 +285,18 @@ const onSearchStore = debounce(async text => {
 
 function onSelectStore(value, option) {
     console.log(value, option)
-    props.formState.center = option.center
+    store.formState.center = option.center
 
-    jumpTo(props.map, option.center)
+    jumpTo(store.map, option.center)
 }
 
 const onClick = (e) => {
-    console.log(e)
+    store.formState.center = constans.DEFAULT_CENTER
+    store.formState.miles = constans.DEFAULT_RADIUS
+    store.formState.search = ''
+    searchOptions.value = []
 
-    props.formState.center = constans.DEFAULT_CENTER
-    props.formState.miles = constans.DEFAULT_RADIUS
-
-    jumpTo(props.map, constans.DEFAULT_CENTER)
+    jumpTo(store.map, constans.DEFAULT_CENTER, toBounds(constans.DEFAULT_CENTER, convertDistance(constans.DEFAULT_RADIUS)))
 
     e.stopPropagation()
     return false

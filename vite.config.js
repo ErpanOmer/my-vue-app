@@ -20,7 +20,7 @@ export default defineConfig({
   plugins: [
     vue(),
     // viteSingleFile(),
-    Components({
+    Components({ 
       resolvers: [
         AntDesignVueResolver({
           importStyle: false, // css in js

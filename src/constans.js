@@ -61,11 +61,11 @@ export default {
         },
         3: {
             name: 'Test Ride',
-            icon: Svg19632
+            icon: Svg19633
         },
         4: {
             name: 'Free Assembly',
-            icon: Svg19633
+            icon: Svg19632
         },
         5: {
             name: 'Service',

@@ -13,12 +13,13 @@ import {
 import {
   visualizer
 } from 'rollup-plugin-visualizer';
+import brotli from "rollup-plugin-brotli";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    viteSingleFile(),
+    // viteSingleFile(),
     Components({
       resolvers: [
         AntDesignVueResolver({
@@ -26,8 +27,9 @@ export default defineConfig({
         }),
       ],
     }),
+    brotli(),
   ],
-  base: '/my-vue-app/',
+  // base: '/my-vue-app/',
   resolve: {
     alias: {
       '@': path.resolve('src')
@@ -35,6 +37,13 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      output: {
+        manualChunks: {
+          'mapbox-gl': ['mapbox-gl'],
+          'ant-design-vue': ['ant-design-vue']，
+          'vue': ['vue']
+        }
+      },
       plugins: [
         visualizer({
           open: true, // 直接在浏览器中打开分析报告

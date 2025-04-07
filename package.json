@@ -31,5 +31,8 @@
     "ant-design-vue": "^4.2.6",
     "fuse.js": "^7.1.0",
     "mapbox-gl": "^3.10.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
   }
 }

@@ -135,7 +135,7 @@ onMounted(async () => {
         minZoom: constans.IS_MOBILE ? 6 : 7.25,
         cooperativeGestures: true,
         dragRotate: false,
-        touchZoomRotate: false
+        // touchZoomRotate: false
         // doubleClickZoom: false,
     })
 

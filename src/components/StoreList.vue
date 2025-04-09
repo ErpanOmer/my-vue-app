@@ -69,9 +69,6 @@ const sortedList = computed(() => {
 const store = useStore()
 const listContainer = ref(null);
 
-onMounted(() => {
-})
-
 const onClick = async (v) => {
     // 获取当前地图的可视区域边界
     const bounds = store.map.getBounds();
@@ -111,6 +108,7 @@ const onChange = index => {
 
 watch(sortedList, v => {
     rerender.value = false
+    itsMe = false
 
     nextTick(() => {
         currentIndex.value = 1
@@ -129,8 +127,8 @@ event.on('clickMarker', id => {
 
     activeStore.value = sortedList.value[index].id
 
+    itsMe = true
     if (carousel.value) {
-        itsMe = true
         carousel.value.goTo(index)
     }
 })

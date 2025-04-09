@@ -41,7 +41,7 @@ export default defineConfig({
         manualChunks: {
           'mapbox-gl': ['mapbox-gl'],
           'ant-design-vue': ['ant-design-vue'],
-          'vue': ['vue']
+          // 'vue': ['vue']
         }
       },
       plugins: [

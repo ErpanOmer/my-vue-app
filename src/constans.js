@@ -7,7 +7,7 @@ import { getSearchValues } from '@/tools.js'
 
 const values = getSearchValues()
 
-console.log(values)
+const IS_MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
 
 export default {
     SHOP_NAME: values.shop_name || 'Urtopia (US)',
@@ -17,12 +17,12 @@ export default {
     SHOP_LOCALE: values.locale || 'en',
     SHOP_LANGUAGE: values.language || 'en',
     SHOP_COUNTRY: values.country || 'US',
-    IS_MOBILE: /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window && navigator.maxTouchPoints > 0),
+    IS_MOBILE,
     IS_DEV: import.meta.env.DEV,
     IS_IFRAME: window.top !== window.self,
     ACCESS_TOEKN: 'pk.eyJ1IjoiZXJwYW5vbWVyIiwiYSI6ImNtODN2M3lzNjBsc24yanI0Y3FkNXo5aDYifQ.9g2y8zRNHFfPTqfaXIWxCg',
     DEFAULT_CENTER: [-118.00130, 33.82981],
-    DEFAULT_RADIUS: 50,
+    DEFAULT_RADIUS: IS_MOBILE ? 25 : 50,
     RADIUS_RANGE: [25, 125],
     E_BIKES: {
         8792002461944: {

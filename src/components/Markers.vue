@@ -13,14 +13,14 @@
 </style>
 
 <template>
-    <a-popover v-if="open" :title="null" trigger="click" :getPopupContainer="getPopupContainer" destroyTooltipOnHide>
+    <a-popover v-if="open" :title="null" trigger="click" :getPopupContainer="getPopupContainer" destroyTooltipOnHide arrowPointAtCenter>
         <template #content>
-            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px]">
-                <span class="text-size16 er-font-bold">{{ store.name }}</span>
-                <a class="er-whitespace-normal er-text-primary er-text-xl"
+            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[175px]">
+                <span class="text-size16 er-font-bold mb:er-text-primary er-leading-tight">{{ store.name }}</span>
+                <a v-if="!constans.IS_MOBILE" class="er-text-primary er-text-xl"
                     :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"
                     :title="store.address" target="_blank" rel="noopener noreferrer">{{ store.address }}</a>
-                <div class="er-space-x-4">
+                <div class="er-space-x-4" v-if="!constans.IS_MOBILE">
                     <a :href="`tel:${store.phone}`" :title="store.phone">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#fd4b17">
@@ -36,7 +36,7 @@
                         </svg>
                     </a>
                 </div>
-                <span class="text-size16 er-font-bold">Opening Hours:</span>
+                <span class="text-size16 er-font-bold mb:er-text-2xl">Opening Hours:</span>
                 <div class="er-flex er-flex-col er-opacity-80">
                     <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">
                         <span class="er-w-1/2">{{ constans.WEEK[index] }}:</span>
@@ -48,7 +48,7 @@
                         :alt="constans.SERVICES[value].name" v-for="value in store.categories" :key="value">
                     <span class="er-flex-1"></span>
                 </div>
-                <a-button v-if="!store.noBook" type="primary" danger @click="Booknow(store, $event)">
+                <a-button v-if="!store.noBook && !constans.IS_MOBILE" type="primary" danger @click="Booknow(store, $event)">
                     <div class="er-flex er-items-center er-text-center er-justify-center">
                         <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
                             viewBox="0 -960 960 960" width="20px" fill="#fff">
@@ -58,7 +58,7 @@
                 </a-button>
             </div>
         </template>
-        <div ref="popover" v-if="open" class="er-absolute"
+        <div ref="popover" v-if="open" class="er-fixed er-w-1 er-h-1 er-bg-transparent"
             :style="{ left: `${popoverPosition.left}px`, top: `${popoverPosition.top}px` }"></div>
     </a-popover>
 </template>
@@ -111,7 +111,8 @@ async function onClickMarker(id) {
     const disrance = Number(getDistance(store.location, [lng, lat]))
 
     // 如果两点之间的距离 超过 10 miles
-    if (disrance > (state.formState.miles / 2)) {
+    if (disrance > ((state.formState.miles / 3) * 2)) {
+        state.formState.center = store.location
         await jumpTo(state.map, store.location)
     }
     
@@ -133,7 +134,8 @@ function show(v) {
     store.value = v
 
     const rect = markers.get(v.id).getElement().getBoundingClientRect()
-    popoverPosition.value = { left: rect.left + parseInt(rect.width / 2), top: rect.top }
+
+    popoverPosition.value = { left: rect.left + parseInt(rect.width / 2), top: rect.top + 20 }
 
     nextTick(() => {
         open.value = true

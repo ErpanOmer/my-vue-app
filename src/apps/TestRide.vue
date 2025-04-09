@@ -55,7 +55,7 @@
             <div class="er-relative">
                 <div id="map" v-if="!constans.IS_MOBILE" ref="mapContainer"></div>
                 <div
-                    class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-2xl mb:er-static">
+                    class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-[400px] mb:er-static mb:er-pb-[40vw]">
                     <Search/>
                     <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div>
                     <StoreList/>
@@ -64,9 +64,9 @@
             <Markers/>
         </a-style-provider>
     </a-config-provider>
-    <span ref="markerPin" class="er-hidden">
+    <!-- <span ref="markerPin" class="er-hidden">
         <img :src="icon" alt="" class="map-marker">
-    </span>
+    </span> -->
 </template>
 
 <script setup>
@@ -132,20 +132,15 @@ onMounted(async () => {
             [-130, 22],  // 西南角 (夏威夷附近)
             [-60, 55]    // 东北角 (缅因州和五大湖上方)
         ],
-        minZoom: constans.IS_MOBILE ? 7 : 7.25,
-        // attributionControl: false,
-        // keyboard: true,
+        minZoom: constans.IS_MOBILE ? 6 : 7.25,
         cooperativeGestures: true,
-        // dragPan: false,
-        boxZoom: false,
-        // scrollZoom: false,
         dragRotate: false,
-        doubleClickZoom: false,
+        // doubleClickZoom: false,
     })
 
     store.map.on('load', function ({ target: map }) {
-        markerPin.value.classList = ['er-block']
-        marker.value = new Marker(markerPin.value).setLngLat(constans.DEFAULT_CENTER).addTo(map);
+        // markerPin.value.classList = ['er-block']
+        // marker.value = new Marker(markerPin.value).setLngLat(constans.DEFAULT_CENTER).addTo(map);
 
         fetchUserLocation().then(r => {
             const maxBounds = map.getMaxBounds()
@@ -163,8 +158,12 @@ onMounted(async () => {
             constans.DEFAULT_CENTER = center
         })
 
+        // map.on('dragend', () => {
+        //     console.log('A dragend event occurred.');
+        // });
 
-        map.on('moveend', () => {
+
+        map.on('dragend', () => {
             const center = map.getCenter()
             store.formState.center = [center.lng, center.lat]
         });
@@ -214,11 +213,11 @@ watchDebounced(
 watchDebounced(
     () => store.formState.center,
     v => {
-        marker.value.setLngLat(v);
-        markerPin.value.style.display = 'none';
-        requestAnimationFrame(() => {
-            markerPin.value.style.display = "block"; // 重新应用动画
-        })
+        // marker.value.setLngLat(v);
+        // markerPin.value.style.display = 'none';
+        // requestAnimationFrame(() => {
+        //     markerPin.value.style.display = "block"; // 重新应用动画
+        // })
 
         setTimeout(recalculateStoreList)
     },

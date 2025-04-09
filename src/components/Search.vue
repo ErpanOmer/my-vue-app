@@ -34,9 +34,9 @@
 
 <template>
 
-    <div class="text-size20 er-font-bold er-flex er-items-center">Find a Dealer <span class="er-flex-1"></span><a-button type="primary" danger
+    <div class="text-size20 er-font-bold er-flex er-items-center">Find a Dealer <span class="er-flex-1"></span><a-button type="primary"
             @click.stop.prevent="onClick" title="Recharge Location">
-            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fff">
+            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#fff">
                 <path
                     d="M440-42v-80q-125-14-214.5-103.5T122-440H42v-80h80q14-125 103.5-214.5T440-838v-80h80v80q125 14 214.5 103.5T838-520h80v80h-80q-14 125-103.5 214.5T520-122v80h-80Zm40-158q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-120q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Z" />
             </svg>
@@ -148,7 +148,7 @@ import { useStore } from '@/store'
 
 const store = useStore()
 // map
-const geocode = new GeocodingCore({ accessToken: constans.ACCESS_TOEKN, country: 'US', language: 'en', limit: 5 });
+const geocode = new GeocodingCore({ accessToken: constans.ACCESS_TOEKN, country: 'US,CA', language: 'en', limit: 5 });
 
 // filter forms
 const collapsePanelRef = ref(null)

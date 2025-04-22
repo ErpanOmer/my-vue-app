@@ -32,7 +32,7 @@
             class="er-flex er-items-center text-size14 er-px-10 er-py-4 er-pb-4 er-shadow-2xl mb:er-bg-white mb:er-mb-2 mb:er-w-[calc(100%-32px)] mb:er-mx-auto mb:er-rounded-xl mb:er-font-bold mb:er-px-6">
             Find nearby stores: <span class="er-text-primary er-pl-2"><span v-if="constans.IS_MOBILE">{{ currentIndex }} / </span> {{ sortedList.length }}</span>
         </div>
-        <a-carousel v-if="constans.IS_MOBILE && rerender" :after-change="onChange" :dots="false" arrows :infinite="false" ref="carousel" :slickGoTo="10">
+        <a-carousel v-if="constans.IS_MOBILE && rerender" :after-change="onChange" :touchThreshold="10" :dots="false" arrows :infinite="false" ref="carousel" :slickGoTo="10">
             <ListItem v-for="item in sortedList" :item="item" :key="item.id" :onclick="onClick"/>
             <template #prevArrow>
                 <svg style="left: -6px;transform: translateY(-50%);" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="16px" fill="#fff"><path d="M640-116 276-480l364-364 34 34-330 330 330 330-34 34Z"/></svg>

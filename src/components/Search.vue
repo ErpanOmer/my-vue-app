@@ -260,7 +260,7 @@ async function searchStore(text = '') {
         return result
     }
 
-    const fuse = new Fuse(store.formState.storeList.filter(s => s.show), {
+    const fuse = new Fuse(store.formState.storeList, {
         keys: [
             { name: 'name', weight: 0.7 },      // 重要程度高
             { name: 'address', weight: 0.3 },   // 次要

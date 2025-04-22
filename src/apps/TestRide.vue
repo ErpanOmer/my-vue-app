@@ -139,6 +139,8 @@ onMounted(async () => {
         // doubleClickZoom: false,
     })
 
+    store.map.setPadding(constans.IS_MOBILE ? { bottom: 100 } : { left: 200 });
+
     store.map.on('load', function ({ target: map }) {
         // markerPin.value.classList = ['er-block']
         // marker.value = new Marker(markerPin.value).setLngLat(constans.DEFAULT_CENTER).addTo(map);

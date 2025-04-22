@@ -17,25 +17,26 @@
         <template #content>
             <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[175px]">
                 <span class="text-size16 er-font-bold mb:er-text-primary er-leading-tight">{{ store.name }}</span>
-                <a v-if="!constans.IS_MOBILE" class="er-text-primary er-text-xl"
+                <a v-if="!constans.IS_MOBILE" class="er-text-primary er-text-xl !er-underline"
                     :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"
                     :title="store.address" target="_blank" rel="noopener noreferrer">{{ store.address }}</a>
-                <div class="er-space-x-4" v-if="!constans.IS_MOBILE">
-                    <a :href="`tel:${store.phone}`" :title="store.phone">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+
+                    <a :href="`tel:${store.phone}`" :title="store.phone" class="er-flex er-items-center er-gap-x-2 er-flex-wrap er-text-xl" v-if="!constans.IS_MOBILE">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                             fill="#fd4b17">
                             <path
                                 d="M162-120q-18 0-30-12t-12-30v-162q0-13 9-23.5t23-14.5l138-28q14-2 28.5 2.5T342-374l94 94q38-22 72-48.5t65-57.5q33-32 60.5-66.5T681-524l-97-98q-8-8-11-19t-1-27l26-140q2-13 13-22.5t25-9.5h162q18 0 30 12t12 30q0 125-54.5 247T631-329Q531-229 409-174.5T162-120Z" />
                         </svg>
+                        <span>{{ store.phone }}</span>
                     </a>
-                    <a :href="`mailto:${store.email}`" :title="store.email">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    <a :href="`mailto:${store.email}`" :title="store.email" class="er-flex er-items-center er-gap-x-2 er-flex-wrap er-text-xl" v-if="!constans.IS_MOBILE" style="margin: 0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                             fill="#fd4b17">
                             <path
                                 d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280 320-200v-80L480-520 160-720v80l320 200Z" />
                         </svg>
+                        <span>{{ store.email }}</span>
                     </a>
-                </div>
                 <span class="text-size16 er-font-bold mb:er-text-2xl">Opening Hours:</span>
                 <div class="er-flex er-flex-col er-opacity-80">
                     <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">

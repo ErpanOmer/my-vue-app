@@ -22,6 +22,7 @@
     width: auto;
     height: 50px;
     z-index: 3;
+    top: 40%;
 }
 </style>
 
@@ -78,8 +79,7 @@ const onClick = async (v) => {
     const isInside = bounds.contains(point);
 
     // 两点之间的距离
-    const disrance = Number(getDistance(v.location, store.formState.center)
-    )
+    const disrance = Number(getDistance(v.location, store.formState.center))
     activeStore.value = v.id
 
     // 如果当前点 ，不在地图上
@@ -120,6 +120,11 @@ watch(sortedList, v => {
             listContainer.value.scrollTop = 0; // 滚动到顶部
         }
     });
+})
+
+
+event.on('activeStore', id => {
+    activeStore.value = id
 })
 
 event.on('clickMarker', id => {

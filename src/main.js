@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import store from './store';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import App from './apps/TestRide.vue'
+import '@/styles/fonts.scss';
+import '@/styles/tailwind.css';
+import App from './apps/Delivery.vue'
 
-createApp(App).use(store).mount('#app')
+createApp(App).mount('#app')

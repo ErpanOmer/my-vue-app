@@ -40,7 +40,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'mapbox-gl': ['mapbox-gl'],
           'ant-design-vue': ['ant-design-vue'],
           // 'vue': ['vue']
         }

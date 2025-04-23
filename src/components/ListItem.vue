@@ -56,12 +56,24 @@
                     item.distance }}
                 Miles</span>
         </div>
-        <a class="er-button er-button-text er-whitespace-normal er-underline"
+        <div class="er-flex er-items-start er-justify-between">
+            <a class="er-button er-button-text er-whitespace-normal er-underline"
             :href="`https://www.google.com/maps?q=${item.location.map(i => i.toFixed(4)).reverse().toString()}`"
             target="_blank" rel="noopener noreferrer" @click.stop>{{ item.address }}</a>
-        <div class="er-flex er-items-start er-gap-x-4 er-flex-wrap">
-            <a :href="`tel:${item.phone}`" v-if="item.phone"
-                class="er-button er-button-text er-flex er-items-center text-size14 er-text-primary !er-gap-x-1" @click.stop>
+            <a v-if="item.email" :href="`mailto:${item.email}`"
+                class="er-flex er-items-center text-size14 er-text-primary er-ml-2" @click.stop>
+                <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px"
+                    fill="#fd4b17">
+                    <path
+                        d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280 320-200v-80L480-520 160-720v80l320 200Z" />
+                </svg>
+                <!-- <span>:</span> -->
+                <!-- <span>{{ item.email }}</span> -->
+            </a>
+        </div>
+        <div class="er-flex er-items-start er-gap-x-4 er-flex-wrap" @click.stop>
+            <div :href="`tel:${item.phone}`" v-if="item.phone"
+                class="er-flex er-items-center text-size14 er-text-primary !er-gap-x-1">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                     fill="#fd4b17">
                     <path
@@ -69,17 +81,7 @@
                 </svg>
                 <!-- <span>:</span> -->
                 <span>{{ item.phone }}</span>
-            </a>
-            <a v-if="item.email" :href="`mailto:${item.email}`"
-                class="er-button er-button-text er-flex er-items-center text-size14 er-text-primary !er-gap-x-1" @click.stop>
-                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
-                    fill="#fd4b17">
-                    <path
-                        d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280 320-200v-80L480-520 160-720v80l320 200Z" />
-                </svg>
-                <!-- <span>:</span> -->
-                <span>{{ item.email }}</span>
-            </a>
+            </div>
         </div>
         <div v-if="item.categories.length" class="er-flex er-flex-col">
             <span class="text-size14 er-font-bold er-opacity-75">Services:</span>

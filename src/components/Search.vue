@@ -52,7 +52,7 @@
     <div class="er-flex er-items-center er-space-x-4">
         <a-auto-complete v-model:value="store.formState.search" popupClassName="a-auto-complete"
             :defaultActiveFirstOption="false" :listHeight="600" :options="searchOptions" @select="onSelectStore"
-            @search="onSearchStore" class="er-w-full" :allowClear="true">
+            @search="onSearchStore" class="er-w-full" :allowClear="true" autofocus>
             <a-input placeholder="Search by Store name Or Your location"></a-input>
             <template #clearIcon>
                 <close-outlined :style="{ color: '#333', fontSize: '16px', transform: 'translate(-3px, -2px)' }" />

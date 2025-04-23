@@ -29,14 +29,14 @@
                         </svg>
                         <span>{{ store.phone }}</span>
                     </a>
-                    <a :href="`mailto:${store.email}`" :title="store.email" class="er-flex er-items-center er-gap-x-2 er-flex-wrap er-text-xl" v-if="!constans.IS_MOBILE" style="margin: 0;">
+                    <!-- <a :href="`mailto:${store.email}`" :title="store.email" class="er-flex er-items-center er-gap-x-2 er-flex-wrap er-text-xl" v-if="!constans.IS_MOBILE" style="margin: 0;">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                             fill="#fd4b17">
                             <path
                                 d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280 320-200v-80L480-520 160-720v80l320 200Z" />
                         </svg>
                         <span>{{ store.email }}</span>
-                    </a>
+                    </a> -->
                 <span class="text-size16 er-font-bold mb:er-text-2xl">Opening Hours:</span>
                 <div class="er-flex er-flex-col er-opacity-80">
                     <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">

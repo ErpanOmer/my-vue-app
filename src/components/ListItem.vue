@@ -71,7 +71,7 @@
                 <!-- <span>{{ item.email }}</span> -->
             </a>
         </div>
-        <div class="er-flex er-items-start er-gap-x-4 er-flex-wrap" @click.stop @touchstart.stop @touchend.stop>
+        <div class="er-flex er-items-start er-gap-x-4 er-flex-wrap" @click.stop>
             <div :href="`tel:${item.phone}`" v-if="item.phone"
                 class="er-flex er-items-center text-size14 er-text-primary !er-gap-x-1">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"

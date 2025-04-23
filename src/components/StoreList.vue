@@ -30,26 +30,35 @@
     <div class="er-flex-1 er-pb-8 er-flex er-flex-col er-overflow-hidden">
         <div
             class="er-flex er-items-center text-size14 er-px-10 er-py-4 er-pb-4 er-shadow-2xl mb:er-bg-white mb:er-mb-2 mb:er-w-[calc(100%-32px)] mb:er-mx-auto mb:er-rounded-xl mb:er-font-bold mb:er-px-6">
-            Find nearby stores: <span class="er-text-primary er-pl-2"><span v-if="constans.IS_MOBILE">{{ currentIndex }} / </span> {{ sortedList.length }}</span>
+            Find nearby stores: <span class="er-text-primary er-pl-2"><span v-if="constans.IS_MOBILE">{{ currentIndex }}
+                    / </span> {{ sortedList.length }}</span>
         </div>
-        <a-carousel v-if="constans.IS_MOBILE && rerender" :after-change="onChange" :touchThreshold="10" :dots="false" arrows :infinite="false" ref="carousel" :slickGoTo="10">
-            <ListItem v-for="item in sortedList" :item="item" :key="item.id" :onclick="onClick"/>
+        <a-carousel v-if="constans.IS_MOBILE && rerender" :after-change="onChange" :touchMove="draggable" :touchThreshold="10" :dots="false"
+            arrows :infinite="false" ref="carousel" :slickGoTo="10">
+            <ListItem v-for="item in sortedList" :item="item" :key="item.id" :onclick="onClick" />
             <template #prevArrow>
-                <svg style="left: -6px;transform: translateY(-50%);" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="16px" fill="#fff"><path d="M640-116 276-480l364-364 34 34-330 330 330 330-34 34Z"/></svg>
+                <svg style="left: -6px;transform: translateY(-50%);" xmlns="http://www.w3.org/2000/svg" height="30px"
+                    viewBox="0 -960 960 960" width="16px" fill="#fff">
+                    <path d="M640-116 276-480l364-364 34 34-330 330 330 330-34 34Z" />
+                </svg>
             </template>
             <template #nextArrow>
-                <svg style="right: -6px;transform: translateY(50%);rotate: 180deg;" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="16px" fill="#fff"><path d="M640-116 276-480l364-364 34 34-330 330 330 330-34 34Z"/></svg>
+                <svg style="right: -6px;transform: translateY(50%);rotate: 180deg;" xmlns="http://www.w3.org/2000/svg"
+                    height="30px" viewBox="0 -960 960 960" width="16px" fill="#fff">
+                    <path d="M640-116 276-480l364-364 34 34-330 330 330 330-34 34Z" />
+                </svg>
             </template>
         </a-carousel>
         <div v-if="!constans.IS_MOBILE" class="er-flex er-flex-col er-space-y-4 er-overflow-auto" ref="listContainer">
-            <ListItem @click.stop="onClick(item)" v-model:activeStore="activeStore" :item="item" v-for="item in sortedList" :key="item.id" />
+            <ListItem @click.stop="onClick(item)" v-model:activeStore="activeStore" :item="item"
+                v-for="item in sortedList" :key="item.id" />
         </div>
     </div>
 </template>
 
 <script setup>
 import constans from '@/constans'
-import { ref, computed, nextTick, onMounted, watch } from "vue";
+import { ref, computed, nextTick, onMounted, watch, onBeforeUnmount } from "vue";
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store'
 import ListItem from './ListItem.vue';
@@ -69,6 +78,7 @@ const sortedList = computed(() => {
 
 const store = useStore()
 const listContainer = ref(null);
+const draggable = ref(true);
 
 const onClick = async (v) => {
     // 获取当前地图的可视区域边界
@@ -131,10 +141,30 @@ event.on('clickMarker', id => {
     const index = sortedList.value.findIndex(s => s.id === id)
 
     activeStore.value = sortedList.value[index].id
+    console.log(carousel.value)
 
     itsMe = true
     if (carousel.value) {
         carousel.value.goTo(index)
     }
+})
+
+
+function handleSelectionChange(e) {
+    const selection = window.getSelection()
+    const selectedText = selection ? selection.toString() : ''
+
+    if (carousel.value) {
+        draggable.value = !!!selectedText
+    }
+}
+
+
+onMounted(() => {
+    document.addEventListener('selectionchange', handleSelectionChange)
+})
+
+onBeforeUnmount(() => {
+    document.removeEventListener('selectionchange', handleSelectionChange)
 })
 </script>

@@ -306,7 +306,7 @@ const onSearchStore = debounce(async text => {
     event.emit('activeStore', null)
     // console.log(text)
 
-    searchOptions.value = [await searchStore(text), await searchMap(text)]
+    searchOptions.value = [await searchMap(text), await searchStore(text)]
 }, 300)
 
 async function onSelectStore(value, option) {

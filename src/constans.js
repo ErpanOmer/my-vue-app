@@ -25,6 +25,10 @@ export default {
     DEFAULT_RADIUS: IS_MOBILE ? 25 : 50,
     RADIUS_RANGE: [25, 125],
     E_BIKES: {
+        9029881561336: {
+            name: 'Carbon Joy',
+            img: 'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/f_c5c87820-9d26-491d-ba5f-5e70fe8725d2.png?v=1745560603',
+        },
         8792002461944: {
             name: 'Carbon Fold 1',
             img: 'https://newurtopia.com/cdn/shop/files/20241022-144851.png?v=1729579789',

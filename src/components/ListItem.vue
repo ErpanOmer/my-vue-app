@@ -98,7 +98,7 @@
             <ul
                 class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex mb:er-space-x-4 mb:er-items-center">
                 <li v-for="value in item.availableSizes" :key="value">
-                    <a-badge status="error" /><span class="er-ml-[-2px]">{{ constans.E_BIKES[value].name || '' }}</span>
+                    <a-badge status="error" /><span class="er-ml-[-2px]">{{ constans.E_BIKES[value]?.name || value }}</span>
                 </li>
             </ul>
         </div>

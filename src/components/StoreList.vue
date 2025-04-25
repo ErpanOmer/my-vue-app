@@ -138,13 +138,12 @@ event.on('activeStore', id => {
 })
 
 event.on('clickMarker', id => {
-    const index = sortedList.value.findIndex(s => s.id === id)
-
-    activeStore.value = sortedList.value[index].id
+    activeStore.value = id
     console.log(carousel.value)
 
     itsMe = true
     if (carousel.value) {
+        const index = sortedList.value.findIndex(s => s.id === id)
         carousel.value.goTo(index)
     }
 })

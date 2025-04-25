@@ -90,13 +90,14 @@ const addMarkers = () => {
     markers.clear()
 
     for (const store of state.formState.storeList) {
-        if (store.show) {
-            const marker = new Marker({ color: "#fd4b17", className: `er-cursor-pointer` }).setLngLat(store.location).addTo(state.map)
+            const div = document.createElement('div')
+            div.className = 'marker'
+
+            const marker = new Marker(div).setLngLat(store.location).addTo(state.map)
             const elem = marker.getElement()
             elem.setAttribute('data-id', store.id)
 
             markers.set(store.id, marker)
-        }
     }
 }
 
@@ -154,7 +155,8 @@ function hide() {
 event.on('hidePopover', hide)
 event.on('storeListItemClick', show)
 event.on('clickMarker', onClickMarker)
+event.on('addMarkers', addMarkers)
 
 
-watchDebounced(() => state.formState.storeList, addMarkers, { debounce: 500, deep: true });
+// watchDebounced(() => state.formState.storeList, addMarkers, { debounce: 500, deep: true });
 </script>

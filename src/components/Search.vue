@@ -121,7 +121,7 @@
         <div class="er-flex er-mt-4 er-gap-y-2 er-flex-wrap" v-if="tags.length">
             <a-tag v-for="tag in tags" :key="tag.key" :bordered="false" @close.prevent="closeTag(tag)" closable>{{
                 tag.name
-                }}</a-tag>
+            }}</a-tag>
         </div>
     </div>
     <a-collapse ghost :expandIcon="null" accordion>
@@ -139,11 +139,13 @@
             <a-divider />
             <a-checkbox-group v-model:value="store.formState.ebikes">
                 <a-row :gutter="[0, 12]">
-                    <a-col :span="12" v-for="(value, key) in constans.E_BIKES" :key="key">
-                        <a-checkbox :value="Number(key)">
-                            {{ value.name }}
-                        </a-checkbox>
-                    </a-col>
+                    <template v-for="(value, key) in constans.E_BIKES" :key="key">
+                        <a-col :span="12" v-if="!ignoreProducts.includes(key)">
+                            <a-checkbox :value="Number(key)">
+                                {{ value.name }}
+                            </a-checkbox>
+                        </a-col>
+                    </template>
                 </a-row>
             </a-checkbox-group>
         </a-collapse-panel>
@@ -162,6 +164,7 @@ import { useStore } from '@/store'
 import event from '@/event.js'
 
 const store = useStore()
+const ignoreProducts = ['7902779474168', '7948552077560']
 // map
 const geocode = new GeocodingCore({ accessToken: constans.ACCESS_TOEKN, country: 'US,CA', language: 'en', limit: 5 });
 

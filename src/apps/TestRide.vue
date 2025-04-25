@@ -39,6 +39,13 @@
     user-select: none;
 }
 
+.marker {
+    background: url('https://icons.storepoint-icons.com/162f21804990ff/1679402773-main.png') center center/contain no-repeat;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+}
+
 @media (max-width: 767px) {
     #map {
         width: 100vw;
@@ -132,7 +139,7 @@ onMounted(async () => {
             [-130, 22],  // 西南角 (夏威夷附近)
             [-60, 55]    // 东北角 (缅因州和五大湖上方)
         ],
-        minZoom: constans.IS_MOBILE ? 6 : 7.25,
+        // minZoom: constans.IS_MOBILE ? 6 : 7.25,
         cooperativeGestures: true,
         dragRotate: false,
         // touchZoomRotate: false
@@ -185,6 +192,7 @@ onMounted(async () => {
     })
 
     store.formState.storeList = await storeListFromOrigin.then()
+    event.emit('addMarkers')
     setTimeout(recalculateStoreList)
 })
 

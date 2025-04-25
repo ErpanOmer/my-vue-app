@@ -40,10 +40,16 @@
 }
 
 .marker {
-    background: url('https://icons.storepoint-icons.com/162f21804990ff/1679402773-main.png') center center/contain no-repeat;
+    background: url('https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Untitled-1_2bb6ff92-d9a6-4e3e-8902-85285d953638.svg?v=1745571506') center center/contain no-repeat;
     height: 40px;
     width: 40px;
     cursor: pointer;
+    box-shadow: inset;
+}
+
+.marker.hide {
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 @media (max-width: 767px) {
@@ -52,6 +58,11 @@
         height: 150vw;
         margin-left: -20px;
         margin-top: 0;
+    }
+
+    .marker {
+        height: 36px;
+        width: 36px;
     }
 }
 </style>
@@ -63,14 +74,15 @@
                 <div id="map" v-if="!constans.IS_MOBILE" ref="mapContainer"></div>
                 <div
                     class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-[400px] mb:er-static mb:er-pb-[40vw]">
-                    <Search/>
+                    <Search />
                     <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div>
-                    <StoreList/>
+                    <StoreList />
                 </div>
             </div>
-            <Markers/>
+            <Markers />
         </a-style-provider>
     </a-config-provider>
+
     <!-- <span ref="markerPin" class="er-hidden">
         <img :src="icon" alt="" class="map-marker">
     </span> -->
@@ -146,7 +158,7 @@ onMounted(async () => {
         // doubleClickZoom: false,
     })
 
-    store.map.setPadding(constans.IS_MOBILE ? { bottom: 100 } : { left: 200 });
+    store.map.setPadding(constans.IS_MOBILE ? { bottom: 200 } : { left: 200 });
 
     store.map.on('load', function ({ target: map }) {
         // markerPin.value.classList = ['er-block']
@@ -192,8 +204,70 @@ onMounted(async () => {
     })
 
     store.formState.storeList = await storeListFromOrigin.then()
-    event.emit('addMarkers')
+    // event.emit('addMarkers')
     setTimeout(recalculateStoreList)
+
+    // 加载自定义标记图标
+    store.map.loadImage(
+        'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/1679402773-main.png?v=1745584540',
+        (error, image) => {
+            if (error) throw error;
+
+            // 添加图标到地图
+            store.map.addImage('custom-marker', image);
+
+            // 添加GeoJSON数据源
+            store.map.addSource('points', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': store.formState.storeList.map(store => (
+                        {
+                            'type': 'Feature',
+                            id: store.id, // 关键！必须设置
+                            properties: {
+                                id: store.id,
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': store.location
+                            }
+                        }
+                    ))
+                }
+            });
+
+            // 添加符号层
+            store.map.addLayer({
+                'id': 'points',
+                'type': 'symbol',
+                'source': 'points',
+                'layout': {
+                    // 'icon-anchor': 'center',
+                    'icon-image': 'custom-marker',
+                    'icon-size': constans.IS_MOBILE ? 0.68 : 0.78,
+                    'icon-allow-overlap': true,
+                }
+            });
+
+            store.map.on('click', 'points', (e) => {
+                const id = e.features[0].properties.id;
+
+                console.log(e)
+
+                event.emit('clickMarker', id)
+            });
+
+            store.map.on('mouseenter', 'points', () => {
+                console.log('points')
+                store.map.getCanvas().style.cursor = 'pointer';
+            });
+
+            store.map.on('mouseleave', 'points', () => {
+                store.map.getCanvas().style.cursor = '';
+            });
+        }
+    );
 })
 
 // 监听 formState 的变化

@@ -72,9 +72,6 @@ export function jumpTo(map, center, bounds) {
 
         // 监听动画结束
         map.once("moveend", resolve)
-
-        console.log(bounds)
-
         map.easeTo({
             center,
             ...(bounds ? {} : { zoom })

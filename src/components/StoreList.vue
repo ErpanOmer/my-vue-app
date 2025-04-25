@@ -139,7 +139,6 @@ event.on('activeStore', id => {
 
 event.on('clickMarker', id => {
     activeStore.value = id
-    console.log(carousel.value)
 
     itsMe = true
     if (carousel.value) {

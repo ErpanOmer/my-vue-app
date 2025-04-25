@@ -22,7 +22,7 @@ export default {
     IS_IFRAME: window.top !== window.self,
     ACCESS_TOEKN: 'pk.eyJ1IjoiZXJwYW5vbWVyIiwiYSI6ImNtODN2M3lzNjBsc24yanI0Y3FkNXo5aDYifQ.9g2y8zRNHFfPTqfaXIWxCg',
     DEFAULT_CENTER: [-118.00130, 33.82981],
-    DEFAULT_RADIUS: IS_MOBILE ? 25 : 50,
+    DEFAULT_RADIUS: IS_MOBILE ? 50 : 50,
     RADIUS_RANGE: [25, 125],
     E_BIKES: {
         9029881561336: {
@@ -70,11 +70,11 @@ export default {
         },
         4: {
             name: 'Free Assembly',
-            icon: Svg19632
+            icon: Svg19634,
         },
         5: {
             name: 'Service',
-            icon: Svg19634
+            icon: Svg19632
         }
     },
     THEME: {

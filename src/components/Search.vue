@@ -318,7 +318,7 @@ async function onSelectStore(value, option) {
         event.emit('activeStore', option.key)
         setTimeout(() => {
             event.emit('storeListItemClick', store.formState.storeList.find(s => s.id === option.key))
-        })
+        }, 300)
     } else {
         const r = constans.IS_USA ? constans.DEFAULT_RADIUS * 2 : parseInt(constans.DEFAULT_RADIUS / 2)
 

@@ -68,7 +68,7 @@
 </style>
 
 <template>
-    <a-config-provider :theme="constans.THEME">
+    <a-config-provider :theme="constans.THEME" :locale="constans.SHOP_LOCALE === 'en' ? enUS : deDE">
         <a-style-provider :transformers="[legacyLogicalPropertiesTransformer]" hash-priority="high">
             <div class="er-relative">
                 <div id="map" v-if="!constans.IS_MOBILE" ref="mapContainer"></div>
@@ -91,6 +91,8 @@
 <script setup>
 import { StyleProvider, ConfigProvider, legacyLogicalPropertiesTransformer } from 'ant-design-vue'
 import { ref, onMounted, watch, watchEffect, nextTick } from "vue";
+import deDE from 'ant-design-vue/es/locale/de_DE'
+import enUS from 'ant-design-vue/es/locale/en_US';
 import { Map, Marker } from 'mapbox-gl';
 import Search from '@/components/Search.vue';
 import StoreList from '@/components/StoreList.vue';
@@ -147,15 +149,9 @@ onMounted(async () => {
         style: "mapbox://styles/mapbox/streets-v12",
         center: constans.DEFAULT_CENTER,
         bounds: toBounds(constans.DEFAULT_CENTER, convertDistance(constans.DEFAULT_RADIUS)),
-        maxBounds: [
-            [-130, 22],  // 西南角 (夏威夷附近)
-            [-60, 55]    // 东北角 (缅因州和五大湖上方)
-        ],
-        // minZoom: constans.IS_MOBILE ? 6 : 7.25,
+        maxBounds: constans.MAX_BOUNDS,
         cooperativeGestures: true,
-        dragRotate: false,
-        // touchZoomRotate: false
-        // doubleClickZoom: false,
+        dragRotate: false
     })
 
     store.map.setPadding(constans.IS_MOBILE ? { bottom: 200 } : { left: 200 });
@@ -180,11 +176,6 @@ onMounted(async () => {
             constans.DEFAULT_CENTER = center
         })
 
-        // map.on('dragend', () => {
-        //     console.log('A dragend event occurred.');
-        // });
-
-
         map.on('dragend', () => {
             const center = map.getCenter()
             store.formState.center = [center.lng, center.lat]
@@ -198,8 +189,12 @@ onMounted(async () => {
             }
         });
 
+        map.on('zoomstart', () => {
+            event.emit('hidePopover')
+        });
+
         map.on('movestart', () => {
-            event.emit('hideMarkers')
+            event.emit('hidePopover')
         });
     })
 
@@ -252,14 +247,10 @@ onMounted(async () => {
 
             store.map.on('click', 'points', (e) => {
                 const id = e.features[0].properties.id;
-
-                console.log(e)
-
                 event.emit('clickMarker', id)
             });
 
             store.map.on('mouseenter', 'points', () => {
-                console.log('points')
                 store.map.getCanvas().style.cursor = 'pointer';
             });
 
@@ -303,7 +294,6 @@ watchDebounced(
         // requestAnimationFrame(() => {
         //     markerPin.value.style.display = "block"; // 重新应用动画
         // })
-
         setTimeout(recalculateStoreList)
     },
     { debounce: 10, deep: true } // 监听对象内部的所有变化

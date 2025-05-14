@@ -32,8 +32,6 @@ export default function (store, event) {
             removeInlineStyles();
         }
 
-        console.log(constans.visibleHeight, event)
-
         const css = `
             body .modal .ant-modal {
                 transform: translateY(${event.pageY < constans.visibleHeight ? '-50%' : '-100%'}) !important;

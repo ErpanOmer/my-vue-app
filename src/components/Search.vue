@@ -42,7 +42,7 @@
 
 <template>
 
-    <div class="text-size20 er-font-bold er-flex er-items-center">Find a Dealer <span class="er-flex-1"></span><a-button
+    <div class="text-size20 er-font-bold er-flex er-items-center">{{ $t('search.FindaDealer') }} <span class="er-flex-1"></span><a-button
             type="primary" @click.stop.prevent="onClick" title="Recharge Location">
             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#fff">
                 <path
@@ -53,14 +53,14 @@
         <a-auto-complete v-model:value="store.formState.search" popupClassName="a-auto-complete"
             :defaultActiveFirstOption="false" :listHeight="600" :options="searchOptions" @select="onSelectStore"
             @search="onSearchStore" class="er-w-full" :allowClear="true" autofocus>
-            <a-input placeholder="Search by Store name Or Your location"></a-input>
+            <a-input :placeholder="$t('search.Searchby')"></a-input>
             <template #clearIcon>
                 <close-outlined :style="{ color: '#333', fontSize: '16px', transform: 'translate(-3px, -2px)' }" />
             </template>
             <template #option="item">
                 <template v-if="(item.value === 'Location' || item.value === 'Store')">
                     <span>
-                        {{ item.value }}
+                        {{ $t(`search.${item.value}`) }}
                     </span>
                 </template>
                 <template v-else-if="item.type === 'Location'">
@@ -73,7 +73,7 @@
                         <div class="er-flex er-flex-col er-text-left er-ml-4 er-overflow-hidden er-w-full">
                             <span class="er-flex text-size14 er-font-bold er-justify-between er-items-center"><span>{{
                                 item.name_preferred }}</span> <span class="er-flex-1"></span><span
-                                    class="er-text-lg er-text-primary">{{ item.distance }} Miles</span></span>
+                                    class="er-text-lg er-text-primary">{{ item.distance }} {{ constans.IS_USA ? 'Miles' : 'KM' }}</span></span>
                             <span>{{ item.full_address.slice(item.full_address.indexOf(",") + 1).trim() }}</span>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                         <div class="er-flex er-flex-col er-text-left er-ml-4 er-overflow-hidden er-w-full">
                             <span class="er-flex text-size14 er-font-bold er-justify-between er-items-center"><span>{{
                                 item.name }}</span> <span class="er-flex-1"></span><span
-                                    class="er-text-lg er-text-primary">{{ item.distance }} Miles</span></span>
+                                    class="er-text-lg er-text-primary">{{ item.distance }} {{ constans.IS_USA ? 'Miles' : 'KM' }}</span></span>
                             <span>{{ item.address }}</span>
                         </div>
                     </div>
@@ -105,23 +105,23 @@
         </a-button> -->
     </div>
     <div>
-        <div class="er-text-2xl"><b>Radius: </b><span class="er-text-xl">{{ store.formState.miles }} miles</span></div>
+        <div class="er-text-2xl"><b>Radius: </b><span class="er-text-xl">{{ store.formState.miles }} {{ constans.IS_USA ? 'Miles' : 'KM' }}</span></div>
         <a-slider v-model:value="store.formState.miles" :min="constans.RADIUS_RANGE[0]" :max="constans.RADIUS_RANGE[1]"
             :step="1" :tip-formatter="tipFormatter" />
     </div>
     <div class="er-flex er-pb-4 er-flex-col">
         <div class="er-flex">
             <a-button shape="round" :type="filterButtonType" @click="toggleCollapse">
-                Filters
+                {{ $t('search.Filters') }}
                 <AlignRightOutlined />
             </a-button>
             <!-- <span class="er-flex-1"></span> -->
-            <a-button v-if="tags.length" type="link" class="er-underline" @click="reset">Reset All</a-button>
+            <a-button v-if="tags.length" type="link" class="er-underline" @click="reset">{{ $t('search.ResetAll') }}</a-button>
         </div>
         <div class="er-flex er-mt-4 er-gap-y-2 er-flex-wrap" v-if="tags.length">
-            <a-tag v-for="tag in tags" :key="tag.key" :bordered="false" @close.prevent="closeTag(tag)" closable>{{
-                tag.name
-            }}</a-tag>
+            <a-tag v-for="tag in tags" :key="tag.key" :bordered="false" @close.prevent="closeTag(tag)" closable>
+                {{ $t(`search.${tag.name.replace(/\s+/g, '')}`, tag.name) }}
+            </a-tag>
         </div>
     </div>
     <a-collapse ghost :expandIcon="null" accordion>
@@ -131,7 +131,7 @@
                     <a-col :span="12" v-for="(value, key) in constans.SERVICES" :key="key">
                         <a-checkbox :value="Number(key)">
                             <img width="24" height="24" :src="value.icon" alt="" class="er-align-bottom er-mr-3">
-                            <span class="text-size14">{{ value.name }}</span>
+                            <span class="text-size14">{{ $t(`search.${value.name.replace(/\s+/g, '')}`) }}</span>
                         </a-checkbox>
                     </a-col>
                 </a-row>
@@ -162,11 +162,13 @@ import { GeocodingCore, debounce } from '@mapbox/search-js-core'
 import Fuse from 'fuse.js'
 import { useStore } from '@/store'
 import event from '@/event.js'
+import { useI18n } from 'vue-i18n'
 
 const store = useStore()
+const { t } = useI18n()
 const ignoreProducts = ['7902779474168', '7948552077560']
 // map
-const geocode = new GeocodingCore({ accessToken: constans.ACCESS_TOEKN, country: 'US,CA', language: 'en', limit: 5 });
+const geocode = new GeocodingCore({ accessToken: constans.ACCESS_TOEKN, country: constans.MAP_SEARCH_COUNTRY, language: constans.SHOP_LOCALE, limit: 5 });
 
 // filter forms
 const collapsePanelRef = ref(null)
@@ -201,7 +203,7 @@ const toggleCollapse = async () => {
 }
 
 function tipFormatter(v) {
-    return `${v} miles`
+    return `${v} ${ constans.IS_USA ? 'Miles' : 'KM' }`
 }
 
 async function searchMap(text = '') {
@@ -209,7 +211,7 @@ async function searchMap(text = '') {
         value: 'Location',
         options: [{
             value: 0,
-            label: 'No Result',
+            label: t('search.NoResult'),
             disabled: true,
         }]
     }
@@ -238,8 +240,6 @@ async function searchMap(text = '') {
                 })
             }
         }
-
-        console.log(r)
     } catch (error) {
         console.log('error', error)
     }
@@ -251,10 +251,10 @@ async function searchMap(text = '') {
 
 async function searchStore(text = '') {
     const result = {
-        value: 'Store',
+        value:  'Store',
         options: [{
             value: 1,
-            label: 'No Result',
+            label: t('search.NoResult'),
             disabled: true,
         }]
     }
@@ -307,8 +307,6 @@ const closeTag = tag => {
 
 const onSearchStore = debounce(async text => {
     event.emit('activeStore', null)
-    // console.log(text)
-
     searchOptions.value = [await searchMap(text), await searchStore(text)]
 }, 300)
 
@@ -316,12 +314,16 @@ async function onSelectStore(value, option) {
     store.formState.center = option.center
 
     if (option.type === "Store") {
-        await jumpTo(store.map, option.center)
+        await jumpTo(store.map, option.center, constans.IS_USA ? null : toBounds(option.center, convertDistance(parseInt(store.formState.miles / 2))))
         event.emit('activeStore', option.key)
-        event.emit('storeListItemClick', store.formState.storeList.find(s => s.id === option.key))
+        setTimeout(() => {
+            event.emit('storeListItemClick', store.formState.storeList.find(s => s.id === option.key))
+        })
     } else {
-        store.formState.miles = constans.DEFAULT_RADIUS * 2
-        jumpTo(store.map, option.center, toBounds(option.center, convertDistance(constans.DEFAULT_RADIUS * 2)))
+        const r = constans.IS_USA ? constans.DEFAULT_RADIUS * 2 : parseInt(constans.DEFAULT_RADIUS / 2)
+
+        store.formState.miles = r
+        jumpTo(store.map, option.center, toBounds(option.center, convertDistance(r)))
     }
 }
 

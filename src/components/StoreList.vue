@@ -30,7 +30,7 @@
     <div class="er-flex-1 er-pb-8 er-flex er-flex-col er-overflow-hidden">
         <div
             class="er-flex er-items-center text-size14 er-px-10 er-py-4 er-pb-4 er-shadow-2xl mb:er-bg-white mb:er-mb-2 mb:er-w-[calc(100%-32px)] mb:er-mx-auto mb:er-rounded-xl mb:er-font-bold mb:er-px-6">
-            Find nearby stores: <span class="er-text-primary er-pl-2"><span v-if="constans.IS_MOBILE">{{ currentIndex }}
+            {{  $t('storeList.Findnearbystores') }}: <span class="er-text-primary er-pl-2"><span v-if="constans.IS_MOBILE">{{ currentIndex }}
                     / </span> {{ sortedList.length }}</span>
         </div>
         <a-carousel v-if="constans.IS_MOBILE && rerender" :after-change="onChange" :touchMove="draggable" :touchThreshold="10" :dots="false"
@@ -63,7 +63,7 @@ import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store'
 import ListItem from './ListItem.vue';
 import { Carousel } from 'ant-design-vue';
-import { convertDistance, getDistance, toBounds, jumpTo } from '@/tools.js'
+import { getDistance, toBounds, jumpTo } from '@/tools.js'
 import event from '@/event.js'
 
 const activeStore = ref()

@@ -3,11 +3,17 @@ import Svg19631 from '@/assets/19631.svg'
 import Svg19632 from '@/assets/19632.svg'
 import Svg19633 from '@/assets/19633.svg'
 import Svg19634 from '@/assets/19634.svg'
-import { getSearchValues } from '@/tools.js'
+import {
+    getSearchValues
+} from '@/tools.js'
 
 const values = getSearchValues()
+//Urtopia (DE)&shop_url=https://newurtopia.de&locale=en&domain=newurtopia.de&currency=EUR&language=en&country=DE
 
 const IS_MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
+const IS_USA = values.domain === 'newurtopia.com'
+
+console.log(values)
 
 export default {
     SHOP_NAME: values.shop_name || 'Urtopia (US)',
@@ -18,13 +24,26 @@ export default {
     SHOP_LANGUAGE: values.language || 'en',
     SHOP_COUNTRY: values.country || 'US',
     IS_MOBILE,
+    IS_USA,
     IS_DEV: import.meta.env.DEV,
     IS_IFRAME: window.top !== window.self,
     ACCESS_TOEKN: 'pk.eyJ1IjoiZXJwYW5vbWVyIiwiYSI6ImNtODN2M3lzNjBsc24yanI0Y3FkNXo5aDYifQ.9g2y8zRNHFfPTqfaXIWxCg',
-    DEFAULT_CENTER: [-118.00130, 33.82981],
-    DEFAULT_RADIUS: IS_MOBILE ? 50 : 50,
-    RADIUS_RANGE: [25, 125],
-    E_BIKES: {
+    DEFAULT_CENTER: IS_USA ? [-118.00130, 33.82981] : [8.53121, 50.92006],
+    DEFAULT_RADIUS: IS_USA ? 50 : 300,
+    RADIUS_RANGE: IS_USA ? [25, 125] : [100, 400],
+    MAP_SEARCH_COUNTRY: IS_USA ? 'US,CA' : 'DE,FR,NL,AT,DK,SI,BE,PL',
+    MAX_BOUNDS: IS_USA ? [
+        [-130, 22], // 西南角 (夏威夷附近)
+        [-60, 55] // 东北角 (缅因州和五大湖上方)
+    ] : [
+        [-5, 42], // 西南角：接近德国与法国、瑞士边界
+        [28, 55.0] // 东北角：德国与波兰、丹麦边界
+    ],
+    E_BIKES: IS_USA ? {
+        9062953025784: {
+            name: 'Fusion Pro',
+            img: 'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/2x_08516587-73d8-48be-8491-4b067ab10446.png?v=1747203272'
+        },
         9029881561336: {
             name: 'Carbon Joy',
             img: 'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/f_c5c87820-9d26-491d-ba5f-5e70fe8725d2.png?v=1745560603',
@@ -39,9 +58,8 @@ export default {
         },
         8794812776696: {
             name: 'Fusion GT',
-            img: 'https://newurtopia.com/cdn/shop/files/19566.png?v=1729236036',
+            img: 'https://newurtopia.com/cdn/shop/files/19564.png?v=1729236036',
         },
-
         8230663028984: {
             name: 'Carbon 1 Pro',
             img: 'https://newurtopia.com/cdn/shop/products/collectionblack.png?v=1703557822',
@@ -51,6 +69,23 @@ export default {
             img: 'https://newurtopia.de/cdn/shop/files/1sb_b90f667e-42ce-4987-8784-4040af3a37a3.png?v=1695624132',
         },
         7948552077560: {
+            name: 'Chord/ChordX',
+            img: 'https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18754.png?v=1689236445',
+        }
+    } : {
+        8286206230744: {
+            name: 'Fusion',
+            img: 'https://newurtopia.de/cdn/shop/files/MaskGroup18890.png?v=1713519830'
+        },
+        8128883720408: {
+            name: 'Carbon 1 Pro',
+            img: 'https://newurtopia.de/cdn/shop/files/collectionblack.png?v=1703557889'
+        },
+        7633738727640: {
+            name: 'Carbon 1/1s',
+            img: 'https://newurtopia.de/cdn/shop/files/1sb_b90f667e-42ce-4987-8784-4040af3a37a3.png?v=1695624132',
+        },
+        7952778658008: {
             name: 'Chord/ChordX',
             img: 'https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18754.png?v=1689236445',
         }
@@ -109,11 +144,3 @@ export default {
     },
     WEEK: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 }
-
-
-// {
-//     "Fusion": 8286206230744,
-//     "Carbon 1 Pro": 8128883720408,
-//     "Carbon 1/1s": 7633738727640,
-//     "Chord/ChordX": 7952778658008
-// }

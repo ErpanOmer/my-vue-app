@@ -1,7 +1,7 @@
 import constans from "@/constans"
 
 export function fetchStoreList() {
-    const fetchUrl = 'https://b2b.newurtopia.com/ibd-api/third_party/list_shops'
+    const fetchUrl = constans.IS_USA ? 'https://b2b.newurtopia.com/ibd-api/third_party/list_shops' : "https://b2b.newurtopia.de/ibd-api//third_party/list_shops"
 
     return new Promise((async resolve => {
         const {
@@ -32,7 +32,6 @@ export function fetchUserLocation() {
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log("精准位置:", position.coords.latitude, position.coords.longitude);
                 return resolve([position.coords.longitude, position.coords.latitude])
             },
             (error) => {
@@ -49,8 +48,6 @@ export function fetchUserLocation() {
 
 
 export function submitBookRide(userInfo, storeInfo) {
-    console.log(userInfo, storeInfo)
-
     const extras = {
         test_ride_model: constans.E_BIKES[userInfo.ebike].name,
         test_ride_time: `${userInfo.date} ${userInfo.time}`,
@@ -59,14 +56,14 @@ export function submitBookRide(userInfo, storeInfo) {
         name: userInfo.username,
         phone: userInfo.phone,
         email: userInfo.email,
-        source: 'newurtopia.com',
+        source: constans.SHOP_DOMAIN,
         book_time: `${userInfo.date} ${userInfo.time}`,
         shop_info: storeInfo
     }
 
     const body = {
-        module: "website-us",
-        trace_name: "testride-us",
+        module: `website-${constans.IS_USA ? 'us' : 'de'}`,
+        trace_name: `testride-${constans.IS_USA ? 'us' : 'de'}`,
         trace_type: `submit-${constans.IS_MOBILE ? 'mb' : 'pc' }`,
         extras: {
             spot: storeInfo.city,
@@ -75,8 +72,6 @@ export function submitBookRide(userInfo, storeInfo) {
         },
         ...extras
     }
-
-    console.log(body)
 
     try {
         fetch('https://api.newurtopia.com/third_part/book_ride', {

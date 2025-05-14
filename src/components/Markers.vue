@@ -39,11 +39,11 @@
                         </svg>
                         <span>{{ store.email }}</span>
                     </a> -->
-                <span class="text-size16 er-font-bold mb:er-text-2xl">Opening Hours:</span>
+                <span class="text-size16 er-font-bold mb:er-text-2xl">{{ $t('popup.OpeningHours') }}</span>
                 <div class="er-flex er-flex-col er-opacity-80">
                     <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">
-                        <span class="er-w-1/2">{{ constans.WEEK[index] }}:</span>
-                        <span>{{ time || 'Closed' }}</span>
+                        <span class="er-w-1/2">{{ $t(`popup.${constans.WEEK[index]}`) }}:</span>
+                        <span>{{ time || $t(`popup.Closed`) }}</span>
                     </div>
                 </div>
                 <div v-if="store.categories.length" class="er-flex er-space-x-4">
@@ -54,7 +54,7 @@
                 <a-button v-if="!store.noBook && !constans.IS_MOBILE" type="primary" danger
                     @click="Booknow(store, $event)">
                     <div class="er-flex er-items-center er-text-center er-justify-center">
-                        <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
+                        <span>{{ $t('storeList.Booknow') }}</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
                             viewBox="0 -960 960 960" width="20px" fill="#fff">
                             <path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z" />
                         </svg>
@@ -75,7 +75,7 @@ import constans from '@/constans.js'
 import { watchDebounced } from '@vueuse/core';
 import booknow from '@/modal.js'
 import event from '@/event.js'
-import { convertDistance, getDistance, toBounds, jumpTo, isFullyContained } from '@/tools.js'
+import { getDistance, toBounds, jumpTo, isFullyContained } from '@/tools.js'
 import { useStore } from '@/store'
 
 const state = useStore()
@@ -139,9 +139,6 @@ function show(v) {
     store.value = v
 
     const rect = state.map.project(v.location)
-
-    // const rect = markers.get(v.id).getElement().getBoundingClientRect()
-
     popoverPosition.value = { left: rect.x, top: constans.IS_MOBILE ? rect.y + document.querySelector('#map').getBoundingClientRect().top : rect.y }
 
     nextTick(() => {
@@ -178,13 +175,6 @@ function changeMarkers() {
         }
 
         visible && visibleIds.push(store.id)
-
-        // console.log(visible)
-        // state.map.setLayoutProperty(
-        //     'points',
-        //     'visibility',
-        //     visible ? 'visible' : 'none'
-        // );
     }
 
     requestAnimationFrame(() => {

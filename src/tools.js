@@ -3,11 +3,11 @@ import constans from '@/constans.js';
 
 // unit 0：meters, 1: miles
 
-export function convertDistance(value = 0, unit = 0) {
+export function convertDistance(value = 0, unit = constans.IS_USA) {
     const metersToMiles = 0.000621371; // 1 米 ≈ 0.000621371 英里
     const milesToMeters = 1609.34; // 1 英里 ≈ 1609.34 米
 
-    return unit === 0 ? value * milesToMeters : value * metersToMiles
+    return unit ? value * milesToMeters : value * 1000
 }
 
 
@@ -43,7 +43,7 @@ export function getDistance(r1 = [], r2 = []) {
 
     const km = (r1.distanceTo(r2) / 1000).toFixed(2)
 
-    return (km * 0.621371).toFixed(2)
+    return constans.IS_USA ? (km * 0.621371).toFixed(2) : km
 }
 
 export function toBounds(center = [], meters = 0) {
@@ -73,6 +73,7 @@ export function jumpTo(map, center, bounds) {
         // 监听动画结束
         map.once("moveend", resolve)
         map.easeTo({
+            duration: 0,
             center,
             ...(bounds ? {} : { zoom })
         })

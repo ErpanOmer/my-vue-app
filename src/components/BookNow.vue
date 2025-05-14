@@ -104,13 +104,10 @@
                 v-model:value="forms.date" valueFormat="YYYY-MM-DD">
                 <template #headerRender="{ value, onChange }">
                     <div class="er-flex er-items-center er-justify-between er-mb-6">
-                        <span class="text-size14 er-font-medium">Selected Date: <span class="er-text-primary">{{ forms.date
+                        <span class="text-size14 er-font-medium">{{ i18n.global.t('dialog.SelectedDate') }}: <span class="er-text-primary">{{ forms.date
                         }}</span></span>
                         <a-select class="er-w-5/12" :value="value.format('YYYY-MM')" @change="
                             selectedMonth => {
-                                console.log()
-                                // onChange(dayjs(selectedMonth))
-                                // forms.date = dayjs(selectedMonth)
                                 onChange(dayjs(getNextOpenDay(store.businessHours, dayjs(selectedMonth))));
                             }
                         ">
@@ -122,7 +119,7 @@
                     </div>
                 </template>
             </a-calendar>
-            <div class="text-size14 er-font-medium er-my-6">Selected Time: <span class="er-text-primary">{{ forms.time }}</span>
+            <div class="text-size14 er-font-medium er-my-6">{{ i18n.global.t('dialog.SelectedTime') }}: <span class="er-text-primary">{{ forms.time }}</span>
             </div>
             <div class="er-grid er-grid-cols-5 er-gap-3">
                 <div @click="onChangeTime(time)" :key="time" v-for="time in timeArray"
@@ -133,12 +130,12 @@
         </div>
         <div v-show="step === 3" class="er-py-8">
             <a-form layout="vertical" :model="forms" ref="formsRef" :rules="rules">
-                <a-form-item label="Your Name:" name="username" required><a-input type="text"
-                        v-model:value="forms.username" placeholder="Please Enter..." /></a-form-item>
-                <a-form-item label="Phone Number:" name="phone" required><a-input type="tel" v-model:value="forms.phone"
-                        placeholder="Please Enter..." /></a-form-item>
+                <a-form-item :label="i18n.global.t('dialog.yourname')" name="username" required><a-input type="text"
+                        v-model:value="forms.username" :placeholder="i18n.global.t('dialog.PleaseEnter')"/></a-form-item>
+                <a-form-item :label="i18n.global.t('dialog.PhoneNumber')" name="phone" required><a-input type="tel" v-model:value="forms.phone"
+                    :placeholder="i18n.global.t('dialog.PleaseEnter')"/></a-form-item>
                 <a-form-item label="Email@:" name="email" required><a-input type="email" v-model:value="forms.email"
-                        placeholder="Please Enter..." /></a-form-item>
+                        :placeholder="i18n.global.t('dialog.PleaseEnter')" /></a-form-item>
             </a-form>
         </div>
         <div v-show="step === 4" class="er-py-8 er-space-y-8">
@@ -150,30 +147,30 @@
                         <span class="text-size16 er-font-bold er-my-4">{{ constans.E_BIKES[forms.ebike].name }}</span>
                     </div>
                 </a-descriptions-item>
-                <a-descriptions-item label="DateTime">{{ forms.date }} {{ forms.time }}</a-descriptions-item>
-                <a-descriptions-item label="Your Name">{{ forms.username }}</a-descriptions-item>
-                <a-descriptions-item label="Phone">{{ forms.phone }}</a-descriptions-item>
+                <a-descriptions-item :label="i18n.global.t('dialog.DateTime')">{{ forms.date }} {{ forms.time }}</a-descriptions-item>
+                <a-descriptions-item :label="i18n.global.t('dialog.YourName')">{{ forms.username }}</a-descriptions-item>
+                <a-descriptions-item :label="i18n.global.t('dialog.Phone')">{{ forms.phone }}</a-descriptions-item>
                 <a-descriptions-item label="Email">{{ forms.email }}</a-descriptions-item></a-descriptions>
             <a-descriptions :column="1" size="small" bordered>
                 <template #title>
-                    <div class="text-size14 er-font-medium">Store Info:</div>
+                    <div class="text-size14 er-font-medium">{{ i18n.global.t('dialog.StoreInfo') }}:</div>
                 </template>
-                <a-descriptions-item label="Store Name">{{ store.name }}</a-descriptions-item>
-                <a-descriptions-item label="Store Address"><a class="!er-text-primary"
+                <a-descriptions-item :label="i18n.global.t('dialog.StoreName')">{{ store.name }}</a-descriptions-item>
+                <a-descriptions-item :label="i18n.global.t('dialog.StoreAddress')"><a class="!er-text-primary"
                         :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"
                         target="_blank" rel="noopener noreferrer"> {{ store.address }}</a></a-descriptions-item>
             </a-descriptions>
         </div>
         <div class="er-flex er-justify-end er-space-x-4 er-w-full">
-            <a-button v-if="step > 1 && step <= 3" @click="prev" :disabled="disabled">Prev</a-button>
+            <a-button v-if="step > 1 && step <= 3" @click="prev" :disabled="disabled">{{ i18n.global.t('dialog.prev') }}</a-button>
             <a-button v-if="step < 3"
                 class="!er-flex er-items-center er-text-center er-justify-center next" type="primary"
-                danger @click="next" :disabled="disabled"><span>Next</span><svg xmlns="http://www.w3.org/2000/svg"
+                danger @click="next" :disabled="disabled"><span>{{ i18n.global.t('dialog.next') }}</span><svg xmlns="http://www.w3.org/2000/svg"
                     height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
                     <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z" />
                 </svg></a-button>
-            <a-button v-if="step === 3" type="primary" danger @click="submit" :loading="disabled">Submit</a-button>
-            <a-button v-if="step === 4" type="primary" @click="close" danger>Done</a-button>
+            <a-button v-if="step === 3" type="primary" danger @click="submit" :loading="disabled">{{ i18n.global.t('dialog.submit') }}</a-button>
+            <a-button v-if="step === 4" type="primary" @click="close" danger>{{ i18n.global.t('dialog.done') }}</a-button>
         </div>
     </div>
 </template>
@@ -185,8 +182,12 @@ import { ref, onMounted, watch, nextTick } from 'vue'
 import constans from '@/constans.js'
 import { rangeExclude, throttle } from '@/tools.js'
 import { submitBookRide } from '@/fetch.js'
+import i18n from '../language/index.js'
+import 'dayjs/locale/de'
 
-const stepToTitle = ['Step 1/3: Choose E-bike Model', 'Step 2/3: Select Date and Time', 'Step 3/3: Submit', 'Thank You!']
+dayjs.locale(constans.SHOP_LOCALE)
+
+const stepToTitle = [i18n.global.t('dialog.Step1'), i18n.global.t('dialog.Step2'), i18n.global.t('dialog.Step3'), i18n.global.t('dialog.Step4')]
 const rules = {
     username: [
         {
@@ -198,7 +199,7 @@ const rules = {
             require: true,
             max: 20,
             pattern: /\d+/,
-            message: 'Please enter your phone number correctly'
+            message: i18n.global.t('dialog.Pleaseenter')
         },
     ],
     email: [
@@ -241,9 +242,6 @@ function getNextOpenDay(businessHours, today = dayjs()) {
 function calcuateTimes(date = dayjs()) {
     const current = dayjs(date)
     const range = props.store.businessHours[current.day()]
-
-
-    console.log(range)
 
     let [start, end] = range.split('-')
     start = Number(start.split(':').shift())
@@ -292,12 +290,10 @@ const disabledDate = v => {
 }
 
 const onChangeDate = v => {
-    // console.log(v)
     forms.value.time = calcuateTimes(v)
 }
 
 const onChangeTime = v => {
-    // console.log(v)
     forms.value.time = v
 }
 
@@ -307,12 +303,12 @@ const submit = async () => {
         disabled.value = true
 
         submitBookRide(forms.value, props.store)
-
+        disabled.value = false
+        step.value++
     } catch (error) {
         console.log('invalired', error)
     } finally {
-        disabled.value = false
-        step.value++
+        
     }
 }
 

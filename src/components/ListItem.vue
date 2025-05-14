@@ -54,7 +54,7 @@
             <span
                 class="text-size14 er-text-primary er-font-bold er-whitespace-nowrap mb:er-text-xl mb:er-leading-loose er-leading-10">{{
                     item.distance }}
-                Miles</span>
+                {{ constans.IS_USA ? 'Miles' : 'KM' }}</span>
         </div>
         <div class="er-flex er-items-start er-justify-between">
             <a class="er-button er-button-text er-whitespace-normal er-underline"
@@ -88,13 +88,12 @@
             <ul
                 class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex mb:er-space-x-4 mb:er-items-center">
                 <li v-for="value in item.categories" :key="value">
-                    <a-badge status="error" /><span class="er-ml-[-2px]">{{ constans.SERVICES[value].name || ''
-                        }}</span>
+                    <a-badge status="error" /><span class="er-ml-[-2px]">{{ $t(`search.${constans.SERVICES[value].name.replace(/\s+/g, '')}`, constans.SERVICES[value].name || '') }}</span>
                 </li>
             </ul>
         </div>
         <div v-if="item.availableSizes.length" class="er-flex er-flex-col">
-            <span class="text-size14 er-font-bold er-opacity-75">Available Test bikes:</span>
+            <span class="text-size14 er-font-bold er-opacity-75">{{ $t('storeList.AvailableTestbikes') }}:</span>
             <ul
                 class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex mb:er-space-x-4 mb:er-items-center">
                 <li v-for="value in item.availableSizes" :key="value">
@@ -106,7 +105,7 @@
         <a-button v-if="!item.noBook" :size="constans.IS_MOBILE ? 'large' : 'medium'" type="primary" danger
             @click.stop="Booknow(item, $event)" class="!er-absolute er-right-4 er-bottom-5 mb:!er-static mb:er-w-full">
             <div class="er-flex er-items-center er-text-center er-justify-center">
-                <span>Book now</span><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
+                <span>{{ $t('storeList.Booknow') }}</span><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
                     width="20px" fill="#fff">
                     <path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z" />
                 </svg>
@@ -122,7 +121,7 @@ import constans from '@/constans.js'
 import booknow from '@/modal.js'
 import event from '@/event.js'
 import { Badge } from 'ant-design-vue';
-import { convertDistance, getDistance, toBounds, jumpTo } from '@/tools.js'
+import { getDistance, toBounds, jumpTo } from '@/tools.js'
 
 defineProps({
     item: Object,

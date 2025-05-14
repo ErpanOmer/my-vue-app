@@ -21,7 +21,11 @@ class EventBus {
   
     emit(event, ...args) {
       if (this.events.has(event)) {
-        this.events.get(event).forEach(callback => callback(...args));
+        this.events.get(event).forEach(callback => {
+          setTimeout(() => {
+            callback(...args)
+          })
+        });
       }
     }
   

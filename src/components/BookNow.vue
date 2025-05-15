@@ -16,6 +16,14 @@
                     }
 
                     .ant-picker-date-panel {
+                        .ant-picker-cell:not(.ant-picker-cell-disabled) {
+                            color: inherit;
+
+                            &::before {
+                                transition: none;
+                            }
+                        }
+
                         .ant-picker-cell-disabled {
                             pointer-events: all;
                             cursor: not-allowed;
@@ -26,6 +34,7 @@
 
                             &::before {
                                 height: 80%;
+                                transition: none;
                             }
                         }
 
@@ -46,6 +55,7 @@
                             text-align: center;
                             margin: auto;
                             border: 1px solid #f8f8f8;
+                            transition: none;
 
                             // aspect-ratio: 1;
                             .ant-picker-calendar-date-value {
@@ -123,7 +133,7 @@
             </div>
             <div class="er-grid er-grid-cols-5 er-gap-3">
                 <div @click="onChangeTime(time)" :key="time" v-for="time in timeArray"
-                    :class="[forms.time === time ? 'er-bg-primary/75 er-text-white' : '', 'text-size12 er-font-medium er-transition er-border er-border-solid er-rounded-lg er-w-full er-border-border er-p-4 er-flex er-items-center er-flex-col er-cursor-pointer er-relative']">
+                    :class="[forms.time === time ? 'er-bg-primary/75 er-text-white' : '', 'text-size12 er-font-medium er-border er-border-solid er-rounded-lg er-w-full er-border-border er-p-4 er-flex er-items-center er-flex-col er-cursor-pointer er-relative']">
                     {{ time }}
                 </div>
             </div>

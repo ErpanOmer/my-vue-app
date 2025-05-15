@@ -40,11 +40,12 @@
 }
 
 .marker {
-    background: url('https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Untitled-1_2bb6ff92-d9a6-4e3e-8902-85285d953638.svg?v=1745571506') center center/contain no-repeat;
     height: 40px;
     width: 40px;
+    background-position: center center;
+    background-repeat: no-repeat;
     cursor: pointer;
-    box-shadow: inset;
+    background-size: contain;
 }
 
 .marker.hide {
@@ -75,7 +76,7 @@
                 <div
                     class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-[400px] mb:er-static mb:er-pb-[40vw]">
                     <Search />
-                    <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div>
+                    <!-- <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div> -->
                     <StoreList />
                 </div>
             </div>
@@ -97,7 +98,7 @@ import { Map, Marker } from 'mapbox-gl';
 import Search from '@/components/Search.vue';
 import StoreList from '@/components/StoreList.vue';
 import constans from '@/constans.js'
-import { convertDistance, debounce, getDistance, toBounds, isFullyContained } from '@/tools.js'
+import { convertDistance, debounce, throttle, getDistance, toBounds, isFullyContained } from '@/tools.js'
 import { fetchStoreList, fetchUserLocation } from '@/fetch.js'
 import { watchDebounced } from '@vueuse/core';
 import Markers from '@/components/Markers.vue'
@@ -176,10 +177,13 @@ onMounted(async () => {
             constans.DEFAULT_CENTER = center
         })
 
-        map.on('dragend', () => {
+        const mapCenterChange = () => {
             const center = map.getCenter()
             store.formState.center = [center.lng, center.lat]
-        });
+        }
+
+        map.on('dragend', mapCenterChange);
+        map.on('zoomend', mapCenterChange);
 
         map.on('click', (e) => {
             const elem = e.originalEvent.target.closest('.mapboxgl-marker')
@@ -196,69 +200,80 @@ onMounted(async () => {
         map.on('movestart', () => {
             event.emit('hidePopover')
         });
+
+        map.on('click', 'points', (e) => {
+            const id = e.features[0].properties.id;
+            event.emit('clickMarker', id)
+        });
+
+        map.on('mouseenter', 'points', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', 'points', () => {
+            map.getCanvas().style.cursor = '';
+        });
     })
 
     store.formState.storeList = await storeListFromOrigin.then()
     // event.emit('addMarkers')
     setTimeout(recalculateStoreList)
 
+    for (const s of store.formState.storeList) {
+        const div = document.createElement('div');
+        div.className = 'marker'
+        div.style.backgroundImage = 'url(https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Untitled-1_2bb6ff92-d9a6-4e3e-8902-85285d953638.svg?v=1745571506)'
+        div.setAttribute('data-id', s.id)
+
+        setTimeout(() => {
+            new Marker(div).setLngLat(s.location).addTo(store.map);
+        })
+    }
+
     // 加载自定义标记图标
-    store.map.loadImage(
-        'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/1679402773-main.png?v=1745584540',
-        (error, image) => {
-            if (error) throw error;
+    // store.map.loadImage(
+    //     'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/1679402773-main.png?v=1745584540',
+    //     (error, image) => {
+    //         if (error) throw error;
 
-            // 添加图标到地图
-            store.map.addImage('custom-marker', image);
+    //         // 添加图标到地图
+    //         store.map.addImage('custom-marker', image);
 
-            // 添加GeoJSON数据源
-            store.map.addSource('points', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'FeatureCollection',
-                    'features': store.formState.storeList.map(store => (
-                        {
-                            'type': 'Feature',
-                            id: store.id, // 关键！必须设置
-                            properties: {
-                                id: store.id,
-                            },
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': store.location
-                            }
-                        }
-                    ))
-                }
-            });
+    //         // 添加GeoJSON数据源
+    //         store.map.addSource('points', {
+    //             'type': 'geojson',
+    //             'data': {
+    //                 'type': 'FeatureCollection',
+    //                 'features': store.formState.storeList.map(store => (
+    //                     {
+    //                         'type': 'Feature',
+    //                         id: store.id, // 关键！必须设置
+    //                         properties: {
+    //                             id: store.id,
+    //                         },
+    //                         'geometry': {
+    //                             'type': 'Point',
+    //                             'coordinates': store.location
+    //                         }
+    //                     }
+    //                 ))
+    //             }
+    //         });
 
-            // 添加符号层
-            store.map.addLayer({
-                'id': 'points',
-                'type': 'symbol',
-                'source': 'points',
-                'layout': {
-                    // 'icon-anchor': 'center',
-                    'icon-image': 'custom-marker',
-                    'icon-size': constans.IS_MOBILE ? 0.68 : 0.78,
-                    'icon-allow-overlap': true,
-                }
-            });
-
-            store.map.on('click', 'points', (e) => {
-                const id = e.features[0].properties.id;
-                event.emit('clickMarker', id)
-            });
-
-            store.map.on('mouseenter', 'points', () => {
-                store.map.getCanvas().style.cursor = 'pointer';
-            });
-
-            store.map.on('mouseleave', 'points', () => {
-                store.map.getCanvas().style.cursor = '';
-            });
-        }
-    );
+    //         // 添加符号层
+    //         store.map.addLayer({
+    //             'id': 'points',
+    //             'type': 'symbol',
+    //             'source': 'points',
+    //             'layout': {
+    //                 // 'icon-anchor': 'center',
+    //                 'icon-image': 'custom-marker',
+    //                 'icon-size': constans.IS_MOBILE ? 0.68 : 0.78,
+    //                 'icon-allow-overlap': true,
+    //             }
+    //         });
+    //     }
+    // );
 })
 
 // 监听 formState 的变化

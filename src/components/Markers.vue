@@ -174,12 +174,20 @@ function changeMarkers() {
             visible = false
         }
 
-        visible && visibleIds.push(store.id)
+        const elem = document.querySelector(`.mapboxgl-marker[data-id="${store.id}"]`)
+
+        if (visible) {
+            elem.classList.remove('hide')
+        } else {
+            elem.classList.add('hide')
+        }
+
+        // visible && visibleIds.push(store.id)
     }
 
-    requestAnimationFrame(() => {
-        state.map.setFilter('points', ['in', ['get', 'id'], ['literal', visibleIds]]);
-    })
+    // requestAnimationFrame(() => {
+    //     state.map.setFilter('points', ['in', ['get', 'id'], ['literal', visibleIds]]);
+    // })
 
 
     // state.map.triggerRepaint(); // 手动触发重绘

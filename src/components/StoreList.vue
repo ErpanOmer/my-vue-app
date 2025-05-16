@@ -124,10 +124,10 @@ const itemToTop = id => {
         nextTick(() => {
             const item = listContainer.value.querySelector(`div[data-id="${id}"]`)
             
-            item && item.scrollIntoView({
-                behavior: 'instant',
-                block: 'start' // 滚动到容器顶部
-            })
+            // item && item.scrollIntoView({
+            //     behavior: 'instant',
+            //     block: 'start' // 滚动到容器顶部
+            // })
         })
     }
 }

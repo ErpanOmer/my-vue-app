@@ -86,7 +86,7 @@
         <div v-if="item.categories.length" class="er-flex er-flex-col">
             <span class="text-size14 er-font-bold er-opacity-75">Services:</span>
             <ul
-                class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex mb:er-space-x-4 mb:er-items-center">
+                class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex  mb:er-gap-x-4 mb:er-items-center mb:er-flex-wrap">
                 <li v-for="value in item.categories" :key="value">
                     <a-badge status="error" /><span class="er-ml-[-2px]">{{ $t(`search.${constans.SERVICES[value].name.replace(/\s+/g, '')}`, constans.SERVICES[value].name || '') }}</span>
                 </li>
@@ -95,7 +95,7 @@
         <div v-if="item.availableSizes.length" class="er-flex er-flex-col">
             <span class="text-size14 er-font-bold er-opacity-75">{{ $t('storeList.AvailableTestbikes') }}:</span>
             <ul
-                class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex mb:er-space-x-4 mb:er-items-center">
+                class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex mb:er-gap-x-4 mb:er-items-center mb:er-flex-wrap">
                 <li v-for="value in item.availableSizes" :key="value">
                     <a-badge status="error" /><span class="er-ml-[-2px]">{{ constans.E_BIKES[value]?.name || value }}</span>
                 </li>

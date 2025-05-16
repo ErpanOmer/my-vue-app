@@ -1,4 +1,6 @@
-import { LngLat } from 'mapbox-gl';
+import {
+    LngLat
+} from 'mapbox-gl';
 import constans from '@/constans.js';
 
 // unit 0：meters, 1: miles
@@ -41,9 +43,9 @@ export function getDistance(r1 = [], r2 = []) {
     r1 = new LngLat(...r1);
     r2 = new LngLat(...r2);
 
-    const km = (r1.distanceTo(r2) / 1000).toFixed(2)
+    const km = (r1.distanceTo(r2) / 1000).toFixed(6)
 
-    return constans.IS_USA ? (km * 0.621371).toFixed(2) : km
+    return constans.IS_USA ? (km * 0.621371).toFixed(2) : Number(km).toFixed(2)
 }
 
 export function toBounds(center = [], meters = 0) {
@@ -70,21 +72,36 @@ export function jumpTo(map, center, bounds) {
     return new Promise(resolve => {
         const zoom = map.getZoom()
 
-        // 监听动画结束
-        map.once("moveend", resolve)
+        const easing = t => {
+            if (t === 1) {
+                resolve()
+                map.setCenter(center)
+            }
+
+            return t;
+        }
+
+        // map.setCenter(center)
         map.easeTo({
-            // duration: ,
+            duration: 300,
+            easing,
             center,
-            ...(bounds ? {} : { zoom })
+            ...(bounds ? {} : {
+                zoom
+            })
         })
 
-        bounds && map.fitBounds(bounds, { duration: 300 })
+        bounds && map.fitBounds(bounds, {
+            duration: 300,
+            // linear: false,
+            easing,
+        })
     })
 }
 
 
 // 查询url 参数
-export function getSearchValues () {
+export function getSearchValues() {
     const search = {}
 
     // 页面url
@@ -95,4 +112,11 @@ export function getSearchValues () {
     }
 
     return search
-  }
+}
+
+
+export function isPointInsideElement(x, y, element) {
+    const rect = element.getBoundingClientRect();
+
+    return x <= rect.right + 125
+}

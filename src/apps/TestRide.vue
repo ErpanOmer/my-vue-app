@@ -56,7 +56,7 @@
 @media (max-width: 767px) {
     #map {
         width: 100vw;
-        height: 150vw;
+        height: calc(100vw + 175px);
         margin-left: -20px;
         margin-top: 0;
     }
@@ -76,7 +76,7 @@
                 <div
                     class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-[400px] mb:er-static mb:er-pb-[40vw]">
                     <Search />
-                    <!-- <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div> -->
+                    <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div>
                     <StoreList />
                 </div>
             </div>
@@ -216,7 +216,6 @@ onMounted(async () => {
     })
 
     store.formState.storeList = await storeListFromOrigin.then()
-    // event.emit('addMarkers')
     setTimeout(recalculateStoreList)
 
     for (const s of store.formState.storeList) {
@@ -280,9 +279,7 @@ onMounted(async () => {
 watchDebounced(
     () => store.formState.miles, // 只监听 miles
     v => {
-        store.map.setCenter(store.formState.center);
         store.map.fitBounds(toBounds(store.formState.center, convertDistance(v)), { duration: 1000 })
-        setTimeout(recalculateStoreList)
     },
     { debounce: 500, deep: true } // 监听对象内部的所有变化
 );
@@ -304,11 +301,6 @@ watchDebounced(
 watchDebounced(
     () => store.formState.center,
     v => {
-        // marker.value.setLngLat(v);
-        // markerPin.value.style.display = 'none';
-        // requestAnimationFrame(() => {
-        //     markerPin.value.style.display = "block"; // 重新应用动画
-        // })
         setTimeout(recalculateStoreList)
     },
     { debounce: 10, deep: true } // 监听对象内部的所有变化

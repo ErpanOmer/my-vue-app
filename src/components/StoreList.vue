@@ -27,14 +27,15 @@
 </style>
 
 <template>
-    <div class="er-flex-1 er-pb-8 er-flex er-flex-col er-overflow-hidden">
+    <div class="er-flex-1 er-pb-8 er-flex er-flex-col er-overflow-hidden" ref="listRef">
         <div
             class="er-flex er-items-center text-size14 er-px-10 er-py-4 er-pb-4 er-shadow-2xl mb:er-bg-white mb:er-mb-2 mb:er-w-[calc(100%-32px)] mb:er-mx-auto mb:er-rounded-xl mb:er-font-bold mb:er-px-6">
-            {{  $t('storeList.Findnearbystores') }}: <span class="er-text-primary er-pl-2"><span v-if="constans.IS_MOBILE">{{ currentIndex }}
+            {{ $t('storeList.Findnearbystores') }}: <span class="er-text-primary er-pl-2"><span
+                    v-if="constans.IS_MOBILE">{{ currentIndex }}
                     / </span> {{ sortedList.length }}</span>
         </div>
-        <a-carousel v-if="constans.IS_MOBILE && rerender" :after-change="onChange" :touchMove="draggable" :touchThreshold="10" :dots="false"
-            arrows :infinite="false" ref="carousel" :slickGoTo="10">
+        <a-carousel v-if="constans.IS_MOBILE && rerender" :after-change="onChange" :touchMove="draggable"
+            :touchThreshold="10" :dots="false" arrows :infinite="false" ref="carousel" :slickGoTo="10">
             <ListItem v-for="item in sortedList" :item="item" :key="item.id" :onclick="onClick" />
             <template #prevArrow>
                 <svg style="left: -6px;transform: translateY(-50%);" xmlns="http://www.w3.org/2000/svg" height="30px"
@@ -51,34 +52,35 @@
         </a-carousel>
         <div v-if="!constans.IS_MOBILE" class="er-flex er-flex-col er-space-y-4 er-overflow-auto" ref="listContainer">
             <ListItem @click.stop="onClick(item)" v-model:activeStore="activeStore" :item="item"
-                v-for="item in sortedList" :key="item.id" />
+                v-for="item in sortedList" :key="item.id" :data-id="item.id" />
         </div>
     </div>
 </template>
 
 <script setup>
 import constans from '@/constans'
-import { ref, computed, nextTick, onMounted, watch, onBeforeUnmount } from "vue";
+import { ref, computed, nextTick, onMounted, watch, onBeforeUnmount, useTemplateRef } from "vue";
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue';
 import { useStore } from '@/store'
 import ListItem from './ListItem.vue';
 import { Carousel } from 'ant-design-vue';
-import { getDistance, toBounds, jumpTo } from '@/tools.js'
+import { getDistance, toBounds, debounce, jumpTo, isPointInsideElement } from '@/tools.js'
 import event from '@/event.js'
+
+const listRef = useTemplateRef('listRef')
+const listContainer = useTemplateRef('listContainer');
 
 const activeStore = ref()
 const currentIndex = ref(1)
 const carousel = ref(null)
 const rerender = ref(false)
+const store = useStore()
+const draggable = ref(true);
 let itsMe = false
 
 const sortedList = computed(() => {
     return store.formState.storeList.filter(s => s.show).sort((a, b) => a.distance - b.distance);
 })
-
-const store = useStore()
-const listContainer = ref(null);
-const draggable = ref(true);
 
 const onClick = async (v) => {
     // 获取当前地图的可视区域边界
@@ -88,20 +90,21 @@ const onClick = async (v) => {
     // 判断该点是否在地图可视区域内
     const isInside = bounds.contains(point);
 
+    // 当前点是否落在 搜索框下面，防止被挡住，没法看
+    let isInSearchBox = false
+    if (!constans.IS_MOBILE) {
+        const { x, y } = store.map.project(v.location)
+        isInSearchBox = isPointInsideElement(x, y, listRef.value.parentNode)
+    }
+
     // 两点之间的距离
     const disrance = Number(getDistance(v.location, store.formState.center))
     activeStore.value = v.id
 
     // 如果当前点 ，不在地图上
-    if (!isInside) {
-        // store.formState.center = v.location
+    if (!isInside || isInSearchBox || (disrance > ((store.formState.miles / 3) * 2))) {
         await jumpTo(store.map, v.location)
-    }
-
-    // 如果两点之间的距离 超过 10 miles
-    if (disrance > ((store.formState.miles / 3) * 2)) {
         store.formState.center = v.location
-        await jumpTo(store.map, v.location)
     }
 
     setTimeout(() => {
@@ -116,6 +119,19 @@ const onChange = index => {
     itsMe = false
 }
 
+const itemToTop = id => {
+    if (!constans.IS_MOBILE) {
+        nextTick(() => {
+            const item = listContainer.value.querySelector(`div[data-id="${id}"]`)
+            
+            item && item.scrollIntoView({
+                behavior: 'instant',
+                block: 'start' // 滚动到容器顶部
+            })
+        })
+    }
+}
+
 watch(sortedList, v => {
     rerender.value = false
     itsMe = false
@@ -125,11 +141,10 @@ watch(sortedList, v => {
         rerender.value = true
     })
 
-    !constans.IS_MOBILE && nextTick(() => {
-        if (listContainer.value) {
-            listContainer.value.scrollTop = 0; // 滚动到顶部
-        }
-    });
+
+    !constans.IS_MOBILE && listContainer.value && nextTick(() => {
+        listContainer.value.scrollTop = 0; // 滚动到顶部
+    })
 })
 
 
@@ -145,6 +160,9 @@ event.on('clickMarker', id => {
         const index = sortedList.value.findIndex(s => s.id === id)
         carousel.value.goTo(index)
     }
+
+    // 滚动到顶部
+    itemToTop(id)
 })
 
 

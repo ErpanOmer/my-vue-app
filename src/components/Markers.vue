@@ -46,12 +46,12 @@
                         <span>{{ time || $t(`popup.Closed`) }}</span>
                     </div>
                 </div>
-                <div v-if="store.categories.length" class="er-flex er-space-x-4">
+                <div v-if="store.categories.length && !constans.IS_MOBILE" class="er-flex er-space-x-4">
                     <img width="30" :src="constans.SERVICES[value].icon" :title="constans.SERVICES[value].name"
                         :alt="constans.SERVICES[value].name" v-for="value in store.categories" :key="value">
                     <span class="er-flex-1"></span>
                 </div>
-                <a-button v-if="!store.noBook && !constans.IS_MOBILE" type="primary" danger
+                <a-button v-if="!store.noBook" type="primary" danger
                     @click="Booknow(store, $event)">
                     <div class="er-flex er-items-center er-text-center er-justify-center">
                         <span>{{ $t('storeList.Booknow') }}</span><svg xmlns="http://www.w3.org/2000/svg" height="20px"
@@ -85,25 +85,6 @@ const open = ref(false)
 const popover = ref(null)
 const popoverPosition = ref({ left: 0, top: 0 }); // Popover 位置
 
-const addMarkers = () => {
-    for (const marker of markers.values()) {
-        marker.remove()
-    }
-
-    markers.clear()
-
-    for (const store of state.formState.storeList) {
-        const div = document.createElement('div')
-        div.className = 'marker'
-
-        const marker = new Marker(div).setLngLat(store.location).addTo(state.map)
-        const elem = marker.getElement()
-        elem.setAttribute('data-id', store.id)
-
-        markers.set(store.id, marker)
-    }
-}
-
 const getPopupContainer = () => {
     return document.body
 }
@@ -117,8 +98,8 @@ async function onClickMarker(id) {
 
     // 如果两点之间的距离 超过 10 miles
     if (disrance > ((state.formState.miles / 3) * 2)) {
-        state.formState.center = store.location
         await jumpTo(state.map, store.location)
+        state.formState.center = store.location
     }
 
     setTimeout(show, 0, store)
@@ -145,7 +126,7 @@ function show(v) {
         open.value = true
 
         nextTick(() => {
-            popover.value.click()
+            popover.value?.click()
         })
     })
 }
@@ -157,7 +138,6 @@ function hide() {
 event.on('hidePopover', hide)
 event.on('storeListItemClick', show)
 event.on('clickMarker', onClickMarker)
-event.on('addMarkers', addMarkers)
 
 
 function changeMarkers() {
@@ -204,7 +184,4 @@ watchDebounced(
     changeMarkers,
     { debounce: 500, deep: true } // 监听对象内部的所有变化
 )
-
-
-// watchDebounced(() => state.formState.storeList, addMarkers, { debounce: 500, deep: true });
 </script>

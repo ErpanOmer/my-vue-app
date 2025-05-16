@@ -56,7 +56,7 @@
 @media (max-width: 767px) {
     #map {
         width: 100vw;
-        height: calc(100vw + 175px);
+        height: calc(100vw + 150px);
         margin-left: -20px;
         margin-top: 0;
     }
@@ -74,7 +74,7 @@
             <div class="er-relative">
                 <div id="map" v-if="!constans.IS_MOBILE" ref="mapContainer"></div>
                 <div
-                    class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-[400px] mb:er-static mb:er-pb-[40vw]">
+                    class="er-flex er-flex-col er-absolute er-top-6 er-left-6 er-bg-background md:er-max-h-[96vh] er-px-8 er-pt-6 er-rounded-2xl er-shadow-2xl er-space-y-4 er-overflow-hidden er-w-full md:er-max-w-[400px] mb:er-static mb:er-pb-[175px]">
                     <Search />
                     <div id="map" v-if="constans.IS_MOBILE" ref="mapContainer"></div>
                     <StoreList />
@@ -154,6 +154,7 @@ onMounted(async () => {
         cooperativeGestures: true,
         dragRotate: false,
         attributionControl: false,
+        preserveDrawingBuffer: true, // 强制 canvas 保持绘制像素，不让空区域透明
         locale: {
             "ScrollZoomBlocker.CtrlMessage": t('map.CtrlMessage'),
             "ScrollZoomBlocker.CmdMessage": t('map.CmdMessage'),
@@ -164,7 +165,7 @@ onMounted(async () => {
         compact: true
     }));
 
-    store.map.setPadding(constans.IS_MOBILE ? { bottom: 200 } : { left: 200 });
+    store.map.setPadding(constans.IS_MOBILE ? { bottom: 100 } : { left: 200 });
 
     store.map.on('load', function ({ target: map }) {
         // markerPin.value.classList = ['er-block']

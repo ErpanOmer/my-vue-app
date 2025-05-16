@@ -16,7 +16,7 @@
     <a-popover v-if="open" :title="null" trigger="click" :getPopupContainer="getPopupContainer" destroyTooltipOnHide
         arrowPointAtCenter>
         <template #content>
-            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[200px]">
+            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[175px]">
                 <span class="text-size16 er-font-bold mb:er-text-primary er-leading-tight mb:er-text-2xl">{{ store.name }}</span>
                 <a v-if="!constans.IS_MOBILE" class="er-text-primary er-text-xl !er-underline"
                     :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"

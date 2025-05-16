@@ -152,7 +152,8 @@ onMounted(async () => {
         bounds: toBounds(constans.DEFAULT_CENTER, convertDistance(constans.DEFAULT_RADIUS)),
         maxBounds: constans.MAX_BOUNDS,
         cooperativeGestures: true,
-        dragRotate: false
+        dragRotate: false,
+        language: constans.SHOP_LOCALE
     })
 
     store.map.setPadding(constans.IS_MOBILE ? { bottom: 200 } : { left: 200 });

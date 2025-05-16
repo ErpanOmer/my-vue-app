@@ -122,8 +122,20 @@ const onChange = index => {
 const itemToTop = id => {
     if (!constans.IS_MOBILE) {
         nextTick(() => {
-            const item = listContainer.value.querySelector(`div[data-id="${id}"]`)
-            
+            const container = listContainer.value
+            const item = container.querySelector(`div[data-id="${id}"]`)
+
+            if (item) {
+                const itemRect = item.getBoundingClientRect()
+                const containerRect = container.getBoundingClientRect()
+
+                const offset = itemRect.top - containerRect.top
+
+                container.scrollTo({
+                    top: container.scrollTop + offset
+                })
+            }
+
             // item && item.scrollIntoView({
             //     behavior: 'instant',
             //     block: 'start' // 滚动到容器顶部

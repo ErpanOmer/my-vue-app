@@ -50,5 +50,10 @@ export default {
         'Thursday': 'Thursday',
         'Friday': 'Friday',
         'Saturday': 'Saturday'
+    },
+    map: {
+        CtrlMessage: 'Use ctrl + scroll to zoom the map',
+        CmdMessage: 'Use ⌘ + scroll to zoom the map',
+        Message: 'Use two fingers to move the map'
     }
 }

@@ -16,14 +16,14 @@
     <a-popover v-if="open" :title="null" trigger="click" :getPopupContainer="getPopupContainer" destroyTooltipOnHide
         arrowPointAtCenter>
         <template #content>
-            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[175px]">
-                <span class="text-size16 er-font-bold mb:er-text-primary er-leading-tight">{{ store.name }}</span>
+            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[200px]">
+                <span class="text-size16 er-font-bold mb:er-text-primary er-leading-tight mb:er-text-2xl">{{ store.name }}</span>
                 <a v-if="!constans.IS_MOBILE" class="er-text-primary er-text-xl !er-underline"
                     :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"
                     :title="store.address" target="_blank" rel="noopener noreferrer">{{ store.address }}</a>
 
                 <a :href="`tel:${store.phone}`" :title="store.phone"
-                    class="er-flex er-items-center er-gap-x-2 er-flex-wrap er-text-xl" v-if="!constans.IS_MOBILE">
+                    class="er-flex er-items-center er-gap-x-2 er-flex-wrap er-text-xl">
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                         fill="#fd4b17">
                         <path

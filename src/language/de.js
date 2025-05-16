@@ -50,5 +50,10 @@ export default {
         'Thursday': 'Donnerstag',
         'Friday': 'Freitag',
         'Saturday': 'Samstag'
+    },
+    map: {
+        CtrlMessage: 'Verwenden Sie Strg + Scrollen, um die Karte zu vergrößern',
+        CmdMessage: 'Verwenden Sie ⌘ + Scrollen, um die Karte zu vergrößern',
+        Message: 'Verwenden Sie zwei Finger, um die Karte zu verschieben'
     }
 }

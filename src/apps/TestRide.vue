@@ -94,7 +94,7 @@ import { StyleProvider, ConfigProvider, legacyLogicalPropertiesTransformer } fro
 import { ref, onMounted, watch, watchEffect, nextTick } from "vue";
 import deDE from 'ant-design-vue/es/locale/de_DE'
 import enUS from 'ant-design-vue/es/locale/en_US';
-import { Map, Marker } from 'mapbox-gl';
+import { Map, Marker, AttributionControl } from 'mapbox-gl';
 import Search from '@/components/Search.vue';
 import StoreList from '@/components/StoreList.vue';
 import constans from '@/constans.js'
@@ -105,11 +105,11 @@ import Markers from '@/components/Markers.vue'
 import icon from '@/assets/pin.png'
 import event from '@/event.js'
 import { useStore } from '@/store'
+import { useI18n } from 'vue-i18n'
 
 const store = useStore()
 const mapContainer = ref(null);
-const marker = ref(null)
-const markerPin = ref(null)
+const { t } = useI18n()
 
 // pre fetch
 let storeListFromOrigin = fetchStoreList()
@@ -153,8 +153,16 @@ onMounted(async () => {
         maxBounds: constans.MAX_BOUNDS,
         cooperativeGestures: true,
         dragRotate: false,
+        attributionControl: false,
+        locale: {
+            "ScrollZoomBlocker.CtrlMessage": t('map.CtrlMessage'),
+            "ScrollZoomBlocker.CmdMessage": t('map.CmdMessage'),
+            "TouchPanBlocker.Message": t('map.Message')
+        },
         language: constans.SHOP_LOCALE
-    })
+    }).addControl(new AttributionControl({
+        compact: true
+    }));
 
     store.map.setPadding(constans.IS_MOBILE ? { bottom: 200 } : { left: 200 });
 

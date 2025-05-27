@@ -16,6 +16,7 @@ export default {
     storeList: {
         'Findnearbystores': 'Find nearby stores',
         'AvailableTestbikes': "Available Test bikes",
+        'DealerFeatures': 'Dealer Features',
         'Booknow': 'Book now'
     },
     dialog: {

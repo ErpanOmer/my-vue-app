@@ -84,7 +84,7 @@
             </div>
         </div>
         <div v-if="item.categories.length" class="er-flex er-flex-col">
-            <span class="text-size14 er-font-bold er-opacity-75">Services:</span>
+            <span class="text-size14 er-font-bold er-opacity-75">{{ $t('storeList.DealerFeatures') }}:</span>
             <ul
                 class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex  mb:er-gap-x-4 mb:er-items-center mb:er-flex-wrap">
                 <li v-for="value in item.categories" :key="value">

@@ -72,9 +72,9 @@
                 {{ constans.IS_USA ? 'Miles' : 'KM' }}</span>
         </div>
         <div class="er-flex er-items-start er-justify-between">
-            <a class="hover:er-underline er-leading-snug copy"
+            <a class="er-underline er-leading-snug copy"
             :href="`https://www.google.com/maps?q=${item.location.map(i => i.toFixed(4)).reverse().toString()}`"
-            target="_blank" rel="noopener noreferrer" @click.stop>{{ item.address }}<svg v-if="!constans.IS_MOBILE" @click.stop.prevent="copyToClipboard(item.address)" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg></a>
+            target="_blank" @click.stop>{{ item.address }}<svg v-if="!constans.IS_MOBILE" @click.stop.prevent="copyToClipboard(item.address)" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg></a>
             <a v-if="item.email" :href="`mailto:${item.email}`"
                 class="er-flex er-items-center text-size14 er-text-primary er-ml-2" @click.stop>
                 <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px"

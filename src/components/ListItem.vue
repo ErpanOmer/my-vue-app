@@ -33,6 +33,21 @@
 #app .slick-disabled {
     opacity: 0.4;
 }
+
+#app .copy {
+    svg:last-child {
+        vertical-align: middle;
+        margin-left: 3px;
+        opacity: 0;
+        transition: all .3s;
+    }
+
+    &:hover {
+       svg:last-child {
+         opacity: 7;
+       }
+    }
+}
 </style>
 
 <template>
@@ -44,7 +59,7 @@
                     d="M160-720v-80h640v80H160Zm0 560v-240h-40v-80l40-200h640l40 200v80h-40v240h-80v-240H560v240H160Zm80-80h240v-160H240v160Z" />
             </svg>
             <span @click="() => constans.IS_MOBILE && onclick(item)"
-                class="text-size16 er-font-bold mb:er-text-2xl er-leading-10 mb:er-leading-normal">{{ item.name }}<svg
+                class="text-size16 er-font-bold mb:er-text-2xl er-leading-snug mb:er-leading-normal">{{ item.name }}<svg
                     class="er-ml-1 er-align-sub md:er-hidden" xmlns="http://www.w3.org/2000/svg" height="18px"
                     viewBox="0 -960 960 960" width="18px" fill="#333">
                     <path
@@ -57,9 +72,9 @@
                 {{ constans.IS_USA ? 'Miles' : 'KM' }}</span>
         </div>
         <div class="er-flex er-items-start er-justify-between">
-            <a class="er-button er-button-text er-whitespace-normal er-underline"
+            <a class="hover:er-underline er-leading-snug copy"
             :href="`https://www.google.com/maps?q=${item.location.map(i => i.toFixed(4)).reverse().toString()}`"
-            target="_blank" rel="noopener noreferrer" @click.stop>{{ item.address }}</a>
+            target="_blank" rel="noopener noreferrer" @click.stop>{{ item.address }}<svg v-if="!constans.IS_MOBILE" @click.stop.prevent="copyToClipboard(item.address)" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg></a>
             <a v-if="item.email" :href="`mailto:${item.email}`"
                 class="er-flex er-items-center text-size14 er-text-primary er-ml-2" @click.stop>
                 <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px"
@@ -72,16 +87,17 @@
             </a>
         </div>
         <div class="er-flex er-items-start er-gap-x-4 er-flex-wrap">
-            <div :href="`tel:${item.phone}`" v-if="item.phone"
-                class="er-flex er-items-center text-size14 er-text-primary !er-gap-x-1" @click.stop>
-                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+            <a :href="`tel:${item.phone}`" v-if="item.phone"
+                class="er-flex er-items-center text-size14 er-text-primary copy hover:er-underline" @click.stop>
+                <svg xmlns="http://www.w3.org/2000/svg" class="er-mr-1" height="20px" viewBox="0 -960 960 960" width="20px"
                     fill="#fd4b17">
                     <path
                         d="M162-120q-18 0-30-12t-12-30v-162q0-13 9-23.5t23-14.5l138-28q14-2 28.5 2.5T342-374l94 94q38-22 72-48.5t65-57.5q33-32 60.5-66.5T681-524l-97-98q-8-8-11-19t-1-27l26-140q2-13 13-22.5t25-9.5h162q18 0 30 12t12 30q0 125-54.5 247T631-329Q531-229 409-174.5T162-120Z" />
                 </svg>
                 <!-- <span>:</span> -->
                 <span>{{ item.phone }}</span>
-            </div>
+                <svg v-if="!constans.IS_MOBILE" @click.stop.prevent="copyToClipboard(item.phone)" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+            </a>
         </div>
         <div v-if="item.categories.length" class="er-flex er-flex-col">
             <span class="text-size14 er-font-bold er-opacity-75">{{ $t('storeList.DealerFeatures') }}:</span>
@@ -134,5 +150,10 @@ const store = useStore()
 function Booknow(store, e) {
     event.emit('hidePopover')
     booknow(store, e)
+}
+
+async function copyToClipboard(text) {
+    await navigator.clipboard.writeText(text);
+    // alert('复制成功');
 }
 </script>

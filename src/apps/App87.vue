@@ -1,10 +1,19 @@
 <style>
-.swiperl .swiper-slide,
-.swiperr .swiper-slide {
-    max-width: 300px;
-    place-self: center;
-    height: 500px;
+.swiperl {
+    display: block;
+    width: 300px !important;
+    max-width: 300px !important;
+    min-width: 300px !important;
 }
+
+.swiperr .swiper-slide {
+    width: 300px !important;
+    max-width: 300px !important;
+    min-width: 300px !important;
+    height: 500px !important;
+    box-sizing: border-box;
+}
+
 
 .swiperl .swiper-slide {
     transition: opacity .4s;
@@ -71,10 +80,6 @@
 .swiperr .swiper-button-next {
     left: 70px;
 
-}
-
-.swiperr-parent {
-    padding-left: calc((100% - 1280px) / 2);
 }
 
 @media (max-width: 768px) {
@@ -225,10 +230,10 @@
             </div>
         </div>
     </div>
-    <div class="er-bg-background er-py-48 mb:er-py-24 swiperr-parent">
+    <div class="er-bg-background er-pt-48 er-pb-24 mb:er-pt-24 mb:er-pb-8 swiperr-parent">
         <h2 class="text-size36 mb:er-text-4xl mb:er-pl-6">E-Bike store experts recommended</h2>
-        <div class="er-flex er-relative er-mt-28 mb:er-flex-col-reverse mb:er-mt-16">
-            <div
+        <div class="er-flex er-relative er-mt-28 mb:er-flex-col-reverse mb:er-mt-12 centeral-content">
+            <!-- <div
                 class="swiperl er-bg-white er-basis-1/6 er-rounded-3xl er-mr-12 er-overflow-hidden mb:er-mr-0 mb:er-rounded-none">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide er-p-10 er-bg-white mb:er-flex mb:er-items-center">
@@ -315,56 +320,56 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="swiperr er-flex-1 er-overflow-hidden"
                 style="--swiper-navigation-size: 22px;--swiper-theme-color: #000;">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted autoplay src="https://cdn.shopify.com/videos/c/o/v/cece92c64dc64c11b7d40676d8420ce3.mp4"></video>
                         <a href="https://youtube.com/shorts/5c1t5wWZTCw" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                            <img width="80" height="56" loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted src="https://cdn.shopify.com/videos/c/o/v/c23aecdada634f44a3a72c272752476c.mp4"></video>
                         <a href="https://youtube.com/shorts/FO_zIOidRhk" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                            <img width="80" height="56"  loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted src="https://cdn.shopify.com/videos/c/o/v/19dab9606d2a422182ec6f66a30faada.mp4"></video>
-                        <a href="https://youtube.com/shorts/C_7kvOuhXvc" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                        <a href="https://www.youtube.com/shorts/dibzKIO2mwg" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
+                            <img width="80" height="56"  loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted src="https://cdn.shopify.com/videos/c/o/v/b672d5215c734a21bb7a6035cc9ce176.mp4"></video>
                         <a href="https://youtube.com/shorts/Hs-dye8VjKw" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                            <img width="80" height="56"  loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted src="https://cdn.shopify.com/videos/c/o/v/b81489480cd94053acf04cb46544cf4e.mp4"></video>
                         <a href="https://youtube.com/shorts/1ailCBjTXg8" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                            <img width="80" height="56"  loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted src="https://cdn.shopify.com/videos/c/o/v/540abb51cba44d168dd1b38c2714a1c8.mp4"></video>
                         <a href="https://youtube.com/shorts/s_zWRgjr5Us" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                            <img width="80" height="56"  loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted src="https://cdn.shopify.com/videos/c/o/v/d0dcfc153a7c4bdaacb05a195adab397.mp4"></video>
                         <a href="https://youtube.com/shorts/j_btDAtwQwo" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                            <img width="80" height="56"  loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                     <div class="swiper-slide background-image">
                         <video playsinline loop muted src="https://cdn.shopify.com/videos/c/o/v/f714ebeb79444c03bdf1e9a47041e702.mp4"></video>
                         <a href="https://youtu.be/yufNEwBr3aI" target="_blank" class="er-absolute er-inset-0 er-items-center er-justify-center er-flex er-opacity-0 er-h-0">
-                            <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
+                            <img width="80" height="56"  loading="lazy" src="https://cdn.shopify.com/s/files/1/0583/5810/4213/files/yt_icon_rgb.png?v=1743577722&width=80" alt="">
                         </a>
                     </div>
                 </div>
@@ -480,6 +485,8 @@ onMounted(() => {
         },
         on: {
             slideChange: function () {
+                console.log(this)
+
                 const videos = this.wrapperEl.querySelectorAll('video');
                 videos.forEach(video => {
                     video.pause();   // 暂停所有视频
@@ -497,20 +504,20 @@ onMounted(() => {
             },
         },
         thumbs: {
-            swiper: {
-                el: '.swiperl',
-                speed: 400,
-                preloadImages: false,
-                multipleActiveThumbs: false,
-                loop: true,
-                keyboard: {
-                    enabled: false, // 禁用键盘控制
-                },
-                mousewheel: {
-                    enabled: false, // 禁用鼠标滚轮切换
-                },
-                allowTouchMove: false, // 禁止手动滑动
-            }
+            // swiper: {
+            //     el: '.swiperl',
+            //     speed: 400,
+            //     preloadImages: false,
+            //     multipleActiveThumbs: false,
+            //     loop: true,
+            //     keyboard: {
+            //         enabled: false, // 禁用键盘控制
+            //     },
+            //     mousewheel: {
+            //         enabled: false, // 禁用鼠标滚轮切换
+            //     },
+            //     allowTouchMove: false, // 禁止手动滑动
+            // }
         },
 
         // centeredSlides: true,

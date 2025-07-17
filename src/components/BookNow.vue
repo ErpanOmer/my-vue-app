@@ -114,7 +114,7 @@
                 v-model:value="forms.date" valueFormat="YYYY-MM-DD">
                 <template #headerRender="{ value, onChange }">
                     <div class="er-flex er-items-center er-justify-between er-mb-6">
-                        <span class="text-size14 er-font-medium">{{ i18n.global.t('dialog.SelectedDate') }}: <span class="er-text-primary">{{ forms.date
+                        <span class="text-size14 er-font-medium">{{ i18n.global.t('dialog.SelectedDate') }}: <span class="er-text-primary er-font-bold">{{ forms.date
                         }}</span></span>
                         <a-select class="er-w-5/12" :value="value.format('YYYY-MM')" @change="
                             selectedMonth => {
@@ -129,12 +129,18 @@
                     </div>
                 </template>
             </a-calendar>
-            <div class="text-size14 er-font-medium er-my-6">{{ i18n.global.t('dialog.SelectedTime') }}: <span class="er-text-primary">{{ forms.time }}</span>
+            <div class="text-size14 er-font-medium er-my-6">{{ i18n.global.t('dialog.SelectedTime') }}:&nbsp;&nbsp;<span class="er-text-primary er-font-bold">{{ constans.IS_USA ? dayjs(forms.time, 'HH:mm').format('h:mm A') : forms.time }}</span>
             </div>
-            <div class="er-grid er-grid-cols-5 er-gap-3">
+            <div class="er-grid er-grid-cols-4 er-gap-3 mb:er-grid-cols-3">
                 <div @click="onChangeTime(time)" :key="time" v-for="time in timeArray"
-                    :class="[forms.time === time ? 'er-bg-primary/75 er-text-white' : '', 'text-size12 er-font-medium er-border er-border-solid er-rounded-lg er-w-full er-border-border er-p-4 er-flex er-items-center er-flex-col er-cursor-pointer er-relative']">
-                    {{ time }}
+                    :class="[forms.time === time ? 'er-bg-primary/75 er-text-white er-border-2 er-border-primary/0' : '', 'er-h-14 text-size12 er-font-medium er-border er-border-solid er-rounded-lg er-w-full er-border-border er-px-4 er-flex er-items-center er-justify-center er-flex-col er-cursor-pointer er-relative']">
+                    <template v-if="forms.time === time">
+                        <svg class="er-absolute er-right-0 er-top-0" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="0,0 24,0 24,24" fill="currentColor"/>
+                            <polyline points="13,8 16,11 21,2" fill="none" stroke="rgb(253 75 23 / 0.75)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </template>
+                    {{ constans.IS_USA ? dayjs(time, 'HH:mm').format('h:mm A') : time }}
                 </div>
             </div>
         </div>
@@ -157,7 +163,7 @@
                         <span class="text-size16 er-font-bold er-my-4">{{ constans.E_BIKES[forms.ebike].name }}</span>
                     </div>
                 </a-descriptions-item>
-                <a-descriptions-item :label="i18n.global.t('dialog.DateTime')">{{ forms.date }} {{ forms.time }}</a-descriptions-item>
+                <a-descriptions-item :label="i18n.global.t('dialog.DateTime')">{{ forms.date }} {{ constans.IS_USA ? dayjs(forms.time, 'HH:mm').format('h:mm A') : forms.time }}</a-descriptions-item>
                 <a-descriptions-item :label="i18n.global.t('dialog.YourName')">{{ forms.username }}</a-descriptions-item>
                 <a-descriptions-item :label="i18n.global.t('dialog.Phone')">{{ forms.phone }}</a-descriptions-item>
                 <a-descriptions-item label="Email">{{ forms.email }}</a-descriptions-item></a-descriptions>

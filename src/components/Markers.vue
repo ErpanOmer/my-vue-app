@@ -16,7 +16,7 @@
     <a-popover v-if="open" :title="null" trigger="click" :getPopupContainer="getPopupContainer" destroyTooltipOnHide
         arrowPointAtCenter>
         <template #content>
-            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[175px]">
+            <div class="er-flex er-flex-col er-space-y-3 er-w-[225px] mb:er-w-[200px]">
                 <span class="text-size16 er-font-bold mb:er-text-primary er-leading-tight mb:er-text-2xl">{{ store.name }}</span>
                 <a v-if="!constans.IS_MOBILE" class="er-text-primary er-text-xl !er-underline"
                     :href="`https://www.google.com/maps?q=${store.location.map(i => i.toFixed(4)).reverse().toString()}`"
@@ -42,8 +42,8 @@
                 <span class="text-size16 er-font-bold mb:er-text-2xl">{{ $t('popup.OpeningHours') }}</span>
                 <div class="er-flex er-flex-col er-opacity-80">
                     <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">
-                        <span class="er-w-1/2">{{ $t(`popup.${constans.WEEK[index]}`) }}:</span>
-                        <span>{{ time ? constans.IS_USA ? formatTimeRange(time) : time : $t(`popup.Closed`) }}</span>
+                        <span class="er-w-2/5">{{ $t(`popup.${constans.WEEK[index]}`) }}:</span>
+                        <span>{{ time ? formatTimeRange(time) : $t(`popup.Closed`) }}</span>
                     </div>
                 </div>
                 <div v-if="store.categories.length && !constans.IS_MOBILE" class="er-flex er-space-x-4">
@@ -80,6 +80,7 @@ import { useStore } from '@/store'
 import dayjs from 'dayjs';
 
 function formatTimeRange(range) {
+  range = range.replace(/\s+/g, '').replace(/–/g, '-');
   // 支持 "10:00-18:00" 或 "10:30-13:30,15:00-19:00"
   const segments = range.split(',');
   // 取第一个区间的开始和最后一个区间的结束
@@ -87,7 +88,8 @@ function formatTimeRange(range) {
   const last = segments[segments.length - 1].split('-')[1];
   const startFormatted = dayjs(first, 'HH:mm').format('h:mm A');
   const endFormatted = dayjs(last, 'HH:mm').format('h:mm A');
-  return `${startFormatted} - ${endFormatted}`;
+
+  return constans.IS_USA ? `${startFormatted} - ${endFormatted}` : `${first} - ${last}`
 }
 
 const state = useStore()

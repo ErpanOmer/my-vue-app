@@ -43,7 +43,7 @@
                 <div class="er-flex er-flex-col er-opacity-80">
                     <div v-for="(time, index) in store.businessHours" :key="index" class="er-flex er-text-xl">
                         <span class="er-w-1/2">{{ $t(`popup.${constans.WEEK[index]}`) }}:</span>
-                        <span>{{ time || $t(`popup.Closed`) }}</span>
+                        <span>{{ time ? constans.IS_USA ? formatTimeRange(time) : time : $t(`popup.Closed`) }}</span>
                     </div>
                 </div>
                 <div v-if="store.categories.length && !constans.IS_MOBILE" class="er-flex er-space-x-4">
@@ -77,6 +77,18 @@ import booknow from '@/modal.js'
 import event from '@/event.js'
 import { getDistance, toBounds, jumpTo, isFullyContained } from '@/tools.js'
 import { useStore } from '@/store'
+import dayjs from 'dayjs';
+
+function formatTimeRange(range) {
+  // 支持 "10:00-18:00" 或 "10:30-13:30,15:00-19:00"
+  const segments = range.split(',');
+  // 取第一个区间的开始和最后一个区间的结束
+  const first = segments[0].split('-')[0];
+  const last = segments[segments.length - 1].split('-')[1];
+  const startFormatted = dayjs(first, 'HH:mm').format('h:mm A');
+  const endFormatted = dayjs(last, 'HH:mm').format('h:mm A');
+  return `${startFormatted} - ${endFormatted}`;
+}
 
 const state = useStore()
 const markers = new Map()

@@ -71,11 +71,13 @@
                     item.distance }}
                 {{ constans.IS_USA ? 'Miles' : 'KM' }}</span>
         </div>
-        <div class="er-flex er-items-start er-justify-between">
+        <div class="er-flex er-items-start">
             <a class="er-underline er-leading-snug copy"
+            title="address"
             :href="`https://www.google.com/maps?q=${item.location.map(i => i.toFixed(4)).reverse().toString()}`"
             target="_blank" @click.stop>{{ item.address }}<svg v-if="!constans.IS_MOBILE" @click.stop.prevent="copyToClipboard(item.address)" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg></a>
-            <a v-if="item.email" :href="`mailto:${item.email}`"
+            <span class="er-flex-1"></span>
+            <a title="email" v-if="item.email" :href="`mailto:${item.email}`"
                 class="er-flex er-items-center text-size14 er-text-primary er-ml-2" @click.stop>
                 <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px"
                     fill="#fd4b17">
@@ -85,9 +87,12 @@
                 <!-- <span>:</span> -->
                 <!-- <span>{{ item.email }}</span> -->
             </a>
+            <a title="website" target="_blank" v-if="item.website" :href="item.website" class="er-flex er-items-center text-size14 er-text-primary er-ml-2" @click.stop>
+                <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px" fill="#fd4b17"><path d="M838-65 720-183v89h-80v-226h226v80h-90l118 118-56 57ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 20-2 40t-6 40h-82q5-20 7.5-40t2.5-40q0-20-2.5-40t-7.5-40H654q3 20 4.5 40t1.5 40q0 20-1.5 40t-4.5 40h-80q3-20 4.5-40t1.5-40q0-20-1.5-40t-4.5-40H386q-3 20-4.5 40t-1.5 40q0 20 1.5 40t4.5 40h134v80H404q12 43 31 82.5t45 75.5q20 0 40-2.5t40-4.5v82q-20 2-40 4.5T480-80ZM170-400h136q-3-20-4.5-40t-1.5-40q0-20 1.5-40t4.5-40H170q-5 20-7.5 40t-2.5 40q0 20 2.5 40t7.5 40Zm34-240h118q9-37 22.5-72.5T376-782q-55 18-99 54.5T204-640Zm172 462q-18-34-31.5-69.5T322-320H204q29 51 73 87.5t99 54.5Zm28-462h152q-12-43-31-82.5T480-798q-26 36-45 75.5T404-640Zm234 0h118q-29-51-73-87.5T584-782q18 34 31.5 69.5T638-640Z"/></svg>
+            </a>
         </div>
         <div class="er-flex er-items-start er-gap-x-4 er-flex-wrap">
-            <a :href="`tel:${item.phone}`" v-if="item.phone"
+            <a :href="`tel:${item.phone}`" title="phone" v-if="item.phone"
                 class="er-flex er-items-center text-size14 er-text-primary copy hover:er-underline" @click.stop>
                 <svg xmlns="http://www.w3.org/2000/svg" class="er-mr-1" height="20px" viewBox="0 -960 960 960" width="20px"
                     fill="#fd4b17">
@@ -103,8 +108,11 @@
             <span class="text-size14 er-font-bold er-opacity-75">{{ $t('storeList.DealerFeatures') }}:</span>
             <ul
                 class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex  mb:er-gap-x-4 mb:er-items-center mb:er-flex-wrap">
-                <li v-for="value in item.categories" :key="value">
-                    <a-badge status="error" /><span class="er-ml-[-2px]">{{ $t(`search.${constans.SERVICES[value].name.replace(/\s+/g, '')}`, constans.SERVICES[value].name || '') }}</span>
+                
+                <li class="er-flex er-items-center" v-for="value in item.categories" :key="value">
+                    <a-badge status="error" />
+                    <span class="er-ml-[-2px]" :class="value === 1 && 'er-font-bold er-text-primary'">{{ $t(`search.${constans.SERVICES[value].name.replace(/\s+/g, '')}`, constans.SERVICES[value].name || '') }}</span>
+                    <svg v-if="value === 1" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fd4b17"><path d="M480-120 80-600l120-240h560l120 240-400 480Zm-95-520h190l-60-120h-70l-60 120Zm55 347v-267H218l222 267Zm80 0 222-267H520v267Zm144-347h106l-60-120H604l60 120Zm-474 0h106l60-120H250l-60 120Z"/></svg>
                 </li>
             </ul>
         </div>

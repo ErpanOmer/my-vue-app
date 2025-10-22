@@ -445,7 +445,37 @@ export const data =  [{
     {
         month: '2025/04',
         salary: 24000,
-        tax: 1312.48,
+        tax: 1655.20,
+        insurance: 2448
+    },
+    {
+        month: '2025/05',
+        salary: 24000,
+        tax: 1655.20,
+        insurance: 2448
+    },
+    {
+        month: '2025/06',
+        salary: 24000,
+        tax: 1655.20,
+        insurance: 2448
+    },
+    {
+        month: '2025/07',
+        salary: 24000,
+        tax: 1655.20,
+        insurance: 2448
+    },
+    {
+        month: '2025/08',
+        salary: 24000,
+        tax: 1655.20,
+        insurance: 2448
+    },
+    {
+        month: '2025/09',
+        salary: 24000,
+        tax: 1952.00,
         insurance: 2448
     }
 ]
@@ -471,5 +501,10 @@ export const year_end_bonus = [
         year: '2024',
         salary: 20383.56,
         tax: 611.51
+    },
+    {
+        year: '2025',
+        salary: 24000,
+        tax: 720
     }
 ]

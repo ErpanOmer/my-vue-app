@@ -11,7 +11,7 @@ const values = getSearchValues()
 //Urtopia (DE)&shop_url=https://newurtopia.de&locale=en&domain=newurtopia.de&currency=EUR&language=en&country=DE
 
 const IS_MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
-const IS_USA = values.domain !== 'newurtopia.com'
+const IS_USA = values.domain === 'newurtopia.com'
 
 console.log(values)
 

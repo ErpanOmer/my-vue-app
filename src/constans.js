@@ -11,7 +11,7 @@ const values = getSearchValues()
 //Urtopia (DE)&shop_url=https://newurtopia.de&locale=en&domain=newurtopia.de&currency=EUR&language=en&country=DE
 
 const IS_MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
-const IS_USA = values.domain === 'newurtopia.com'
+const IS_USA = values.domain !== 'newurtopia.com'
 
 console.log(values)
 
@@ -40,6 +40,14 @@ export default {
         [32, 57] // 东北角：德国与波兰、丹麦边界
     ],
     E_BIKES: IS_USA ? {
+        9265776787704: {
+            name: 'Carbon Classic',
+            img: 'https://newurtopia.com/cdn/shop/files/2x_c6a96827-d3fe-421a-a8f5-4fc7067e01ad.png?v=1761903566',
+        },
+        9269920006392: {
+            name: 'Carbon Classic ST',
+            img: 'https://newurtopia.com/cdn/shop/files/0010_2x_8f9b24e3-a052-4c26-a6b9-c5d17baa6e10.png?v=1761618814',
+        },
         9062953025784: {
             name: 'Fusion Pro',
             img: 'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/2x_08516587-73d8-48be-8491-4b067ab10446.png?v=1747203272'

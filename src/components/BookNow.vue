@@ -11,7 +11,7 @@
                         position: absolute;
                         right: 0;
                         top: 0;
-                        transform: translateY(-32px);
+                        transform: translateY(-24px);
                         cursor: pointer;
                     }
 
@@ -95,7 +95,7 @@
                 d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
         </svg>
         <div v-show="step === 1" class="er-py-8">
-            <div class="er-grid er-grid-cols-2 er-gap-6">
+            <div class="er-grid er-grid-cols-3 er-gap-3 mb:er-grid-cols-2">
                 <div @click="onChangeEbike(key)"
                     :class="['er-transition er-border er-border-solid er-rounded-3xl er-w-full er-border-border er-p-4 er-flex er-items-center er-flex-col er-cursor-pointer er-relative', forms.ebike === key ? 'er-bg-primary/75 er-text-white' : '']"
                     v-for="key in store.availableSizes" :key="key">
@@ -105,7 +105,7 @@
                     </svg>
                     <img class="er-object-cover er-aspect-[16/10]" :src="`${constans.E_BIKES[key].img}&width=300`"
                         :alt="constans.E_BIKES[key].name" />
-                    <span class="text-size14 er-font-medium er-my-2">{{ constans.E_BIKES[key].name }}</span>
+                    <span class="text-size14 er-text-nowrap er-font-medium er-my-2 er-text-center">{{ constans.E_BIKES[key].name }}</span>
                 </div>
             </div>
         </div>

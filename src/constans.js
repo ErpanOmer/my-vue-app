@@ -48,6 +48,14 @@ export default {
             name: 'Carbon Classic ST',
             img: 'https://newurtopia.com/cdn/shop/files/0010_2x_8f9b24e3-a052-4c26-a6b9-c5d17baa6e10.png?v=1761618814',
         },
+        9291853070584: {
+            name: 'Carbon Fold ST',
+            img: 'https://newurtopia.com/cdn/shop/files/2x_ca8512a6-a3a3-40bc-a942-d54b3daa9212.png?v=1762852736',
+        },
+        9284230250744: {
+            name: 'Carbon Joy Ultra',
+            img: 'https://newurtopia.com/cdn/shop/files/2x_1e2ac95f-d62c-4de1-956f-f74269323d08.png?v=1762497210',
+        },
         9062953025784: {
             name: 'Fusion Pro',
             img: 'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/2x_08516587-73d8-48be-8491-4b067ab10446.png?v=1747203272'

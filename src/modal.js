@@ -47,6 +47,7 @@ export default function (store, event) {
             content: createVNode(BookNow, { store, close, modal }),
             icon: null,
             footer: null,
+            width: 510,
             wrapClassName: 'modal',
             title: 'Book a Test Ride',
             maskClosable: true,

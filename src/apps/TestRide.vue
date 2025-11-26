@@ -231,12 +231,23 @@ onMounted(async () => {
     for (const s of store.formState.storeList) {
         const div = document.createElement('div');
         div.className = 'marker'
-        div.style.backgroundImage = 'url(https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Untitled-1_2bb6ff92-d9a6-4e3e-8902-85285d953638.svg?v=1745571506)'
         div.setAttribute('data-id', s.id)
 
-        setTimeout(() => {
-            new Marker(div).setLngLat(s.location).addTo(store.map);
-        })
+        if (!s.categories.includes(1)) {
+            div.style.backgroundImage = 'url(https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Untitled-1_003ac9ea-0b5e-4fd7-a9b5-69cde18cc85b.svg?v=1764154909)'
+            Promise.resolve().then(() => {
+                console.log('Promise')
+                new Marker(div).setLngLat(s.location).addTo(store.map);
+            })
+            
+        } else {
+            div.style.backgroundImage = 'url(https://cdn.shopify.com/s/files/1/0583/5810/4213/files/Untitled-1_3219f9af-230b-430a-bff1-72cfad9f4b51.svg?v=1764154409)'
+            // div.style.zIndex = 1
+            setTimeout(() => {
+                console.log('setTimeout')
+                new Marker(div).setLngLat(s.location).addTo(store.map);
+            })
+        }
     }
 
     // 加载自定义标记图标

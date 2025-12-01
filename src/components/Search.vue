@@ -14,7 +14,7 @@
         }
 
         .ant-collapse-content-box {
-            padding: 20px;
+            padding: 0 20px 20px;
         }
 
         .ant-divider {
@@ -107,9 +107,7 @@
         </a-button> -->
     </div>
     <div>
-        <div class="er-text-2xl"><b>Radius: </b><span class="er-text-xl">{{ store.formState.miles }} {{ constans.IS_USA
-            ?
-                'Miles' : 'KM' }}</span></div>
+        <div class="er-text-2xl"><b>Radius: </b><span class="er-text-xl">{{ store.formState.miles }} {{ constans.IS_USA ? 'Miles' : 'KM' }}</span></div>
         <a-slider v-model:value="store.formState.miles" :min="constans.RADIUS_RANGE[0]" :max="constans.RADIUS_RANGE[1]"
             :step="1" :tip-formatter="tipFormatter" />
     </div>
@@ -131,6 +129,7 @@
     </div>
     <a-collapse ghost :expandIcon="null" accordion>
         <a-collapse-panel :showArrow="false" :header="null" ref="collapsePanelRef">
+            <a-divider>Dealer Features</a-divider>
             <a-checkbox-group v-model:value="store.formState.service">
                 <a-row :gutter="[0, 12]">
                     <a-col :span="12" v-for="(value, key) in constans.SERVICES" :key="key">
@@ -141,7 +140,7 @@
                     </a-col>
                 </a-row>
             </a-checkbox-group>
-            <a-divider />
+            <a-divider>Demo Bikes</a-divider>
             <a-checkbox-group v-model:value="store.formState.ebikes">
                 <a-row :gutter="[0, 12]">
                     <template v-for="(value, key) in constans.E_BIKES" :key="key">

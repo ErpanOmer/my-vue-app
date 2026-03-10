@@ -11,7 +11,7 @@ const values = getSearchValues()
 //Urtopia (DE)&shop_url=https://newurtopia.de&locale=en&domain=newurtopia.de&currency=EUR&language=en&country=DE
 
 const IS_MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
-const IS_USA = values.domain === 'newurtopia.com'
+const IS_USA = import.meta.env.DEV || values.domain === 'newurtopia.com'
 
 console.log(values)
 
@@ -47,6 +47,10 @@ export default {
         9269920006392: {
             name: 'Carbon Classic ST',
             img: 'https://newurtopia.com/cdn/shop/files/0010_2x_8f9b24e3-a052-4c26-a6b9-c5d17baa6e10.png?v=1761618814',
+        },
+        9426496356600: {
+            name: 'Carbon Fold 2',
+            img: 'https://newurtopia.com/cdn/shop/files/orange_1.png?v=1772603594',
         },
         9291853070584: {
             name: 'Carbon Fold ST',

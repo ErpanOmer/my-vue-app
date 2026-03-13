@@ -108,12 +108,13 @@
             <span class="text-size14 er-font-bold er-opacity-75">{{ $t('storeList.DealerFeatures') }}:</span>
             <ul
                 class="er-opacity-80 text-size12 er-py-1 er-space-y-0.5 marker:er-text-transparent er-pl-2 mb:er-flex  mb:er-gap-x-4 mb:er-items-center mb:er-flex-wrap">
-                
-                <li class="er-flex er-items-center" v-for="value in item.categories" :key="value">
-                    <a-badge status="error" />
-                    <span class="er-ml-[-2px]" :class="value === 1 && 'er-font-bold er-text-primary'">{{ $t(`search.${constans.SERVICES[value].name.replace(/\s+/g, '')}`, constans.SERVICES[value].name || '') }}</span>
-                    <svg v-if="value === 1" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fd4b17"><path d="M480-120 80-600l120-240h560l120 240-400 480Zm-95-520h190l-60-120h-70l-60 120Zm55 347v-267H218l222 267Zm80 0 222-267H520v267Zm144-347h106l-60-120H604l60 120Zm-474 0h106l60-120H250l-60 120Z"/></svg>
-                </li>
+                <template v-for="value in item.categories" :key="value">
+                    <li class="er-flex er-items-center" v-if="constans.SERVICES[value]">
+                        <a-badge status="error" />
+                        <span class="er-ml-[-2px]" :class="value === 1 && 'er-font-bold er-text-primary'">{{ $t(`search.${constans.SERVICES[value].name.replace(/\s+/g, '')}`, constans.SERVICES[value].name || '') }}</span>
+                        <svg v-if="value === 1" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fd4b17"><path d="M480-120 80-600l120-240h560l120 240-400 480Zm-95-520h190l-60-120h-70l-60 120Zm55 347v-267H218l222 267Zm80 0 222-267H520v267Zm144-347h106l-60-120H604l60 120Zm-474 0h106l60-120H250l-60 120Z"/></svg>
+                    </li>
+                </template>
             </ul>
         </div>
         <div v-if="item.availableSizes.length" class="er-flex er-flex-col">

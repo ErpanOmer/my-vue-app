@@ -47,8 +47,10 @@
                     </div>
                 </div>
                 <div v-if="store.categories.length && !constans.IS_MOBILE" class="er-flex er-space-x-4">
-                    <img width="30" :src="constans.SERVICES[value].icon" :title="constans.SERVICES[value].name"
-                        :alt="constans.SERVICES[value].name" v-for="value in store.categories" :key="value">
+                    <template v-for="value in store.categories" :key="value">
+                        <img width="30" :src="constans.SERVICES[value].icon" :title="constans.SERVICES[value].name"
+                            :alt="constans.SERVICES[value].name" v-if="constans.SERVICES[value]">
+                    </template>
                     <span class="er-flex-1"></span>
                 </div>
                 <a-button v-if="!store.noBook" type="primary" danger

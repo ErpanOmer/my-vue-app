@@ -123,10 +123,10 @@ export default {
             name: 'Test Ride',
             icon: Svg19633
         },
-        4: {
-            name: 'Free Assembly',
-            icon: Svg19634,
-        },
+        // 4: {
+        //     name: 'Free Assembly',
+        //     icon: Svg19634,
+        // },
         5: {
             name: 'Service',
             icon: Svg19632

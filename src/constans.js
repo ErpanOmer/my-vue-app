@@ -108,6 +108,14 @@ export default {
         7952778658008: {
             name: 'Chord/ChordX',
             img: 'https://cdn.shopify.com/s/files/1/0633/2068/6808/files/Mask_Group_18754.png?v=1689236445',
+        },
+        15404337955191: {
+            name: 'Carbon 1 ST',
+            img: 'https://newurtopia.com/cdn/shop/files/0010_2x_27cc3523-d64a-41cd-be79-9a7f4e596b85.png?v=1757400825',
+        },
+        15404337987959: {
+            name: 'Carbon Fold 2',
+            img: 'https://cdn.shopify.com/s/files/1/0583/5810/4213/files/orange_1.png?v=1772603594'
         }
     },
     SERVICES: {

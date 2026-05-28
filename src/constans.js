@@ -30,7 +30,7 @@ export default {
     ACCESS_TOEKN: import.meta.env.VITE_MAPBOX_TOKEN,
     DEFAULT_CENTER: IS_USA ? [-117.75130, 33.62981] : [8.53121, 50.92006],
     DEFAULT_RADIUS: IS_USA ? 50 : 300,
-    RADIUS_RANGE: IS_USA ? [25, 125] : [100, 400],
+    RADIUS_RANGE: IS_USA ? [25, 125] : [25, 400],
     MAP_SEARCH_COUNTRY: IS_USA ? 'US,CA' : 'DE,FR,NL,AT,DK,SI,BE,PL',
     MAX_BOUNDS: IS_USA ? [
         [-130, 22], // 西南角 (夏威夷附近)

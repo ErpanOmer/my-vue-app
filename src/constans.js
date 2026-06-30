@@ -40,6 +40,10 @@ export default {
         [32, 57] // 东北角：德国与波兰、丹麦边界
     ],
     E_BIKES: IS_USA ? {
+        9985486291192: {
+            name: 'Carbon Atom',
+            img: 'https://newurtopia.com/cdn/shop/files/blue5.png?v=1782383645',
+        },
         9265776787704: {
             name: 'Carbon Classic',
             img: 'https://newurtopia.com/cdn/shop/files/2x_c6a96827-d3fe-421a-a8f5-4fc7067e01ad.png?v=1761903566',
